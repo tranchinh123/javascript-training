@@ -87,15 +87,15 @@ const car = {
 console.log(car.brand.name);
 console.log(car['brand']['name']);
 
-function User(firstName, lastName, age) {
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.age = age;
-}
-const author = new User('Chinh', 'Đặng', '22');
-const user = new User('Nhi', 'Hồ', '21');
-console.log(author);
-console.log(user);
+// function User(firstName, lastName, age) {
+// 	this.firstName = firstName;
+// 	this.lastName = lastName;
+// 	this.age = age;
+// }
+// const author = new User('Chinh', 'Đặng', '22');
+// const user = new User('Nhi', 'Hồ', '21');
+// console.log(author);
+// console.log(user);
 
 class Person {
 	hello() {
@@ -385,12 +385,112 @@ console.log(
 );
 Output: [1, 2, 3, 4];
 
-const second = () => {
-	console.log('Hello there!');
-};
-const first = () => {
-	console.log('Hi there!');
-	second();
-	console.log('The End');
-};
-first();
+// function task1() {
+// 	return new Promise((resolve, reject) => {
+// 		console.log('Thực hiện tác vụ 1...');
+// 		setTimeout(() => {
+// 			console.log('Tác vụ 1 hoàn thành');
+// 			resolve();
+// 		}, 2000);
+// 	});
+// }
+
+// function task2() {
+// 	return new Promise((resolve, reject) => {
+// 		console.log('Thực hiện tác vụ 2...');
+// 		setTimeout(() => {
+// 			console.log('Tác vụ 2 hoàn thành');
+// 			resolve();
+// 		}, 3000);
+// 	});
+// }
+
+// function task3() {
+// 	console.log('Thực hiện tác vụ 3...');
+// 	console.log('Tất cả tác vụ đã hoàn thành');
+// }
+
+// task1()
+// 	.then(() => task2())
+// 	.then(() => task3());
+
+// console.log('Đang thực hiện các tác vụ...');
+
+const users = [
+	{
+		id: 1,
+		name: 'HTML/CSS',
+	},
+	{
+		id: 2,
+		name: 'Javascript',
+	},
+	{
+		id: 3,
+		name: 'PHP',
+	},
+	{
+		id: 4,
+		name: 'Python',
+	},
+];
+
+const comments = [
+	{
+		id: 1,
+		user_id: 1,
+		content: 'aaaaaaa',
+	},
+	{
+		id: 2,
+		user_id: 2,
+		content: 'bbbbbbb',
+	},
+];
+
+function getComments() {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(comments);
+		}, 1000);
+	});
+}
+
+function getUserByIds(userIds) {
+	return new Promise((resolve) => {
+		const result = users.filter((user) => {
+			return userIds.includes(user.id);
+		});
+		setTimeout(() => {
+			resolve(result);
+		}, 1000);
+	});
+}
+
+getComments()
+	.then((comments) => {
+		const userIds = comments.map((comment) => comment.user_id);
+		return getUserByIds(userIds);
+	})
+	.then((users) => {
+		var commentBlock = document.querySelector('#comment-box');
+		let string = '';
+		comments.forEach(function (comment) {
+			const user = users.find((user) => user.id === comment.user_id);
+
+			string += `<li>${user.name}: ${comment.content}</li>`;
+		});
+		commentBlock.innerHTML = string;
+	});
+
+function promise() {
+	return new Promise((resolve) => {
+		console.log('Executing promise');
+		resolve('Success');
+	});
+}
+promise().then((result) => {
+	console.log('Promise resolved:', result);
+});
+
+console.log('Promise created');
