@@ -11,8 +11,8 @@ console.log(string.slice(0, 4));
 console.log(string.slice(-6, -1));
 
 // Replace
-console.log(string.replace('Dang', 'Nguyen')); // Nguyen Van Tran Van Chinh!
-console.log(string.replace(/Nguyen/g, 'Dang')); // Dang Văn Tran Văn Chinh!
+console.log(string.replace('Dang', 'Nguyen'));
+console.log(string.replace(/Nguyen/g, 'Dang'));
 
 //Convert to UpperCase
 console.log(string.toUpperCase());
