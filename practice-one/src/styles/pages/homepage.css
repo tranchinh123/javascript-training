@@ -1,0 +1,64 @@
+main {
+	display: flex;
+}
+.sidebar {
+	position: fixed;
+	height: 100%;
+	width: 104px;
+	background-color: var(--primary-background-color);
+}
+.sidebar-header {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.menu-bar {
+	padding-top: 20px;
+	margin-left: 33px;
+}
+.menu-list {
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+}
+.menu-item {
+	width: 92px;
+	height: 102px;
+	padding-left: -40px;
+}
+.nav-link {
+	color: white;
+}
+
+.homepage-content {
+	position: absolute;
+	inset: 20px 20px 0px 135px;
+	background-color: var(--primary-background-color);
+}
+.homepage-header {
+	padding: 40px 74px 30px 40px;
+	border-bottom: 1px solid var(--secondary-background-color);
+}
+h1 {
+	color: var(--primary-text-color);
+	font-size: var(--font-size-medium);
+	line-height: var(--line-height-xl);
+	margin-bottom: 20px;
+}
+.homepage-search {
+	display: flex;
+	align-items: center;
+	max-width: 342px;
+	height: 48px;
+	gap: 10px;
+	background-color: var(--secondary-background-color);
+	border-radius: 8px;
+	padding: 14px;
+}
+#search-input {
+	background-color: var(--secondary-background-color);
+	border: none;
+	border-radius: 1px;
+	outline: none;
+	color: var(--primary-text-color);
+	width: 300px;
+}

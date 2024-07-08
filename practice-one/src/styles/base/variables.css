@@ -1,0 +1,13 @@
+:root {
+	/* color-background */
+	--primary-background-color: #1f1d2b;
+	--secondary-background-color: #2d303e;
+	--tertiary-background-color: #ea7c69;
+
+	/* color-text */
+	--primary-text-color: white;
+	/* font-size */
+	--font-size-medium: 20px;
+	/* line-height*/
+	--line-height-xl: 28px;
+}
