@@ -6,8 +6,13 @@
 
 	/* color-text */
 	--primary-text-color: white;
+	--secondary-text-color: #ea7c69;
 	/* font-size */
 	--font-size-medium: 20px;
 	/* line-height*/
 	--line-height-xl: 28px;
+	/* border-color */
+	--primary-border-color: #1f1d2b;
+	--secondary-border-color: #2d303e;
+	--tertiary-border-color: #ea7c69;
 }

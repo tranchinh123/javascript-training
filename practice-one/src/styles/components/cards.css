@@ -1,0 +1,16 @@
+.card {
+	width: 221px;
+	height: 300px;
+	border-radius: var(--secondary-border-color);
+}
+.card-add {
+	border: 2px dashed var(--tertiary-border-color);
+	color: var(--secondary-text-color);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 40px;
+	margin: auto;
+	padding-top: 120px;
+	cursor: pointer;
+}
