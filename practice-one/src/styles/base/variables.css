@@ -7,6 +7,9 @@
 	/* color-text */
 	--primary-text-color: white;
 	--secondary-text-color: #ea7c69;
+	--tertiary-text-color: #abbbc2;
+	--quaternary-text-color: #ea7c69;
+
 	/* font-size */
 	--font-size-medium: 20px;
 	/* line-height*/
@@ -15,4 +18,10 @@
 	--primary-border-color: #1f1d2b;
 	--secondary-border-color: #2d303e;
 	--tertiary-border-color: #ea7c69;
+	/* font-family */
+	--primary-font-family: 'Barlow';
+	/* font-weight */
+	--regular-weight: 400;
+	--medium-weight: 500;
+	--semibold-weight: 600;
 }

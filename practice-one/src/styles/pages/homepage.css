@@ -1,30 +1,36 @@
 main {
 	display: flex;
 }
+
 .sidebar {
 	position: fixed;
 	height: 100%;
 	width: 104px;
 	background-color: var(--primary-background-color);
 }
+
 .sidebar-header {
 	margin-top: 20px;
 	margin-left: 20px;
 }
+
 .menu-bar {
 	padding-top: 20px;
 	margin-left: 33px;
 }
+
 .menu-list {
 	display: flex;
 	flex-direction: column;
 	padding: 0;
 }
+
 .menu-item {
 	width: 92px;
 	height: 102px;
 	padding-left: -40px;
 }
+
 .nav-link {
 	color: white;
 }
@@ -33,17 +39,29 @@ main {
 	position: absolute;
 	inset: 20px 20px 0px 135px;
 	background-color: var(--primary-background-color);
+	height: max-content;
+	padding-bottom: 30px;
 }
+
 .homepage-header {
 	padding: 40px 74px 30px 40px;
 	border-bottom: 1px solid var(--secondary-background-color);
 }
+
+.homepage-main {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
 h1 {
 	color: var(--primary-text-color);
 	font-size: var(--font-size-medium);
 	line-height: var(--line-height-xl);
 	margin-bottom: 20px;
+	font-family: var(--primary-font-family);
+	font-weight: var(--semibold-weight);
 }
+
 .homepage-search {
 	display: flex;
 	align-items: center;
@@ -53,7 +71,9 @@ h1 {
 	background-color: var(--secondary-background-color);
 	border-radius: 8px;
 	padding: 14px;
+	font-family: var(--primary-font-family);
 }
+
 #search-input {
 	background-color: var(--secondary-background-color);
 	border: none;
@@ -62,6 +82,47 @@ h1 {
 	color: var(--primary-text-color);
 	width: 300px;
 }
+
 .product-list {
 	margin-top: 40px;
+	display: grid;
+	gap: 20px;
+}
+
+.img-product {
+	max-width: 130px;
+	height: 130px;
+	padding-bottom: 20px;
+	margin-left: 18px;
+}
+
+.icon-delete {
+	font-size: 18px;
+	font-weight: 600;
+	margin-left: 180px;
+}
+
+.desc-product {
+	max-width: 144px;
+	text-align: center;
+	margin-bottom: 12px;
+}
+
+.price-product,
+.dot,
+.quantity-product {
+	color: var(--tertiary-text-color);
+}
+
+.name-product {
+	margin-bottom: 10px;
+}
+
+.card-footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: var(--tertiary-background-color);
+	height: 60px;
 }

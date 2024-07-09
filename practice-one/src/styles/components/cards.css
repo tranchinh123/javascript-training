@@ -1,16 +1,23 @@
 .card {
 	width: 221px;
 	height: 300px;
-	border-radius: var(--secondary-border-color);
-}
-.card-add {
-	border: 2px dashed var(--tertiary-border-color);
-	color: var(--secondary-text-color);
+	font-family: var(--primary-font-family);
+	border-radius: 5px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	gap: 40px;
-	margin: auto;
-	padding-top: 120px;
 	cursor: pointer;
+}
+
+.card-add {
+	border: 2px dashed var(--tertiary-border-color);
+	color: var(--secondary-text-color);
+	gap: 40px;
+	padding-top: 120px;
+}
+
+.card-product {
+	color: var(--primary-text-color);
+	border: 2px solid var(--secondary-border-color);
+	padding-top: 10px;
 }
