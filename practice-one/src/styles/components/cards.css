@@ -2,7 +2,7 @@
 	max-width: 221px;
 	height: 300px;
 	font-family: var(--primary-font-family);
-	border-radius: 5px;
+	border-radius: 8px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -27,4 +27,17 @@
 }
 .card-header {
 	padding-right: 15px;
+}
+.card-footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: rgba(234, 124, 105, 0.5);
+	height: 60px;
+}
+
+.card-main {
+	padding-left: 47px;
+	padding-right: 47px;
 }

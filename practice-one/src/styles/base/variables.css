@@ -13,14 +13,18 @@
 	/* font-size */
 	--font-size-medium: 20px;
 	--font-size-large: 28px;
+
 	/* line-height*/
 	--line-height-xl: 28px;
+
 	/* border-color */
 	--primary-border-color: #1f1d2b;
 	--secondary-border-color: #2d303e;
 	--tertiary-border-color: #ea7c69;
+
 	/* font-family */
 	--primary-font-family: 'Barlow';
+
 	/* font-weight */
 	--regular-weight: 400;
 	--medium-weight: 500;

@@ -101,7 +101,7 @@ main {
 
 .icon-delete {
 	font-size: 18px;
-	font-weight: 600;
+	font-weight: var(--semibold-weight);
 	margin-left: 180px;
 }
 
@@ -124,16 +124,11 @@ main {
 .name-product {
 	margin-bottom: 10px;
 }
-
-.card-footer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	background-color: var(--tertiary-background-color);
-	height: 60px;
+.text-edit {
+	margin-left: 8px;
+	font-weight: var(--semibold-weight);
+	color: var(--secondary-text-color);
 }
-
 /* Tablet */
 @media (min-width: 720px) and (max-width: 1023px) {
 	.product-list {
@@ -144,7 +139,6 @@ main {
 	}
 	.homepage-main {
 		display: flex;
-		justify-content: space-evenly;
 	}
 }
 /* Desktop */
