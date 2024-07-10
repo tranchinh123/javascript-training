@@ -1,5 +1,5 @@
 .card {
-	width: 221px;
+	max-width: 221px;
 	height: 300px;
 	font-family: var(--primary-font-family);
 	border-radius: 5px;
@@ -24,4 +24,7 @@
 	color: var(--primary-text-color);
 	border: 2px solid var(--secondary-border-color);
 	padding-top: 10px;
+}
+.card-header {
+	padding-right: 15px;
 }

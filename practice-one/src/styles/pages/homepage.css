@@ -53,7 +53,7 @@ main {
 	padding-right: 50px;
 }
 
-h1 {
+.homepage-heading {
 	color: var(--primary-text-color);
 	font-size: var(--font-size-medium);
 	line-height: var(--line-height-xl);
@@ -80,13 +80,15 @@ h1 {
 	border-radius: 1px;
 	outline: none;
 	color: var(--primary-text-color);
-	width: 300px;
+	max-width: 300px;
 }
 
 .product-list {
-	margin-top: 40px;
 	display: grid;
-	gap: 20px;
+	grid-template-columns: 1fr;
+	margin-top: 40px;
+	max-width: max-content;
+	gap: 30px;
 }
 
 .img-product {
@@ -125,4 +127,26 @@ h1 {
 	width: 100%;
 	background-color: var(--tertiary-background-color);
 	height: 60px;
+}
+
+/* Tablet */
+@media (min-width: 720px) and (max-width: 1023px) {
+	.product-list {
+		grid-template-columns: 50% 50%;
+	}
+}
+/* Desktop */
+@media (min-width: 1024px) {
+	.product-list {
+		max-width: 100%;
+		grid-template-columns: 20% 20% 20% 20% 20%;
+	}
+
+	.homepage-content {
+		padding-bottom: 0px;
+		height: 100%;
+		max-width: 100%;
+	}
+	.homepage-main {
+	}
 }
