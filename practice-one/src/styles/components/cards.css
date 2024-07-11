@@ -1,5 +1,5 @@
 .card {
-	max-width: 221px;
+	width: 221px;
 	height: 300px;
 	font-family: var(--primary-font-family);
 	border-radius: 8px;
@@ -11,6 +11,9 @@
 
 .card:hover {
 	opacity: 0.8;
+}
+.card:hover .card-header {
+	visibility: visible;
 }
 
 .card-add {
@@ -27,6 +30,7 @@
 }
 .card-header {
 	padding-right: 15px;
+	visibility: hidden;
 }
 .card-footer {
 	display: flex;
