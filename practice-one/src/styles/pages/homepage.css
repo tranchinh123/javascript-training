@@ -1,0 +1,161 @@
+main {
+	display: flex;
+}
+
+.sidebar {
+	position: fixed;
+	height: 100%;
+	width: 104px;
+	background-color: var(--primary-background-color);
+}
+
+.sidebar-header {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.menu-bar {
+	padding-top: 20px;
+	margin-left: 33px;
+}
+
+.menu-list {
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+}
+
+.menu-item {
+	width: 92px;
+	height: 102px;
+	padding-left: -40px;
+}
+
+.nav-link {
+	color: white;
+}
+
+.homepage-content {
+	position: absolute;
+	inset: 20px 20px 0px 135px;
+	background-color: var(--primary-background-color);
+	height: max-content;
+	padding-bottom: 30px;
+}
+
+.homepage-header {
+	padding: 40px 74px 30px 40px;
+	border-bottom: 1px solid var(--secondary-background-color);
+}
+
+.homepage-main {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.homepage-heading {
+	color: var(--primary-text-color);
+	font-size: var(--font-size-medium);
+	line-height: var(--line-height-xl);
+	margin-bottom: 20px;
+	font-family: var(--primary-font-family);
+	font-weight: var(--semibold-weight);
+}
+
+.homepage-search {
+	display: flex;
+	align-items: center;
+	max-width: 342px;
+	height: 48px;
+	gap: 10px;
+	background-color: var(--secondary-background-color);
+	border-radius: 8px;
+	padding: 14px;
+	font-family: var(--primary-font-family);
+}
+
+#search-input {
+	background-color: var(--secondary-background-color);
+	border: none;
+	border-radius: 1px;
+	outline: none;
+	color: var(--primary-text-color);
+	width: 300px;
+}
+
+.product-list {
+	display: grid;
+	grid-template-columns: 100%;
+	max-width: max-content;
+	gap: 30px;
+	margin: auto;
+	margin-top: 30px;
+}
+
+.img-product {
+	max-width: 130px;
+	height: 130px;
+	padding-bottom: 20px;
+	margin-left: 18px;
+}
+
+.icon-delete {
+	font-size: 18px;
+	font-weight: var(--semibold-weight);
+	margin-left: 180px;
+}
+
+.icon-delete:hover {
+	color: rgb(98, 180, 235);
+}
+
+.desc-product {
+	max-width: 144px;
+	text-align: center;
+	margin-bottom: 12px;
+}
+
+.price-product,
+.dot,
+.quantity-product {
+	color: var(--tertiary-text-color);
+}
+
+.name-product {
+	margin-bottom: 10px;
+}
+.text-edit {
+	margin-left: 8px;
+	font-weight: var(--semibold-weight);
+	color: var(--secondary-text-color);
+}
+/* Tablet */
+@media (min-width: 720px) and (max-width: 1023px) {
+	.product-list {
+		grid-template-columns: 1fr 1fr;
+		justify-content: space-around;
+		margin-top: 30px;
+		gap: 70px;
+	}
+	.homepage-main {
+		display: flex;
+	}
+}
+/* Desktop */
+
+@media (min-width: 1024px) {
+	.product-list {
+		max-width: 100%;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	}
+
+	.homepage-content {
+		padding-bottom: 0px;
+		height: 100%;
+		max-width: 100%;
+	}
+	.homepage-main {
+		justify-content: space-around;
+		max-width: 100%;
+	}
+}

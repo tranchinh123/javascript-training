@@ -1,0 +1,43 @@
+.card {
+	max-width: 221px;
+	height: 300px;
+	font-family: var(--primary-font-family);
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	cursor: pointer;
+}
+
+.card:hover {
+	opacity: 0.8;
+}
+
+.card-add {
+	border: 2px dashed var(--tertiary-border-color);
+	color: var(--secondary-text-color);
+	gap: 40px;
+	padding-top: 120px;
+}
+
+.card-product {
+	color: var(--primary-text-color);
+	border: 2px solid var(--secondary-border-color);
+	padding-top: 10px;
+}
+.card-header {
+	padding-right: 15px;
+}
+.card-footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: rgba(234, 124, 105, 0.5);
+	height: 60px;
+}
+
+.card-main {
+	padding-left: 47px;
+	padding-right: 47px;
+}

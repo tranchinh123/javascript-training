@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/main.css" />
+		<title>Document</title>
+	</head>
+	<body>
+		<main>
+			<nav class="sidebar">
+				<div class="sidebar-header">
+					<a href="index.html">
+						<img src="./assets/icons/Logo.svg" alt="" />
+					</a>
+				</div>
+
+				<div class="menu-bar">
+					<ul class="menu-list">
+						<li class="menu-item">
+							<a href="index.html" class="nav-link">
+								<img src="./assets/icons/Home.svg" alt="" />
+							</a>
+						</li>
+						<li class="menu-item">
+							<a href="#" class="nav-link">
+								<img src="./assets/icons/Discount.svg" alt="" />
+							</a>
+						</li>
+						<li class="menu-item">
+							<a href="#" class="nav-link">
+								<img src="./assets/icons/Dashboard.svg" alt="" />
+							</a>
+						</li>
+						<li class="menu-item">
+							<a href="#" class="nav-link">
+								<img src="./assets/icons/Message.svg" alt="" />
+							</a>
+						</li>
+						<li class="menu-item">
+							<a href="#" class="nav-link">
+								<img src="./assets/icons/Notification.svg" alt="" />
+							</a>
+						</li>
+						<li class="menu-item">
+							<a href="#" class="nav-link">
+								<img src="./assets/icons/Setting.svg" alt="" />
+							</a>
+						</li>
+						<li class="menu-item">
+							<a href="#" class="nav-link">
+								<img src="./assets/icons/LogOut.svg" alt="" />
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<section class="homepage-content">
+				<div class="homepage-header">
+					<div class="homepage-topbar">
+						<h1 class="homepage-heading">Products Management</h1>
+						<div class="homepage-search">
+							<img src="./assets/icons/search.svg" alt="" />
+							<input
+								type="search"
+								name="search-input"
+								id="search-input"
+								placeholder="Search for food,coffee, etc.."
+							/>
+						</div>
+					</div>
+					<div class="homepage-sortby"></div>
+				</div>
+
+				<div class="homepage-main">
+					<div class="product-list">
+						<div class="card card-add">
+							<img src="./assets/icons/Vector 9.svg" alt="" />
+							<p class="card-add-text">Add new dish</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<div class="modal">
+			<div class="modal-container">
+				<header class="modal-header">Create new a product</header>
+				<div class="modal-main">
+					<form action="" method="POST" class="form">
+						<div class="form-group">
+							<label for="name-product" class="form-label">Name</label>
+							<br />
+							<input
+								type="text"
+								name="name-product"
+								id="name-product"
+								class="form-control"
+							/>
+							<span class="form-control"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="price" class="form-label">Price</label>
+							<br />
+							<input type="text" name="price" id="price" class="form-control" />
+							<span class="form-control"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="img-product" class="form-label">Image URL</label>
+							<br />
+							<input
+								type="text"
+								name="img-url"
+								id="img-product"
+								class="form-control"
+							/>
+							<span class="form-control"></span>
+						</div>
+
+						<div class="form-group">
+							<label for="quantity-product" class="form-label">Quantity</label>
+							<br />
+							<input
+								type="text"
+								name="quantity"
+								id="quantity-product"
+								class="form-control form-quantity"
+							/>
+							<span class="form-control"></span>
+						</div>
+					</form>
+
+					<div class="modal-footer">
+						<button class="btn btn-cancel">Cancel</button>
+						<button class="btn btn-save">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="./js/main.js"></script>
+	</body>
+</html>
