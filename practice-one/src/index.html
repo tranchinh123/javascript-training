@@ -97,7 +97,7 @@
 								id="name-product"
 								class="form-control"
 							/>
-							<span class="form-control"></span>
+							<span class="form-message"></span>
 						</div>
 
 						<div class="form-group">
@@ -109,7 +109,7 @@
 								id="price-product"
 								class="form-control"
 							/>
-							<span class="form-control"></span>
+							<span class="form-message"></span>
 						</div>
 
 						<div class="form-group">
@@ -117,11 +117,11 @@
 							<br />
 							<input
 								type="text"
-								name="img-url"
+								name="img-product"
 								id="img-product"
 								class="form-control"
 							/>
-							<span class="form-control"></span>
+							<span class="form-message"></span>
 						</div>
 
 						<div class="form-group">
@@ -133,7 +133,8 @@
 								id="quantity-product"
 								class="form-control form-quantity"
 							/>
-							<span class="form-control"></span>
+							<br />
+							<span class="form-message"></span>
 						</div>
 					</form>
 					<div class="modal-footer">
@@ -145,15 +146,5 @@
 		</div>
 		<script src="./js/main.js"></script>
 		<script src="./js/validator.js"></script>
-		<script>
-			Validator({
-				form: '#form-add',
-				rules: [
-					Validator.isRequired(''),
-					Validator.isNumber(''),
-					Validator.isURL(''),
-				],
-			});
-		</script>
 	</body>
 </html>

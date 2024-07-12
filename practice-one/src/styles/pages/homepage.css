@@ -131,6 +131,10 @@ main {
 	margin-left: 3px;
 	margin-right: 3px;
 }
+.invalid .form-message {
+	margin-top: 5px;
+	color: red;
+}
 /* Tablet */
 @media (min-width: 720px) and (max-width: 1428px) {
 	.homepage-main {
