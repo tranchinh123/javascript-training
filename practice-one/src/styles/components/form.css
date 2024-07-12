@@ -4,6 +4,7 @@
 
 .form-control {
 	margin-top: 10px;
+	margin-bottom: 10px;
 	background-color: var(--secondary-background-color);
 	border-radius: 8px;
 	border: none;
