@@ -122,19 +122,23 @@ main {
 .name-product {
 	margin-bottom: 10px;
 }
+
 .text-edit {
 	margin-left: 8px;
 	font-weight: var(--semibold-weight);
 	color: var(--secondary-text-color);
 }
+
 .dot {
 	margin-left: 3px;
 	margin-right: 3px;
 }
+
 .invalid .form-message {
 	margin-top: 5px;
 	color: red;
 }
+
 /* Tablet */
 @media (min-width: 720px) and (max-width: 1428px) {
 	.homepage-main {

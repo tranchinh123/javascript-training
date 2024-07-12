@@ -28,10 +28,12 @@
 	border: 2px solid var(--secondary-border-color);
 	padding-top: 10px;
 }
+
 .card-header {
 	padding-right: 15px;
 	visibility: hidden;
 }
+
 .card-footer {
 	display: flex;
 	justify-content: center;
@@ -40,9 +42,9 @@
 	background-color: rgba(234, 124, 105, 0.5);
 	height: 60px;
 }
+
 .card-footer:hover {
-	opacity: 0.6;
-	filter: drop-shadow(0 0 0.75rem rgb(234, 124, 105, 0.6));
+	filter: drop-shadow(0 0 0.75rem rgb(234, 124, 105, 0.9));
 }
 
 .card-main {
