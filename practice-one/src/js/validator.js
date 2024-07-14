@@ -70,10 +70,13 @@ validator.isNumber = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
-			const reg = new RegExp('^[0-9]$');
-			return reg.test(value)
+			const number = Number(value);
+			return typeof number === 'number' &&
+				!isNaN(number) &&
+				number > 0 &&
+				Number.isInteger(number)
 				? undefined
-				: 'Please enter the number greater than 0';
+				: 'Please enter the number greater than 0 and number is integer ';
 		},
 	};
 };

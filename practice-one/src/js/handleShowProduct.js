@@ -1,5 +1,6 @@
 function start() {
 	getProducts(renderFoods);
+	handleAddProduct();
 }
 start();
 
@@ -7,6 +8,20 @@ function getProducts(callback) {
 	fetch('https://5f7c244700bd74001690a4a7.mockapi.io/products', {
 		method: 'GET',
 		headers: { 'content-type': 'application/json' },
+	})
+		.then((res) => {
+			if (res.ok) {
+				return res.json();
+			}
+		})
+		.then(callback);
+}
+
+function createProduct(data, callback) {
+	fetch('https://5f7c244700bd74001690a4a7.mockapi.io/products', {
+		method: 'POST',
+		headers: { 'content-type': 'application/json' },
+		body: JSON.stringify(data),
 	})
 		.then((res) => {
 			if (res.ok) {
@@ -42,4 +57,30 @@ function renderFoods(foods) {
 		`;
 	});
 	productList.innerHTML = htmls.join('');
+}
+
+function handleAddProduct() {
+	const createButton = document.querySelector('.btn-save');
+	createButton.addEventListener('click', () => {
+		const name = document.querySelector('input[name ="name-product"]').value;
+
+		const price = document.querySelector('input[name ="price-product"]').value;
+
+		const imgURL = document.querySelector('input[name ="img-product"]').value;
+		console.log(imgURL);
+
+		const quantity = document.querySelector(
+			'input[name ="quantity-product"]'
+		).value;
+		const formData = {
+			name: name,
+			price: price,
+			image: imgURL,
+			quantity: quantity,
+		};
+
+		createProduct(formData, () => {
+			getProducts(renderFoods);
+		});
+	});
 }
