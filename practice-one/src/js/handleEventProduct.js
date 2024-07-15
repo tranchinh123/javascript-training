@@ -1,6 +1,7 @@
 function start() {
 	getProducts(renderFoods);
 	handleAddProduct();
+	// handleDeleteProduct();
 }
 start();
 
@@ -33,11 +34,11 @@ function createProduct(data, callback) {
 
 function renderFoods(foods) {
 	const productList = document.querySelector('.product-list');
-	var htmls = foods.map(function (food) {
+	const cardProduct = foods.map(function (food) {
 		return `
-		<div class="card card-product">
+		<div class="card card-product card-id-${food.id}">
 							<div class="card-header">
-								<span class="icon-delete">&#9747;</span>
+								<button class="icon-delete" onclick="handleDeleteProduct(${food.id})">&#9747;</button>
 							</div>
 
 							<div class="card-main">
@@ -56,7 +57,7 @@ function renderFoods(foods) {
 				</div>
 		`;
 	});
-	productList.innerHTML = htmls.join('');
+	productList.innerHTML = cardProduct.join('');
 }
 
 function handleAddProduct() {
@@ -83,4 +84,21 @@ function handleAddProduct() {
 			getProducts(renderFoods);
 		});
 	});
+}
+
+function handleDeleteProduct(id) {
+	fetch(`https://5f7c244700bd74001690a4a7.mockapi.io/products/${id}`, {
+		method: 'DELETE',
+	})
+		.then((res) => {
+			if (res.ok) {
+				return res.json();
+			}
+		})
+		.then(() => {
+			const cardItem = document.querySelector('.card-id-' + id);
+			if (cardItem) {
+				cardItem.remove();
+			}
+		});
 }

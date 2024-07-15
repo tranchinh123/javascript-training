@@ -40,7 +40,7 @@
 	align-items: center;
 	width: 100%;
 	background-color: rgba(234, 124, 105, 0.5);
-	height: 60px;
+	height: 48px;
 }
 
 .card-footer:hover {
@@ -50,4 +50,5 @@
 .card-main {
 	padding-left: 47px;
 	padding-right: 47px;
+	height: 212px;
 }

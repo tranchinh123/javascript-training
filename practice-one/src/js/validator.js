@@ -66,15 +66,15 @@ validator.isRequired = function (selector, message) {
 	};
 };
 
-validator.isNumber = function (selector) {
+validator.isNumberInteger = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
-			const number = Number(value);
-			return typeof number === 'number' &&
-				!isNaN(number) &&
-				number > 0 &&
-				Number.isInteger(number)
+			const numberInt = Number(value);
+			return typeof numberInt === 'number' &&
+				!isNaN(numberInt) &&
+				numberInt > 0 &&
+				Number.isInteger(numberInt)
 				? undefined
 				: 'Please enter the number greater than 0 and number is integer ';
 		},
@@ -85,8 +85,20 @@ validator.isURL = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
-			const reg = new RegExp('(https?://.*.(?:png|jpg))');
+			const reg = new RegExp('(https?://.*.(?:png|jpg|jpeg|gif|png|svg))');
 			return reg.test(value) ? undefined : 'Please enter URL format is valid';
+		},
+	};
+};
+
+validator.isDecimal = function (selector) {
+	return {
+		selector: selector,
+		test: (value) => {
+			const numberDec = Number(value);
+			return typeof numberDec === 'number' && !isNaN(numberDec) && numberDec > 0
+				? undefined
+				: 'Please enter the number greater than 0';
 		},
 	};
 };
@@ -97,9 +109,9 @@ validator({
 	rules: [
 		validator.isRequired('#name-product'),
 		validator.isRequired('#price-product'),
-		validator.isNumber('#price-product'),
+		validator.isDecimal('#price-product'),
 		validator.isRequired('#quantity-product'),
-		validator.isNumber('#quantity-product'),
+		validator.isNumberInteger('#quantity-product'),
 		validator.isRequired('#img-product'),
 		validator.isURL('#img-product'),
 	],
