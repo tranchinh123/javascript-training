@@ -16,26 +16,31 @@ async function getProducts(callback) {
 		if (response.ok) {
 			const data = await response.json();
 			return callback(data);
-		} else {
-			console.error('co loi', response.status);
 		}
+		throw new Error('404');
 	} catch (error) {
-		console.error('Da co loi xay ra ', error);
+		console.error('Something went wrong ', error);
 	}
 }
 
-function createProduct(data, callback) {
-	fetch('https://5f7c244700bd74001690a4a7.mockapi.io/products', {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify(data),
-	})
-		.then((res) => {
-			if (res.ok) {
-				return res.json();
+async function createProduct(data, callback) {
+	try {
+		const response = await fetch(
+			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
+			{
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify(data),
 			}
-		})
-		.then(callback);
+		);
+		if (response.ok) {
+			const data = await response.json();
+			return callback(data);
+		}
+		throw new Error('404');
+	} catch (error) {
+		console.error('Something went wrong', error);
+	}
 }
 
 function renderFoods(foods) {
@@ -44,7 +49,7 @@ function renderFoods(foods) {
 		return `
 		<div class="card card-product card-id-${food.id}">
 							<div class="card-header">
-								<button class="icon-delete" onclick="handleDeleteProduct(${food.id})">&#9747;</button>
+								<button class="icon-delete icon-id-${food.id}" onclick="handleDeleteProduct(${food.id})">&#9747;</button>
 							</div>
 
 							<div class="card-main">
@@ -106,10 +111,9 @@ async function handleDeleteProduct(id) {
 			if (cardItem) {
 				cardItem.remove();
 			}
-		} else {
-			console.log('co loi');
 		}
+		throw new Error('404');
 	} catch (error) {
-		console.log('co loi xay ra', error);
+		console.error('Something went wrong ', error);
 	}
 }

@@ -25,6 +25,15 @@ function validator(options) {
 
 	const formElement = document.querySelector(options.form);
 	if (formElement) {
+		formElement.onsubmit = (e) => {
+			e.preventDefault();
+			// Loop through each rule and validate
+			options.rules.forEach((rule) => {
+				const inputElement = formElement.querySelector(rule.selector);
+				validate(inputElement, rule);
+			});
+		};
+
 		options.rules.forEach((rule) => {
 			// Save rules for input
 
@@ -57,11 +66,11 @@ function validator(options) {
 // 1.When error => message error
 // 2. When valid => undefined
 
-validator.isRequired = function (selector, message) {
+validator.isRequired = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
-			return value.trim() ? undefined : message || 'Please enter this field';
+			return value.trim() ? undefined : 'Please enter this field';
 		},
 	};
 };

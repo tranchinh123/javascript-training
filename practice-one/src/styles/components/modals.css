@@ -49,3 +49,19 @@
 		transform: translateY(0);
 	}
 }
+
+.delete-modal-container {
+	width: 450px;
+	max-width: calc(100% - 50px);
+	height: max-content;
+	padding: 40px 40px 30px 40px;
+	background-color: var(--primary-background-color);
+	border-radius: 16px;
+	animation: modalFadeIn ease 0.6s;
+}
+.delete-modal-text {
+	font-family: var(--primary-font-family);
+	font-size: var(--font-size-large);
+	font-weight: 700;
+	text-align: center;
+}
