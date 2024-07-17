@@ -19,6 +19,7 @@ function validator(options) {
 			errorElement.innerText = '';
 			inputElement.parentElement.classList.remove('invalid');
 		}
+		return !errorMessage;
 	}
 
 	// element of form need validate
@@ -27,11 +28,29 @@ function validator(options) {
 	if (formElement) {
 		formElement.onsubmit = (e) => {
 			e.preventDefault();
+			let isFormValid = true;
 			// Loop through each rule and validate
 			options.rules.forEach((rule) => {
 				const inputElement = formElement.querySelector(rule.selector);
-				validate(inputElement, rule);
+				const isValid = validate(inputElement, rule);
+				if (!isValid) {
+					isFormValid = false;
+				}
 			});
+
+			if (isFormValid) {
+				if (typeof options.onSubmit === 'function') {
+					const enableInputs = formElement.querySelectorAll('[name]');
+
+					const formValues = Array.from(enableInputs).reduce(
+						(values, input) => {
+							return (values[input.name] = input.value) && values;
+						},
+						{}
+					);
+					options.onSubmit(formValues);
+				}
+			}
 		};
 
 		options.rules.forEach((rule) => {
@@ -66,7 +85,7 @@ function validator(options) {
 // 1.When error => message error
 // 2. When valid => undefined
 
-validator.isRequired = function (selector) {
+const isRequired = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -75,7 +94,7 @@ validator.isRequired = function (selector) {
 	};
 };
 
-validator.isNumberInteger = function (selector) {
+const isNumberInteger = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -90,7 +109,7 @@ validator.isNumberInteger = function (selector) {
 	};
 };
 
-validator.isURL = function (selector) {
+const isURL = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -100,7 +119,7 @@ validator.isURL = function (selector) {
 	};
 };
 
-validator.isDecimal = function (selector) {
+const isDecimal = function (selector) {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -116,12 +135,119 @@ validator({
 	form: '#form-add',
 	errorSelector: '.form-message',
 	rules: [
-		validator.isRequired('#name-product'),
-		validator.isRequired('#price-product'),
-		validator.isDecimal('#price-product'),
-		validator.isRequired('#quantity-product'),
-		validator.isNumberInteger('#quantity-product'),
-		validator.isRequired('#img-product'),
-		validator.isURL('#img-product'),
+		isRequired('#name-product'),
+		isRequired('#price-product'),
+		isDecimal('#price-product'),
+		isRequired('#quantity-product'),
+		isNumberInteger('#quantity-product'),
+		isRequired('#img-product'),
+		isURL('#img-product'),
 	],
+	onSubmit: (data) => {
+		if (data) {
+			const formData = {
+				name: data['name-product'],
+				image: data['img-product'],
+				price: data['price-product'],
+				quantity: data['quantity-product'],
+			};
+
+			createProduct(formData, () => {
+				getProducts(renderFoods);
+			});
+		}
+	},
 });
+
+function start() {
+	getProducts(renderFoods);
+}
+start();
+
+async function getProducts(callback) {
+	try {
+		const response = await fetch(
+			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
+			{
+				method: 'GET',
+				headers: { 'content-type': 'application/json' },
+			}
+		);
+		if (response.ok) {
+			const data = await response.json();
+			return callback(data);
+		} else {
+			throw new Error('404');
+		}
+	} catch (error) {
+		console.error('Something went wrong ', error);
+	}
+}
+function renderFoods(foods) {
+	const productList = document.querySelector('.product-list');
+	const cardProduct = foods.map(function (food) {
+		return `
+		<div class="card card-product card-id-${food.id}">
+							<div class="card-header">
+								<button class="icon-delete icon-id-${food.id}" onclick="handleDeleteProduct(${food.id})">&#9747;</button>
+							</div>
+
+							<div class="card-main">
+								<img src="${food.image}" alt="default image" class="img-product" onerror = "src='./assets/icons/default-featured-image.jpg'" />
+								<div class="desc-product">
+									<p class="name-product">${food.name}</p>
+									<span class="price-product">$ ${food.price}</span>
+									<span class="dot">&#8226</span>
+									<span class="quantity-product">${food.quantity} bowls</span>
+								</div>
+							</div>
+							<div class="card-footer">
+									<img src="./assets/icons/Vector.svg" alt="">
+									<p class="text-edit">Edit dish</p>
+							</div>
+				</div>
+		`;
+	});
+	productList.innerHTML = cardProduct.join('');
+}
+async function handleDeleteProduct(id) {
+	try {
+		const response = await fetch(
+			`https://5f7c244700bd74001690a4a7.mockapi.io/products/${id}`,
+			{
+				method: 'DELETE',
+			}
+		);
+		if (response.ok) {
+			const cardItem = document.querySelector('.card-id-' + id);
+			if (cardItem) {
+				cardItem.remove();
+			}
+		} else {
+			throw new Error('404');
+		}
+	} catch (error) {
+		console.error('Something went wrong ', error);
+	}
+}
+
+async function createProduct(data, callback) {
+	try {
+		const response = await fetch(
+			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
+			{
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify(data),
+			}
+		);
+		if (response.ok) {
+			const data = await response.json();
+			return callback(data);
+		} else {
+			throw new Error('404');
+		}
+	} catch (error) {
+		console.error('Something went wrong', error);
+	}
+}
