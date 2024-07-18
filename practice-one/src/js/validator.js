@@ -85,7 +85,7 @@ function validator(options) {
 // 1.When error => message error
 // 2. When valid => undefined
 
-const isRequired = function (selector) {
+const isRequired = (selector) => {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -94,7 +94,7 @@ const isRequired = function (selector) {
 	};
 };
 
-const isNumberInteger = function (selector) {
+const isNumberInteger = (selector) => {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -109,7 +109,7 @@ const isNumberInteger = function (selector) {
 	};
 };
 
-const isURL = function (selector) {
+const isURL = (selector) => {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -119,7 +119,7 @@ const isURL = function (selector) {
 	};
 };
 
-const isDecimal = function (selector) {
+const isDecimal = (selector) => {
 	return {
 		selector: selector,
 		test: (value) => {
@@ -159,12 +159,7 @@ validator({
 	},
 });
 
-function start() {
-	getProducts(renderFoods);
-}
-start();
-
-async function getProducts(callback) {
+const getProducts = async (callback) => {
 	try {
 		const response = await fetch(
 			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
@@ -182,8 +177,9 @@ async function getProducts(callback) {
 	} catch (error) {
 		console.error('Something went wrong ', error);
 	}
-}
-function renderFoods(foods) {
+};
+
+const renderFoods = (foods) => {
 	const productList = document.querySelector('.product-list');
 	const cardProduct = foods.map(function (food) {
 		return `
@@ -209,8 +205,11 @@ function renderFoods(foods) {
 		`;
 	});
 	productList.innerHTML = cardProduct.join('');
-}
-async function handleDeleteProduct(id) {
+};
+
+getProducts(renderFoods);
+
+const handleDeleteProduct = async (id) => {
 	try {
 		const response = await fetch(
 			`https://5f7c244700bd74001690a4a7.mockapi.io/products/${id}`,
@@ -229,9 +228,9 @@ async function handleDeleteProduct(id) {
 	} catch (error) {
 		console.error('Something went wrong ', error);
 	}
-}
+};
 
-async function createProduct(data, callback) {
+const createProduct = async (data, callback) => {
 	try {
 		const response = await fetch(
 			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
@@ -250,4 +249,4 @@ async function createProduct(data, callback) {
 	} catch (error) {
 		console.error('Something went wrong', error);
 	}
-}
+};

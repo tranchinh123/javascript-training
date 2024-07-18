@@ -1,0 +1,8 @@
+.toast {
+	width: 250px;
+	height: 48px;
+	border-radius: 8px;
+	margin: auto;
+	background-color: green;
+	z-index: 9999;
+}
