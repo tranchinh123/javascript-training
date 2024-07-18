@@ -68,6 +68,7 @@ const initApp = () => {
 	handleAddProduct();
 };
 initApp();
+
 // show modal
 function handleModal() {
 	function showAddProductModal() {
@@ -85,8 +86,8 @@ function handleModal() {
 	});
 }
 handleModal();
-
-const createProduct = async (data, callback) => {
+// call api => create
+const createProduct = async (data) => {
 	try {
 		const response = await fetch(
 			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
@@ -98,7 +99,7 @@ const createProduct = async (data, callback) => {
 		);
 		if (response.ok) {
 			const data = await response.json();
-			return callback(data);
+			return data;
 		} else {
 			throw new Error('404');
 		}
@@ -106,8 +107,8 @@ const createProduct = async (data, callback) => {
 		console.error('Something went wrong', error);
 	}
 };
-
-function handleAddProduct() {
+// handle add
+function handleAddProduct(id) {
 	createButton.addEventListener('click', (e) => {
 		e.preventDefault();
 		const name = document.querySelector('input[name ="name-product"]').value;
@@ -125,10 +126,11 @@ function handleAddProduct() {
 			image: imgURL,
 			quantity: quantity,
 		};
-		createProduct(formData, renderFoods);
+		createProduct(formData);
+		loadProductList();
 	});
 }
-
+// call api
 const handleDeleteProduct = async (id) => {
 	try {
 		const response = await fetch(
