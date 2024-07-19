@@ -1,3 +1,7 @@
+// close form => get values input => localStorage.setItem(formData,values form) ... when reload still save data input
+
+// open form => get form data from local storage (formData) => nameProduct.value = formData.name
+
 // query DOM
 const productList = document.querySelector('.product-list');
 const cardAdd = document.querySelector('.card-add');
@@ -5,22 +9,24 @@ const modal = document.querySelector('.modal');
 const cancelBtn = document.querySelector('.btn-cancel');
 const modalContainer = document.querySelector('.modal-container');
 const createButton = document.querySelector('.btn-save');
-
 const nameProduct = document.querySelector('input[name ="name-product"]');
-
 const price = document.querySelector('input[name ="price-product"]');
-
 const imgURL = document.querySelector('input[name ="img-product"]');
-
 const quantity = document.querySelector('input[name ="quantity-product"]');
 
 //...
-
+const handleSaveFormToStorage = (form) => {};
 const showAddProductModal = () => {
 	modal.classList.add('open');
+	const formData = JSON.parse(localStorage.getItem('formData'));
+	nameProduct.value = formData.name;
 };
 const hideAddProductModal = () => {
 	modal.classList.remove('open');
+	const formData = {
+		name: nameProduct.value,
+	};
+	localStorage.setItem('formData', JSON.stringify(formData));
 };
 
 const renderProductItem = (food) => {
@@ -52,6 +58,7 @@ const handleAddSuccess = (food) => {
 
 	productList.innerHTML += newItem;
 	hideAddProductModal();
+	localStorage.setItem('formData', '');
 };
 
 // validate form
@@ -180,9 +187,8 @@ const bindEvents = () => {
 	modalContainer.addEventListener('click', (e) => {
 		e.stopPropagation();
 	});
-
+	//Event on blur input form
 	const listInput = [nameProduct, price, imgURL, quantity];
-	//Event on blur
 	listInput.forEach((input) => {
 		input.value = input.value.trim();
 		input.addEventListener('blur', () => {
@@ -206,7 +212,7 @@ const bindEvents = () => {
 		quantity.value = quantity.value.trim();
 		checkIsNumberIntegerError(quantity);
 	});
-	// event oninput
+	// Event oninput input form
 	listInput.forEach((input) => {
 		input.addEventListener('input', () => {
 			showSuccess(input);
@@ -295,8 +301,6 @@ const handleDeleteProduct = async (id) => {
 			const cardItem = document.querySelector('.card-id-' + id);
 			if (cardItem) {
 				cardItem.remove();
-			} else {
-				throw new Error('error');
 			}
 		}
 	} catch (error) {
@@ -313,6 +317,5 @@ const loadProductList = async () => {
 const initApp = () => {
 	bindEvents();
 	loadProductList();
-	handleDeleteProduct();
 };
 initApp();
