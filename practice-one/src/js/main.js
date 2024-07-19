@@ -31,7 +31,7 @@ const renderProductItem = (food) => {
                                 </div>
     
                                 <div class="card-main">
-                                    <img src="${food.image}" alt="default image" class="img-product" />
+                                    <img src="${food.image}" alt="default image" class="img-product" onerror="this.src='https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'" />
                                     <div class="desc-product">
                                         <p class="name-product">${food.name}</p>
                                         <span class="price-product">$ ${food.price}</span>
@@ -178,6 +178,18 @@ const bindEvents = () => {
 	createButton.addEventListener('click', handleAddProduct);
 	modalContainer.addEventListener('click', (e) => {
 		e.stopPropagation();
+	});
+	price.addEventListener('blur', () => {
+		price.value = price.value.trim();
+		checkIsDecimalError(price);
+	});
+	imgURL.addEventListener('blur', () => {
+		imgURL.value = imgURL.value.trim();
+		checkImgUrlError(imgURL);
+	});
+	quantity.addEventListener('blur', () => {
+		quantity.value = quantity.value.trim();
+		checkIsNumberIntegerError(quantity);
 	});
 };
 
