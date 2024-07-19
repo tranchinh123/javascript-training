@@ -29,7 +29,7 @@
 #toast {
 	position: fixed;
 	top: 32px;
-	left: 800px;
+	left: 300px;
 }
 .toast-icon {
 	width: 22px;
@@ -43,4 +43,19 @@
 }
 .toast-success {
 	background-color: green;
+}
+/* Tablet */
+@media (min-width: 720px) and (max-width: 1428px) {
+	#toast {
+		position: fixed;
+		top: 32px;
+		left: 500px;
+	}
+}
+@media (min-width: 1427px) {
+	#toast {
+		position: fixed;
+		top: 32px;
+		left: 800px;
+	}
 }

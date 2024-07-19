@@ -182,6 +182,7 @@ const bindEvents = () => {
 	});
 
 	const listInput = [nameProduct, price, imgURL, quantity];
+	//Event on blur
 	listInput.forEach((input) => {
 		input.value = input.value.trim();
 		input.addEventListener('blur', () => {
@@ -204,6 +205,12 @@ const bindEvents = () => {
 	quantity.addEventListener('blur', () => {
 		quantity.value = quantity.value.trim();
 		checkIsNumberIntegerError(quantity);
+	});
+	// event oninput
+	listInput.forEach((input) => {
+		input.addEventListener('input', () => {
+			showSuccess(input);
+		});
 	});
 };
 // Toast
