@@ -166,11 +166,12 @@ const handleAddProduct = (e) => {
 	const isValid = validateForm();
 	if (isValid) {
 		createProduct(formData, handleAddSuccess);
+		toast({ message: 'Add Successfully!', type: 'success' });
 	} else {
-		console.log('Error');
+		toast({ message: 'Add Failed!', type: 'failed' });
 	}
 };
-
+// bind Events
 const bindEvents = () => {
 	cardAdd.addEventListener('click', showAddProductModal);
 	cancelBtn.addEventListener('click', hideAddProductModal);
@@ -178,6 +179,19 @@ const bindEvents = () => {
 	createButton.addEventListener('click', handleAddProduct);
 	modalContainer.addEventListener('click', (e) => {
 		e.stopPropagation();
+	});
+
+	const listInput = [nameProduct, price, imgURL, quantity];
+	listInput.forEach((input) => {
+		input.value = input.value.trim();
+		input.addEventListener('blur', () => {
+			if (!input.value) {
+				isEmptyError = true;
+				showError(input, ' The field cannot be empty.');
+			} else {
+				showSuccess(input);
+			}
+		});
 	});
 	price.addEventListener('blur', () => {
 		price.value = price.value.trim();
@@ -191,6 +205,26 @@ const bindEvents = () => {
 		quantity.value = quantity.value.trim();
 		checkIsNumberIntegerError(quantity);
 	});
+};
+// Toast
+const toast = ({ message, type }) => {
+	const main = document.getElementById('toast');
+	if (main) {
+		const toast = document.createElement('div');
+		toast.classList.add('toast', `toast-${type}`);
+		toast.innerHTML = `
+							<img
+								class="toast-icon"
+								src="./assets/icons/checkmark-circle.svg"
+								alt=""
+							/>
+							<p class="toast-msg">${message}</p>
+						`;
+		main.appendChild(toast);
+		setTimeout(() => {
+			main.removeChild(toast);
+		}, 4000);
+	}
 };
 
 //APIs => return product list
@@ -237,9 +271,9 @@ const createProduct = async (data, callback) => {
 };
 
 const renderFoods = (foods) => {
-	const cardProduct = foods.map(renderProductItem);
+	const cardProducts = foods.map(renderProductItem);
 
-	productList.innerHTML = cardProduct.join('');
+	productList.innerHTML = cardProducts.join('');
 };
 
 const handleDeleteProduct = async (id) => {
@@ -254,12 +288,12 @@ const handleDeleteProduct = async (id) => {
 			const cardItem = document.querySelector('.card-id-' + id);
 			if (cardItem) {
 				cardItem.remove();
+			} else {
+				throw new Error('error');
 			}
-		} else {
-			throw new Error('404');
 		}
 	} catch (error) {
-		console.error('Something went wrong ', error);
+		console.log(error);
 	}
 };
 
