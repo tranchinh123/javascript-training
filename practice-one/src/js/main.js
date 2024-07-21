@@ -13,6 +13,7 @@ const nameProduct = document.querySelector('input[name ="name-product"]');
 const price = document.querySelector('input[name ="price-product"]');
 const imgURL = document.querySelector('input[name ="img-product"]');
 const quantity = document.querySelector('input[name ="quantity-product"]');
+const formMessage = document.querySelectorAll('.form-message');
 
 //...
 const handleSaveFormToStorage = (form) => {};
@@ -20,13 +21,22 @@ const showAddProductModal = () => {
 	modal.classList.add('open');
 	const formData = JSON.parse(localStorage.getItem('formData'));
 	nameProduct.value = formData.name;
+	imgURL.value = formData.image;
+	price.value = formData.price;
+	quantity.value = formData.quantity;
 };
 const hideAddProductModal = () => {
 	modal.classList.remove('open');
 	const formData = {
 		name: nameProduct.value,
+		image: imgURL.value,
+		price: price.value,
+		quantity: quantity.value,
 	};
 	localStorage.setItem('formData', JSON.stringify(formData));
+	formMessage.forEach((message) => {
+		message.innerHTML = '';
+	});
 };
 
 const renderProductItem = (food) => {
@@ -58,7 +68,11 @@ const handleAddSuccess = (food) => {
 
 	productList.innerHTML += newItem;
 	hideAddProductModal();
-	localStorage.setItem('formData', '');
+	localStorage.removeItem('formData');
+	nameProduct.value = '';
+	imgURL.value = '';
+	price.value = '';
+	quantity.value = '';
 };
 
 // validate form
