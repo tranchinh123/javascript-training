@@ -1,6 +1,6 @@
-import { getProducts } from './apiService.js';
+import { getProducts } from '../services/apiService.js';
 import { validateForm } from './validator.js';
-import { createProduct } from './apiService.js';
+import { createProduct } from '../services/apiService.js';
 import toast from './toast.js';
 const productList = document.querySelector('.product-list');
 const formMessage = document.querySelectorAll('.form-message');
@@ -11,6 +11,7 @@ const imgURL = document.querySelector('input[name ="img-product"]');
 const quantity = document.querySelector('input[name ="quantity-product"]');
 
 // Toggle Modal AddProduct
+
 const showAddProductModal = () => {
 	modal.classList.add('open');
 	const formData = JSON.parse(localStorage.getItem('formData'));
@@ -19,6 +20,7 @@ const showAddProductModal = () => {
 	price.value = formData.price;
 	quantity.value = formData.quantity;
 };
+
 const hideAddProductModal = () => {
 	modal.classList.remove('open');
 	const formData = {
@@ -34,6 +36,7 @@ const hideAddProductModal = () => {
 };
 
 // Show list products
+
 const renderProductItem = (food) => {
 	return `
             <div class="card card-product card-id-${food.id}">

@@ -1,4 +1,5 @@
 const main = document.getElementById('toast');
+
 const toast = ({ message, type }) => {
 	const toast = document.createElement('div');
 	if (main) {

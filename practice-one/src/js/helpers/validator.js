@@ -1,4 +1,5 @@
 import { imgURL, price, quantity, nameProduct } from './dom.js';
+
 const showError = (input, message) => {
 	const parent = input.parentElement;
 	const formMessage = parent.querySelector('.form-message');
@@ -88,6 +89,7 @@ const validateForm = () => {
 		return true;
 	}
 };
+
 export {
 	validateForm,
 	showSuccess,

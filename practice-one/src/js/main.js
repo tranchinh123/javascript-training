@@ -3,24 +3,24 @@ import {
 	hideAddProductModal,
 	loadProductList,
 	handleAddProduct,
-} from './dom.js';
-import { imgURL, price, quantity, nameProduct } from './dom.js';
+	imgURL,
+	price,
+	quantity,
+	nameProduct,
+} from './helpers/dom.js';
 import {
 	showSuccess,
 	showError,
 	checkImgUrlError,
 	checkIsDecimalError,
 	checkIsNumberIntegerError,
-} from './validator.js';
-// query DOM
+} from './helpers/validator.js';
 
 const cardAdd = document.querySelector('.card-add');
 const cancelBtn = document.querySelector('.btn-cancel');
 const modal = document.querySelector('.modal');
 const createButton = document.querySelector('.btn-save');
 const modalContainer = document.querySelector('.modal-container');
-
-// Handle show product list
 
 const bindEvents = () => {
 	cardAdd.addEventListener('click', showAddProductModal);
@@ -68,4 +68,5 @@ const initApp = () => {
 	bindEvents();
 	loadProductList();
 };
+
 initApp();
