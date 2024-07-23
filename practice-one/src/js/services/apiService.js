@@ -1,14 +1,11 @@
 import { urlAPI } from '../constants/apiUrl.js';
 
-const getProducts = async () => {
+const get = async (endPoint) => {
 	try {
-		const response = await fetch(
-			`${urlAPI.BASE_URL}${urlAPI.PRODUCTS_ENDPOINT}`,
-			{
-				method: 'GET',
-				headers: { 'content-type': 'application/json' },
-			}
-		);
+		const response = await fetch(`${urlAPI.BASE_URL}${endPoint}`, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' },
+		});
 		if (response.ok) {
 			const data = await response.json();
 			return data;
@@ -20,16 +17,13 @@ const getProducts = async () => {
 	}
 };
 
-const createProduct = async (data, callback) => {
+const create = async (data, callback, endPoint) => {
 	try {
-		const response = await fetch(
-			`${urlAPI.BASE_URL}${urlAPI.PRODUCTS_ENDPOINT}`,
-			{
-				method: 'POST',
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify(data),
-			}
-		);
+		const response = await fetch(`${urlAPI.BASE_URL}${endPoint}`, {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify(data),
+		});
 		if (response.ok) {
 			const data = await response.json();
 			return callback(data);
@@ -41,23 +35,4 @@ const createProduct = async (data, callback) => {
 	}
 };
 
-const handleDeleteProduct = async (id) => {
-	try {
-		const response = await fetch(
-			`${urlAPI.BASE_URL}${urlAPI.PRODUCTS_ENDPOINT}/${id}`,
-			{
-				method: 'DELETE',
-			}
-		);
-		if (response.ok) {
-			const cardItem = document.querySelector('.card-id-' + id);
-			if (cardItem) {
-				cardItem.remove();
-			}
-		}
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export { getProducts, createProduct, handleDeleteProduct };
+export { get, create };

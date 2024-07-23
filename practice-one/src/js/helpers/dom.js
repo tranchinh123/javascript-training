@@ -1,11 +1,13 @@
-import { getProducts } from '../services/apiService.js';
-import { showError, validateForm } from './validator.js';
-import { createProduct } from '../services/apiService.js';
+import { get } from '../services/apiService.js';
+import { create } from '../services/apiService.js';
+import { validateForm } from './validator.js';
 import toast from './toast.js';
+import { urlAPI } from '../constants/apiUrl.js';
 
 const productList = document.querySelector('.product-list');
 const formMessage = document.querySelectorAll('.form-message');
 const modal = document.querySelector('.modal');
+const modalContainer = document.querySelector('.modal-container-add');
 const nameProduct = document.querySelector('input[name ="name-product"]');
 const price = document.querySelector('input[name ="price-product"]');
 const imgURL = document.querySelector('input[name ="img-product"]');
@@ -15,6 +17,7 @@ const quantity = document.querySelector('input[name ="quantity-product"]');
 
 const showAddProductModal = () => {
 	modal.classList.add('open');
+	modalContainer.style.display = 'block';
 	const formData = JSON.parse(localStorage.getItem('formData'));
 	nameProduct.value = formData.name;
 	imgURL.value = formData.image;
@@ -42,7 +45,7 @@ const renderProductItem = (food) => {
 	return `
             <div class="card card-product card-id-${food.id}">
                                 <div class="card-header">
-                                    <button class="icon-delete icon-id-${food.id}" onclick="handleDeleteProduct(${food.id})">&#9747;</button>
+                                    <button class="icon-delete icon-id-${food.id}" >&#9747;</button>
                                 </div>
     
                                 <div class="card-main">
@@ -69,7 +72,7 @@ const renderFoods = (foods) => {
 };
 
 const loadProductList = async () => {
-	const products = await getProducts();
+	const products = await get(urlAPI.PRODUCTS_ENDPOINT);
 	renderFoods(products);
 };
 
@@ -106,7 +109,7 @@ const handleAddProduct = (e) => {
 
 	const isValid = validateForm();
 	if (isValid) {
-		createProduct(formData, handleAddSuccess);
+		create(formData, handleAddSuccess, urlAPI.PRODUCTS_ENDPOINT);
 		toast({ message: 'Add Successfully!', type: 'success' });
 	} else {
 		toast({ message: 'Add Failed!', type: 'failed' });

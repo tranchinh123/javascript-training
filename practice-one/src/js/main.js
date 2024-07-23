@@ -18,18 +18,19 @@ import {
 
 const cardAdd = document.querySelector('.card-add');
 const cancelBtn = document.querySelector('.btn-cancel');
-const modal = document.querySelector('.modal');
 const createButton = document.querySelector('.btn-save');
-const modalContainer = document.querySelector('.modal-container');
+const modalContainerAdd = document.querySelector('.modal-container-add');
+const modal = document.querySelector('.modal');
 
 const bindEvents = () => {
 	cardAdd.addEventListener('click', showAddProductModal);
 	cancelBtn.addEventListener('click', hideAddProductModal);
 	modal.addEventListener('click', hideAddProductModal);
 	createButton.addEventListener('click', handleAddProduct);
-	modalContainer.addEventListener('click', (e) => {
+	modalContainerAdd.addEventListener('click', (e) => {
 		e.stopPropagation();
 	});
+
 	//Event on blur input form
 	const listInput = [nameProduct, price, imgURL, quantity];
 
