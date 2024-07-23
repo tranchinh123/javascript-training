@@ -35,7 +35,6 @@ const bindEvents = () => {
 
 	listInput.forEach((input) => {
 		input.value = input.value.trim();
-
 		input.addEventListener('blur', () => {
 			if (!input.value) {
 				showError(input, ' The field cannot be empty.');
@@ -44,19 +43,19 @@ const bindEvents = () => {
 			}
 		});
 	});
+
 	price.addEventListener('blur', () => {
-		price.value = price.value.trim();
 		checkIsDecimalError(price);
 	});
+
 	imgURL.addEventListener('blur', () => {
-		imgURL.value = imgURL.value.trim();
 		checkImgUrlError(imgURL);
 	});
+
 	quantity.addEventListener('blur', () => {
-		quantity.value = quantity.value.trim();
 		checkIsNumberIntegerError(quantity);
 	});
-	// Event oninput input form
+
 	listInput.forEach((input) => {
 		input.addEventListener('input', () => {
 			showSuccess(input);

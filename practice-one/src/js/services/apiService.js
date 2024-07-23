@@ -1,7 +1,9 @@
+import { urlAPI } from '../constants/apiUrl.js';
+
 const getProducts = async () => {
 	try {
 		const response = await fetch(
-			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
+			`${urlAPI.BASE_URL}${urlAPI.PRODUCTS_ENDPOINT}`,
 			{
 				method: 'GET',
 				headers: { 'content-type': 'application/json' },
@@ -21,7 +23,7 @@ const getProducts = async () => {
 const createProduct = async (data, callback) => {
 	try {
 		const response = await fetch(
-			'https://5f7c244700bd74001690a4a7.mockapi.io/products',
+			`${urlAPI.BASE_URL}${urlAPI.PRODUCTS_ENDPOINT}`,
 			{
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
@@ -42,7 +44,7 @@ const createProduct = async (data, callback) => {
 const handleDeleteProduct = async (id) => {
 	try {
 		const response = await fetch(
-			`https://5f7c244700bd74001690a4a7.mockapi.io/products/${id}`,
+			`${urlAPI.BASE_URL}${urlAPI.PRODUCTS_ENDPOINT}/${id}`,
 			{
 				method: 'DELETE',
 			}

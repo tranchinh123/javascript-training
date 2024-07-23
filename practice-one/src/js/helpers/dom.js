@@ -1,7 +1,8 @@
 import { getProducts } from '../services/apiService.js';
-import { validateForm } from './validator.js';
+import { showError, validateForm } from './validator.js';
 import { createProduct } from '../services/apiService.js';
 import toast from './toast.js';
+
 const productList = document.querySelector('.product-list');
 const formMessage = document.querySelectorAll('.form-message');
 const modal = document.querySelector('.modal');
@@ -117,5 +118,8 @@ export {
 	showAddProductModal,
 	hideAddProductModal,
 	handleAddProduct,
+	nameProduct,
+	imgURL,
+	price,
+	quantity,
 };
-export { nameProduct, imgURL, price, quantity };

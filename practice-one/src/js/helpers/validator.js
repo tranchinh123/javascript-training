@@ -78,10 +78,10 @@ const checkIsDecimalError = (input) => {
 };
 
 const validateForm = () => {
-	const isEmptyError = checkEmptyError([nameProduct, price, imgURL, quantity]);
 	const isImgUrlError = checkImgUrlError(imgURL);
 	const isNumberIntError = checkIsNumberIntegerError(quantity);
 	const isNumberDecError = checkIsDecimalError(price);
+	const isEmptyError = checkEmptyError([nameProduct, price, imgURL, quantity]);
 
 	if (isEmptyError || isImgUrlError || isNumberIntError || isNumberDecError) {
 		return false;

@@ -1,6 +1,6 @@
-const APIURL = {
-	BASE_URL: 'https://663896844253a866a24e6014.mockapi.io/api/',
+const urlAPI = {
+	BASE_URL: 'https://5f7c244700bd74001690a4a7.mockapi.io/',
 	PRODUCTS_ENDPOINT: 'products',
 };
 
-export { APIURL };
+export { urlAPI };
