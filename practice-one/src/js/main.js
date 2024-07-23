@@ -35,9 +35,8 @@ const bindEvents = () => {
 	const listInput = [nameProduct, price, imgURL, quantity];
 
 	listInput.forEach((input) => {
-		input.value = input.value.trim();
 		input.addEventListener('blur', () => {
-			if (!input.value) {
+			if (!input.value && input.value === '') {
 				showError(input, ' The field cannot be empty.');
 			} else {
 				showSuccess(input);

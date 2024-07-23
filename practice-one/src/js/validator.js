@@ -94,7 +94,6 @@ export {
 	validateForm,
 	showSuccess,
 	showError,
-	checkEmptyError,
 	checkImgUrlError,
 	checkIsDecimalError,
 	checkIsNumberIntegerError,
