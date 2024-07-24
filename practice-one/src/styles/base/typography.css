@@ -1,8 +1,8 @@
 @font-face {
 	font-family: 'Barlow';
 	src:
-		url('../../assets/fonts/Barlow-Medium.woff2') format('woff2'),
-		url('../../assets/fonts/Barlow-Medium.woff') format('woff');
+		/* url('../../assets/fonts/Barlow-Medium.woff2') format('woff2'), */ url('../../assets/fonts/Barlow-Medium.woff')
+		format('woff');
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -11,8 +11,8 @@
 @font-face {
 	font-family: 'Barlow';
 	src:
-		url('../../assets/fonts/Barlow-Regular.woff2') format('woff2'),
-		url('../../assets/fonts/Barlow-Regular.woff') format('woff');
+		/* url('../../assets/fonts/Barlow-Regular.woff2') format('woff2'), */ url('../../assets/fonts/Barlow-Regular.woff')
+		format('woff');
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
@@ -21,8 +21,8 @@
 @font-face {
 	font-family: 'Barlow';
 	src:
-		url('../../assets/fonts/Barlow-SemiBold.woff2') format('woff2'),
-		url('../../assets/fonts/Barlow-SemiBold.woff') format('woff');
+		/* url('../../assets/fonts/Barlow-SemiBold.woff2') format('woff2'), */ url('../../assets/fonts/Barlow-SemiBold.woff')
+		format('woff');
 	font-weight: 600;
 	font-style: normal;
 	font-display: swap;
