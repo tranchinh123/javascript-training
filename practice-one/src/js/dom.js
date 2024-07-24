@@ -49,7 +49,7 @@ const renderProductItem = (food) => {
                                 </div>
     
                                 <div class="card-main">
-                                    <img src="${food.image}" alt="default image" class="img-product" onerror="this.src='https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'" />
+                                    <img src="${food.image}" alt="default image" class="img-product" onerror="src='https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'" />
                                     <div class="desc-product">
                                         <p class="name-product">${food.name}</p>
                                         <span class="price-product">$ ${food.price}</span>
@@ -58,7 +58,6 @@ const renderProductItem = (food) => {
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                        <img src="./assets/icons/Vector.svg" alt="">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>
