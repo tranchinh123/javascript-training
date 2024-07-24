@@ -1,17 +1,17 @@
-import { get } from '../services/apiService.js';
-import { create } from '../services/apiService.js';
+import { get, create } from './services/apiService.js';
 import { validateForm } from './validator.js';
 import toast from './toast.js';
-import { urlAPI } from '../constants/apiUrl.js';
+import { urlAPI } from './constants/apiUrl.js';
+import { getElement, getAllElement } from './helpers/queryDOM.js';
 
-const productList = document.querySelector('.product-list');
-const formMessage = document.querySelectorAll('.form-message');
-const modal = document.querySelector('.modal');
-const modalContainer = document.querySelector('.modal-container-add');
-const nameProduct = document.querySelector('input[name ="name-product"]');
-const price = document.querySelector('input[name ="price-product"]');
-const imgURL = document.querySelector('input[name ="img-product"]');
-const quantity = document.querySelector('input[name ="quantity-product"]');
+const productList = getElement('.product-list');
+const formMessage = getAllElement('.form-message');
+const modal = getElement('.modal');
+const modalContainer = getElement('.modal-container-add');
+const nameProduct = getElement('input[name ="name-product"]');
+const price = getElement('input[name ="price-product"]');
+const imgURL = getElement('input[name ="img-product"]');
+const quantity = getElement('input[name ="quantity-product"]');
 
 // Toggle Modal AddProduct
 
@@ -91,15 +91,13 @@ const handleAddSuccess = (food) => {
 
 const handleAddProduct = (e) => {
 	e.preventDefault();
-	const name = document.querySelector('input[name ="name-product"]').value;
+	const name = getElement('input[name ="name-product"]').value;
 
-	const price = document.querySelector('input[name ="price-product"]').value;
+	const price = getElement('input[name ="price-product"]').value;
 
-	const imgURL = document.querySelector('input[name ="img-product"]').value;
+	const imgURL = getElement('input[name ="img-product"]').value;
 
-	const quantity = document.querySelector(
-		'input[name ="quantity-product"]'
-	).value;
+	const quantity = getElement('input[name ="quantity-product"]').value;
 	const formData = {
 		name: name,
 		price: price,

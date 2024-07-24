@@ -1,4 +1,5 @@
-const main = document.getElementById('toast');
+import { getElement } from './helpers/queryDOM.js';
+const main = getElement('#toast');
 
 const toast = ({ message, type }) => {
 	const toast = document.createElement('div');

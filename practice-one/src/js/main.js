@@ -7,20 +7,21 @@ import {
 	price,
 	quantity,
 	nameProduct,
-} from './helpers/dom.js';
+} from './dom.js';
 import {
 	showSuccess,
 	showError,
 	checkImgUrlError,
 	checkIsDecimalError,
 	checkIsNumberIntegerError,
-} from './helpers/validator.js';
+} from './validator.js';
+import { getElement } from './helpers/queryDOM.js';
 
-const cardAdd = document.querySelector('.card-add');
-const cancelBtn = document.querySelector('.btn-cancel');
-const createButton = document.querySelector('.btn-save');
-const modalContainerAdd = document.querySelector('.modal-container-add');
-const modal = document.querySelector('.modal');
+const cardAdd = getElement('.card-add');
+const cancelBtn = getElement('.btn-cancel');
+const createButton = getElement('.btn-save');
+const modalContainerAdd = getElement('.modal-container-add');
+const modal = getElement('.modal');
 
 const bindEvents = () => {
 	cardAdd.addEventListener('click', showAddProductModal);

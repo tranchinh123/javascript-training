@@ -6,4 +6,5 @@ function getElement(selector) {
 function getAllElement(selector) {
 	return document.querySelectorAll(selector);
 }
+
 export { getAllElement, getElement };
