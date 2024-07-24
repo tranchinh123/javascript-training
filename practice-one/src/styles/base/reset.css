@@ -1,0 +1,72 @@
+/* Reset CSS */
+
+/* Box sizing border-box on all elements */
+html {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-weight: normal;
+	vertical-align: baseline;
+	background: transparent;
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+/* Remove list styles (bullet points) */
+ul,
+ol {
+	list-style: none;
+}
+
+/* Remove default margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+figure,
+dl,
+dd {
+	margin: 0;
+	padding: 0;
+}
+
+/* Set default font size and family */
+
+/* Set default font weight and style for headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Remove underline from links */
+a {
+	text-decoration: none;
+}
+
+/* Set default color for links */
+a {
+	color: inherit;
+}
+
+/* Remove default border on images */
+img {
+	border-style: none;
+	max-width: 100%;
+	height: auto;
+}
