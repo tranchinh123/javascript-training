@@ -46,9 +46,9 @@ const hideAddProductModal = () => {
 
 const renderProductItem = (food) => {
 	return `
-            <div class="card card-product card-id-${food.id}">
+            <div class="card card-product" data-card-id = "${food.id}">
                                 <div class="card-header">
-                                    <button class="icon-delete icon-id-${food.id}" >&#9747;</button>
+                                    <button class="icon-delete" data-icon-id ="${food.id}" >&#9747;</button>
                                 </div>
     
                                 <div class="card-main">
