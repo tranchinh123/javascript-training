@@ -58,6 +58,7 @@ const renderProductItem = (food) => {
                                     </div>
                                 </div>
                                 <div class="card-footer">
+																				<img src="./assets/icons/Edit.svg" alt="">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>
