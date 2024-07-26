@@ -18,6 +18,7 @@ const quantity = getElement('input[name ="quantity-product"]');
 const showAddProductModal = () => {
 	modal.classList.add('open');
 	modalContainer.style.display = 'block';
+
 	const formData = JSON.parse(localStorage.getItem('formData'));
 	nameProduct.value = formData.name;
 	imgURL.value = formData.image;
@@ -27,12 +28,14 @@ const showAddProductModal = () => {
 
 const hideAddProductModal = () => {
 	modal.classList.remove('open');
+
 	const formData = {
 		name: nameProduct.value,
 		image: imgURL.value,
 		price: price.value,
 		quantity: quantity.value,
 	};
+
 	localStorage.setItem('formData', JSON.stringify(formData));
 	formMessage.forEach((message) => {
 		message.innerHTML = '';
@@ -73,6 +76,7 @@ const renderFoods = (foods) => {
 
 const loadProductList = async () => {
 	const products = await get(urlAPI.PRODUCTS_ENDPOINT);
+
 	renderFoods(products);
 };
 
@@ -91,6 +95,7 @@ const handleAddSuccess = (food) => {
 
 const handleAddProduct = (e) => {
 	e.preventDefault();
+
 	const name = getElement('input[name ="name-product"]').value;
 
 	const price = getElement('input[name ="price-product"]').value;
@@ -98,6 +103,7 @@ const handleAddProduct = (e) => {
 	const imgURL = getElement('input[name ="img-product"]').value;
 
 	const quantity = getElement('input[name ="quantity-product"]').value;
+
 	const formData = {
 		name: name,
 		price: price,
@@ -106,6 +112,7 @@ const handleAddProduct = (e) => {
 	};
 
 	const isValid = validateForm();
+
 	if (isValid) {
 		create(formData, handleAddSuccess, urlAPI.PRODUCTS_ENDPOINT);
 		toast({ message: 'Add Successfully!', type: 'success' });
