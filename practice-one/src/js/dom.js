@@ -3,6 +3,7 @@ import { validateForm } from './validator.js';
 import toast from './toast.js';
 import { urlAPI } from './constants/apiUrl.js';
 import { getElement, getAllElement } from './helpers/queryDOM.js';
+import MESSAGE from './constants/message.js';
 
 const productList = getElement('.product-list');
 const formMessage = getAllElement('.form-message');
@@ -115,9 +116,9 @@ const handleAddProduct = (e) => {
 
 	if (isValid) {
 		create(formData, handleAddSuccess, urlAPI.PRODUCTS_ENDPOINT);
-		toast({ message: 'Add Successfully!', type: 'success' });
+		toast(MESSAGE.addSuccess, 'success');
 	} else {
-		toast({ message: 'Add Failed!', type: 'failed' });
+		toast(MESSAGE.addFail, 'failed');
 	}
 };
 

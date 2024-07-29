@@ -2,17 +2,12 @@ import { getElement } from './helpers/queryDOM.js';
 
 const main = getElement('#toast');
 
-const toast = ({ message, type }) => {
+const toast = (message, type) => {
 	const toast = document.createElement('div');
 
 	if (main) {
 		toast.classList.add('toast', `toast-${type}`);
 		toast.innerHTML = `
-							<img
-								class="toast-icon"
-								src="./assets/icons/checkmark-circle.svg"
-								alt=""
-							/>
 							<p class="toast-msg">${message}</p>
 						`;
 		main.appendChild(toast);
