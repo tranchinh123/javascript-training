@@ -47,6 +47,7 @@ const hideAddProductModal = () => {
 const handleGetFail = () => {
 	toast(MESSAGE.getFail, 'failed');
 };
+
 const renderProductItem = (food) => {
 	return `
             <div class="card card-product" data-card-id = "${food.id}">

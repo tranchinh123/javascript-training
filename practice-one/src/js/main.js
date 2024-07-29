@@ -35,26 +35,34 @@ const bindEvents = () => {
 	//Event on blur input form
 	const listInput = [nameProduct, price, imgURL, quantity];
 
-	listInput.forEach((input) => {
-		input.addEventListener('blur', () => {
-			if (!input.value && input.value === '') {
-				showError(input, ' The field cannot be empty.');
-			} else {
-				showSuccess(input);
-			}
-		});
+	nameProduct.addEventListener('blur', () => {
+		if (!nameProduct.value && nameProduct.value === '') {
+			showError(nameProduct, ' The field cannot be empty.');
+		}
 	});
 
 	price.addEventListener('blur', () => {
-		checkIsDecimalError(price);
+		if (!price.value && price.value === '') {
+			showError(price, ' The field cannot be empty.');
+		} else {
+			checkIsDecimalError(price);
+		}
 	});
 
 	imgURL.addEventListener('blur', () => {
-		checkImgUrlError(imgURL);
+		if (!imgURL.value && imgURL.value === '') {
+			showError(imgURL, ' The field cannot be empty.');
+		} else {
+			checkImgUrlError(imgURL);
+		}
 	});
 
 	quantity.addEventListener('blur', () => {
-		checkIsNumberIntegerError(quantity);
+		if (!quantity.value && quantity.value === '') {
+			showError(quantity, ' The field cannot be empty.');
+		} else {
+			checkIsNumberIntegerError(quantity);
+		}
 	});
 
 	listInput.forEach((input) => {

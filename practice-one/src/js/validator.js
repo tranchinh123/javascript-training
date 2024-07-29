@@ -52,11 +52,7 @@ const checkIsNumberIntegerError = (input) => {
 	const numberInt = Number(input.value);
 	let isNumberIntError = false;
 
-	if (
-		typeof numberInt === 'number' &&
-		Number.isInteger(numberInt) &&
-		numberInt > 0
-	) {
+	if (Number.isInteger(numberInt) && numberInt > 0) {
 		isNumberIntError = false;
 		showSuccess(input);
 	} else {
@@ -75,7 +71,7 @@ const checkIsDecimalError = (input) => {
 	const numberDec = Number(input.value);
 	let isNumberDecimalError = false;
 
-	if (typeof numberDec === 'number' && !isNaN(numberDec) && numberDec > 0) {
+	if (!isNaN(numberDec) && numberDec > 0) {
 		isNumberDecimalError = false;
 		showSuccess(input);
 	} else {
