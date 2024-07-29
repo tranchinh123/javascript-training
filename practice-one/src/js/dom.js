@@ -1,7 +1,7 @@
-import { get, create } from './services/apiService.js';
+import { get, create } from './services/api.js';
 import { validateForm } from './validator.js';
 import toast from './toast.js';
-import { urlAPI } from './constants/apiUrl.js';
+import { API } from './constants/api.js';
 import { getElement, getAllElement } from './helpers/queryDOM.js';
 import MESSAGE from './constants/message.js';
 
@@ -44,7 +44,9 @@ const hideAddProductModal = () => {
 };
 
 // Show list products
-
+const handleGetFail = () => {
+	toast(MESSAGE.getFail, 'failed');
+};
 const renderProductItem = (food) => {
 	return `
             <div class="card card-product" data-card-id = "${food.id}">
@@ -76,15 +78,18 @@ const renderFoods = (foods) => {
 };
 
 const loadProductList = async () => {
-	const products = await get(urlAPI.PRODUCTS_ENDPOINT);
+	const products = await get(handleGetFail, API.PRODUCTS_ENDPOINT);
 
 	renderFoods(products);
 };
 
 // Add product
+const handleAddFail = () => {
+	toast(MESSAGE.addFail, 'failed');
+};
+
 const handleAddSuccess = (food) => {
 	const newItem = renderProductItem(food);
-
 	productList.innerHTML += newItem;
 	hideAddProductModal();
 	localStorage.removeItem('formData');
@@ -92,6 +97,7 @@ const handleAddSuccess = (food) => {
 	imgURL.value = '';
 	price.value = '';
 	quantity.value = '';
+	toast(MESSAGE.addSuccess, 'success');
 };
 
 const handleAddProduct = (e) => {
@@ -115,10 +121,7 @@ const handleAddProduct = (e) => {
 	const isValid = validateForm();
 
 	if (isValid) {
-		create(formData, handleAddSuccess, urlAPI.PRODUCTS_ENDPOINT);
-		toast(MESSAGE.addSuccess, 'success');
-	} else {
-		toast(MESSAGE.addFail, 'failed');
+		create(formData, handleAddSuccess, handleAddFail, API.PRODUCTS_ENDPOINT);
 	}
 };
 
