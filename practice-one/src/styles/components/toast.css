@@ -31,11 +31,8 @@
 	top: 60px;
 	right: 70px;
 }
-.toast-icon {
-	width: 22px;
-	height: 22px;
-	margin-right: 10px;
-	margin-left: 10px;
+.toast-msg {
+	margin-left: 50px;
 }
 .toast-failed {
 	background-color: red;
