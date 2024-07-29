@@ -1,8 +1,8 @@
-import { urlAPI } from '../constants/apiUrl.js';
+import { API } from '../constants/api.js';
 
-const get = async (endPoint) => {
+const get = async (onError, endPoint) => {
 	try {
-		const response = await fetch(`${urlAPI.BASE_URL}${endPoint}`, {
+		const response = await fetch(`${API.BASE_URL}${endPoint}`, {
 			method: 'GET',
 			headers: { 'content-type': 'application/json' },
 		});
@@ -10,25 +10,25 @@ const get = async (endPoint) => {
 			const data = await response.json();
 			return data;
 		} else {
-			throw new Error('404');
+			return onError();
 		}
 	} catch (error) {
 		console.error('Something went wrong ', error);
 	}
 };
 
-const create = async (data, callback, endPoint) => {
+const create = async (data, onSuccess, onError, endPoint) => {
 	try {
-		const response = await fetch(`${urlAPI.BASE_URL}${endPoint}`, {
+		const response = await fetch(`${API.BASE_URL}${endPoint}`, {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify(data),
 		});
 		if (response.ok) {
 			const data = await response.json();
-			return callback(data);
+			return onSuccess(data);
 		} else {
-			throw new Error('404');
+			return onError();
 		}
 	} catch (error) {
 		console.error('Something went wrong', error);
