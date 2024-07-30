@@ -26,7 +26,7 @@
 
 - [Trello](https://trello.com/b/P2UQOUKL/practice-javascript)
 
-## TASK MANAGEMENT
+## REQUIREMENTS
 
 - App Requirements:
   - Fetch data from API for display food list

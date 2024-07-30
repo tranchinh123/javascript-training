@@ -1,43 +1,43 @@
 .toast {
-	width: 250px;
-	height: 48px;
-	border-radius: 8px;
-	margin: auto;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	color: rgba(255, 255, 255, 0.7);
-	animation:
-		slideInTop ease 3s,
-		fadeOut linear 1s 3s forwards;
+  width: 250px;
+  height: 48px;
+  border-radius: 8px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  animation:
+    slideInTop ease 3s,
+    fadeOut linear 1s 3s forwards;
 }
 @keyframes slideInTop {
-	from {
-		opacity: 0;
-		transform: translateY(-100px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes fadeOut {
-	to {
-		opacity: 0;
-	}
+  to {
+    opacity: 0;
+  }
 }
 #toast {
-	position: fixed;
-	top: 60px;
-	right: 70px;
+  position: fixed;
+  top: 60px;
+  right: 70px;
 }
 .toast-msg {
-	margin-left: 50px;
+  margin-left: 20px;
 }
 .toast-failed {
-	background-color: red;
-	color: var(--primary-text-color);
+  background-color: red;
+  color: var(--primary-text-color);
 }
 .toast-success {
-	background-color: green;
+  background-color: green;
 }

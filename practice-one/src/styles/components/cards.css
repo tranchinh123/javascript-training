@@ -1,54 +1,54 @@
 .card {
-	width: 221px;
-	height: 300px;
-	font-family: var(--primary-font-family);
-	border-radius: 8px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	cursor: pointer;
+  width: 223px;
+  height: 300px;
+  font-family: var(--primary-font-family);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
 }
 
 .card:hover {
-	opacity: 0.8;
+  opacity: 0.8;
 }
 .card:hover .card-header {
-	visibility: visible;
+  visibility: visible;
 }
 
 .card-add {
-	border: 2px dashed var(--tertiary-border-color);
-	color: var(--secondary-text-color);
-	gap: 40px;
-	padding-top: 120px;
+  border: 2px dashed var(--tertiary-border-color);
+  color: var(--secondary-text-color);
+  gap: 40px;
+  padding-top: 120px;
 }
 
 .card-product {
-	color: var(--primary-text-color);
-	border: 2px solid var(--secondary-border-color);
-	padding-top: 10px;
+  color: var(--primary-text-color);
+  border: 2px solid var(--secondary-border-color);
+  padding-top: 10px;
 }
 
 .card-header {
-	padding-right: 15px;
-	visibility: hidden;
+  padding-right: 15px;
+  visibility: hidden;
 }
 
 .card-footer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	background-color: rgba(234, 124, 105, 0.3);
-	height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(234, 124, 105, 0.3);
+  height: 48px;
 }
 
 .card-footer:hover {
-	filter: drop-shadow(0 0 0.75rem rgb(234, 124, 105, 0.9));
+  filter: drop-shadow(0 0 0.75rem rgb(234, 124, 105, 0.9));
 }
 
 .card-main {
-	padding-left: 47px;
-	padding-right: 47px;
-	height: 212px;
+  padding-left: 47px;
+  padding-right: 47px;
+  height: 212px;
 }
