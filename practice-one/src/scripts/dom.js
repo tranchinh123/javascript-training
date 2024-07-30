@@ -17,39 +17,39 @@ const quantity = getElement('input[name ="quantity-product"]');
 // Toggle Modal AddProduct
 
 const showAddProductModal = () => {
-	modal.classList.add('open');
-	modalContainer.style.display = 'block';
+  modal.classList.add('open');
+  modalContainer.style.display = 'block';
 
-	const formData = JSON.parse(localStorage.getItem('formData'));
-	nameProduct.value = formData.name;
-	imgURL.value = formData.image;
-	price.value = formData.price;
-	quantity.value = formData.quantity;
+  const formData = JSON.parse(localStorage.getItem('formData'));
+  nameProduct.value = formData.name;
+  imgURL.value = formData.image;
+  price.value = formData.price;
+  quantity.value = formData.quantity;
 };
 
 const hideAddProductModal = () => {
-	modal.classList.remove('open');
+  modal.classList.remove('open');
 
-	const formData = {
-		name: nameProduct.value,
-		image: imgURL.value,
-		price: price.value,
-		quantity: quantity.value,
-	};
+  const formData = {
+    name: nameProduct.value,
+    image: imgURL.value,
+    price: price.value,
+    quantity: quantity.value,
+  };
 
-	localStorage.setItem('formData', JSON.stringify(formData));
-	formMessage.forEach((message) => {
-		message.innerHTML = '';
-	});
+  localStorage.setItem('formData', JSON.stringify(formData));
+  formMessage.forEach((message) => {
+    message.innerHTML = '';
+  });
 };
 
 // Show list products
 const handleGetFail = () => {
-	toast(MESSAGE.getFail, 'failed');
+  toast(MESSAGE.getFail, 'failed');
 };
 
 const renderProductItem = (food) => {
-	return `
+  return `
             <div class="card card-product" data-card-id = "${food.id}">
                                 <div class="card-header">
                                     <button class="icon-delete" data-icon-id ="${food.id}" >&#9747;</button>
@@ -65,7 +65,7 @@ const renderProductItem = (food) => {
                                     </div>
                                 </div>
                                 <div class="card-footer">
-																				<img src="./assets/icons/Edit.svg" alt="">
+                                        <img src="./assets/icons/Edit.svg" alt="">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>
@@ -73,66 +73,66 @@ const renderProductItem = (food) => {
 };
 
 const renderFoods = (foods) => {
-	const cardProducts = foods.map(renderProductItem);
+  const cardProducts = foods.map(renderProductItem);
 
-	productList.innerHTML = cardProducts.join('');
+  productList.innerHTML = cardProducts.join('');
 };
 
 const loadProductList = async () => {
-	const products = await get(handleGetFail, API.PRODUCTS_ENDPOINT);
+  const products = await get(handleGetFail, API.PRODUCTS_ENDPOINT);
 
-	renderFoods(products);
+  renderFoods(products);
 };
 
 // Add product
 const handleAddFail = () => {
-	toast(MESSAGE.addFail, 'failed');
+  toast(MESSAGE.addFail, 'failed');
 };
 
 const handleAddSuccess = (food) => {
-	const newItem = renderProductItem(food);
-	productList.innerHTML += newItem;
-	hideAddProductModal();
-	localStorage.removeItem('formData');
-	nameProduct.value = '';
-	imgURL.value = '';
-	price.value = '';
-	quantity.value = '';
-	toast(MESSAGE.addSuccess, 'success');
+  const newItem = renderProductItem(food);
+  productList.innerHTML += newItem;
+  hideAddProductModal();
+  localStorage.removeItem('formData');
+  nameProduct.value = '';
+  imgURL.value = '';
+  price.value = '';
+  quantity.value = '';
+  toast(MESSAGE.addSuccess, 'success');
 };
 
 const handleAddProduct = (e) => {
-	e.preventDefault();
+  e.preventDefault();
 
-	const name = getElement('input[name ="name-product"]').value;
+  const name = getElement('input[name ="name-product"]').value;
 
-	const price = getElement('input[name ="price-product"]').value;
+  const price = getElement('input[name ="price-product"]').value;
 
-	const imgURL = getElement('input[name ="img-product"]').value;
+  const imgURL = getElement('input[name ="img-product"]').value;
 
-	const quantity = getElement('input[name ="quantity-product"]').value;
+  const quantity = getElement('input[name ="quantity-product"]').value;
 
-	const formData = {
-		name: name,
-		price: price,
-		image: imgURL,
-		quantity: quantity,
-	};
+  const formData = {
+    name: name,
+    price: price,
+    image: imgURL,
+    quantity: quantity,
+  };
 
-	const isValid = validateForm();
+  const isValid = validateForm();
 
-	if (isValid) {
-		create(formData, handleAddSuccess, handleAddFail, API.PRODUCTS_ENDPOINT);
-	}
+  if (isValid) {
+    create(formData, handleAddSuccess, handleAddFail, API.PRODUCTS_ENDPOINT);
+  }
 };
 
 export {
-	loadProductList,
-	showAddProductModal,
-	hideAddProductModal,
-	handleAddProduct,
-	nameProduct,
-	imgURL,
-	price,
-	quantity,
+  loadProductList,
+  showAddProductModal,
+  hideAddProductModal,
+  handleAddProduct,
+  nameProduct,
+  imgURL,
+  price,
+  quantity,
 };
