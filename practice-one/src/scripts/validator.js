@@ -22,7 +22,7 @@ const checkEmptyError = (input) => {
   input.value = input.value.trim();
   if (!input.value) {
     isEmptyError = true;
-    showError(input, MESSAGE.emptyError);
+    showError(input, MESSAGE.EMPTY_ERROR);
   } else {
     showSuccess(input);
   }
@@ -40,7 +40,7 @@ const checkImgUrlError = (input, isRequired) => {
   } else if (regexImgUrl.test(input.value)) {
     showSuccess(input);
   } else {
-    showError(input, MESSAGE.ImgUrlError);
+    showError(input, MESSAGE.IMG_URL_ERROR);
   }
 
   return isImgUrlError;
@@ -60,7 +60,7 @@ const checkIsNumberIntegerError = (input, isRequired) => {
     showSuccess(input);
   } else {
     isNumberIntError = true;
-    showError(input, MESSAGE.NumberIntegerError);
+    showError(input, MESSAGE.NUMBER_INTEGER_ERROR);
   }
 
   return isNumberIntError;
@@ -79,7 +79,7 @@ const checkIsDecimalError = (input, isRequired) => {
     showSuccess(input);
   } else {
     isNumberDecimalError = true;
-    showError(input, MESSAGE.NumberDecimalError);
+    showError(input, MESSAGE.NUMBER_DECIMAL_ERROR);
   }
   return isNumberDecimalError;
 };

@@ -2,11 +2,11 @@ const MESSAGE = {
   ADD_SUCCESS: 'Add Product Successfully !',
   ADD_FAIL: 'Add Product Failed!',
   GET_FAIL: 'Get Product List Fail !',
-  emptyError: 'The field cannot be empty',
-  ImgUrlError: 'Image URL format is valid',
-  NumberIntegerError:
+  EMPTY_ERROR: 'The field cannot be empty',
+  IMG_URL_ERROR: 'Image URL format is valid',
+  NUMBER_INTEGER_ERROR:
     'Please enter the number greater than 0 and number is integer',
-  NumberDecimalError: 'Please enter the number greater than 0',
+  NUMBER_DECIMAL_ERROR: 'Please enter the number greater than 0',
 };
 
 Object.freeze(MESSAGE);
