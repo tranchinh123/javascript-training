@@ -13,7 +13,7 @@ const get = async (onError, endPoint) => {
       return onError();
     }
   } catch (error) {
-    console.error('Something went wrong ', error);
+    console.error('Something went wrong ', error.message);
   }
 };
 
@@ -31,7 +31,7 @@ const create = async (data, onSuccess, onError, endPoint) => {
       return onError();
     }
   } catch (error) {
-    console.error('Something went wrong', error);
+    console.error('Something went wrong', error.message);
   }
 };
 

@@ -17,27 +17,29 @@ const showSuccess = (input) => {
   formMessage.innerText = '';
 };
 
-const checkEmptyError = (listInput) => {
+const checkEmptyError = (input) => {
   let isEmptyError = false;
-
-  listInput.forEach((input) => {
-    input.value = input.value.trim();
-
-    if (!input.value) {
-      isEmptyError = true;
-      showError(input, MESSAGE.emptyError);
-    } else {
-      showSuccess(input);
-    }
-  });
+  input.value = input.value.trim();
+  if (!input.value) {
+    isEmptyError = true;
+    showError(input, MESSAGE.emptyError);
+  } else {
+    showSuccess(input);
+  }
 
   return isEmptyError;
 };
 
-const checkImgUrlError = (input) => {
+const checkImgUrlError = (input, isRequired) => {
   const regexImgUrl = new RegExp('(https?://.*.(?:png|jpg|jpeg|gif|png|svg))');
   input.value = input.value.trim();
   const isImgUrlError = !regexImgUrl.test(input.value);
+
+  // Check empty
+  if (isRequired && !input.value) {
+    showError(input, 'The field cannot be empty.');
+    return;
+  }
 
   if (regexImgUrl.test(input.value)) {
     showSuccess(input);
@@ -48,10 +50,16 @@ const checkImgUrlError = (input) => {
   return isImgUrlError;
 };
 
-const checkIsNumberIntegerError = (input) => {
+const checkIsNumberIntegerError = (input, isRequired) => {
   input.value = input.value.trim();
   const numberInt = Number(input.value);
   let isNumberIntError = false;
+
+  // Check empty
+  if (isRequired && !input.value) {
+    showError(input, 'The field cannot be empty.');
+    return;
+  }
 
   if (Number.isInteger(numberInt) && numberInt > 0) {
     isNumberIntError = false;
@@ -64,10 +72,15 @@ const checkIsNumberIntegerError = (input) => {
   return isNumberIntError;
 };
 
-const checkIsDecimalError = (input) => {
+const checkIsDecimalError = (input, isRequired) => {
   input.value = input.value.trim();
   const numberDec = Number(input.value);
   let isNumberDecimalError = false;
+  // Check empty
+  if (isRequired && !input.value) {
+    showError(input, 'The field cannot be empty.');
+    return;
+  }
 
   if (!isNaN(numberDec) && numberDec > 0) {
     isNumberDecimalError = false;
@@ -81,10 +94,10 @@ const checkIsDecimalError = (input) => {
 };
 
 const validateForm = () => {
-  const isImgUrlError = checkImgUrlError(imgURL);
-  const isNumberIntError = checkIsNumberIntegerError(quantity);
-  const isNumberDecError = checkIsDecimalError(price);
-  const isEmptyError = checkEmptyError([nameProduct, price, imgURL, quantity]);
+  const isEmptyError = checkEmptyError(nameProduct);
+  const isImgUrlError = checkImgUrlError(imgURL, true);
+  const isNumberIntError = checkIsNumberIntegerError(quantity, true);
+  const isNumberDecError = checkIsDecimalError(price, true);
 
   if (isEmptyError || isImgUrlError || isNumberIntError || isNumberDecError) {
     return false;

@@ -73,10 +73,6 @@ cd practice-one
 npm i
 ```
 
-```
-npm install --save-dev parcel
-```
-
 - Run project
 
 ```
