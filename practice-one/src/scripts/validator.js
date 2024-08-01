@@ -26,7 +26,6 @@ const checkEmptyError = (input) => {
   } else {
     showSuccess(input);
   }
-
   return isEmptyError;
 };
 
@@ -38,10 +37,7 @@ const checkImgUrlError = (input, isRequired) => {
   // Check empty
   if (isRequired && !input.value) {
     showError(input, 'The field cannot be empty.');
-    return;
-  }
-
-  if (regexImgUrl.test(input.value)) {
+  } else if (regexImgUrl.test(input.value)) {
     showSuccess(input);
   } else {
     showError(input, MESSAGE.ImgUrlError);
@@ -57,11 +53,9 @@ const checkIsNumberIntegerError = (input, isRequired) => {
 
   // Check empty
   if (isRequired && !input.value) {
+    isNumberIntError = true;
     showError(input, 'The field cannot be empty.');
-    return;
-  }
-
-  if (Number.isInteger(numberInt) && numberInt > 0) {
+  } else if (Number.isInteger(numberInt) && numberInt > 0) {
     isNumberIntError = false;
     showSuccess(input);
   } else {
@@ -78,26 +72,23 @@ const checkIsDecimalError = (input, isRequired) => {
   let isNumberDecimalError = false;
   // Check empty
   if (isRequired && !input.value) {
+    isNumberDecimalError = true;
     showError(input, 'The field cannot be empty.');
-    return;
-  }
-
-  if (!isNaN(numberDec) && numberDec > 0) {
+  } else if (!isNaN(numberDec) && numberDec > 0) {
     isNumberDecimalError = false;
     showSuccess(input);
   } else {
     isNumberDecimalError = true;
     showError(input, MESSAGE.NumberDecimalError);
   }
-
   return isNumberDecimalError;
 };
 
 const validateForm = () => {
-  const isEmptyError = checkEmptyError(nameProduct);
   const isImgUrlError = checkImgUrlError(imgURL, true);
   const isNumberIntError = checkIsNumberIntegerError(quantity, true);
   const isNumberDecError = checkIsDecimalError(price, true);
+  const isEmptyError = checkEmptyError(nameProduct);
 
   if (isEmptyError || isImgUrlError || isNumberIntError || isNumberDecError) {
     return false;
@@ -110,6 +101,7 @@ export {
   validateForm,
   showSuccess,
   showError,
+  checkEmptyError,
   checkImgUrlError,
   checkIsDecimalError,
   checkIsNumberIntegerError,

@@ -9,8 +9,8 @@ import {
 } from './dom.js';
 import {
   showSuccess,
-  showError,
   checkImgUrlError,
+  checkEmptyError,
   checkIsDecimalError,
   checkIsNumberIntegerError,
 } from './validator.js';
@@ -35,33 +35,19 @@ const bindEvents = () => {
   const listInput = [nameProduct, price, imgURL, quantity];
 
   nameProduct.addEventListener('blur', () => {
-    if (!nameProduct.value && nameProduct.value === '') {
-      showError(nameProduct, ' The field cannot be empty.');
-    }
+    checkEmptyError(nameProduct);
   });
 
   price.addEventListener('blur', () => {
-    if (!price.value && price.value === '') {
-      showError(price, ' The field cannot be empty.');
-    } else {
-      checkIsDecimalError(price);
-    }
+    checkIsDecimalError(price, true);
   });
 
   imgURL.addEventListener('blur', () => {
-    if (!imgURL.value && imgURL.value === '') {
-      showError(imgURL, ' The field cannot be empty.');
-    } else {
-      checkImgUrlError(imgURL);
-    }
+    checkImgUrlError(imgURL, true);
   });
 
   quantity.addEventListener('blur', () => {
-    if (!quantity.value && quantity.value === '') {
-      showError(quantity, ' The field cannot be empty.');
-    } else {
-      checkIsNumberIntegerError(quantity);
-    }
+    checkIsNumberIntegerError(quantity, true);
   });
   //Event on input form
   listInput.forEach((input) => {
