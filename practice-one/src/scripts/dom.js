@@ -45,7 +45,7 @@ const hideAddProductModal = () => {
 
 // Show list products
 const handleGetFail = () => {
-  toast(MESSAGE.getFail, 'failed');
+  toast(MESSAGE.GET_FAIL, 'failed');
 };
 
 const renderProductItem = (food) => {
@@ -65,7 +65,7 @@ const renderProductItem = (food) => {
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                        <img src="./assets/icons/Edit.svg" alt="">
+                                        <img src="./assets/icons/Edit.svg" alt="Show icon edit">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>
@@ -86,7 +86,7 @@ const loadProductList = async () => {
 
 // Add product
 const handleAddFail = () => {
-  toast(MESSAGE.addFail, 'failed');
+  toast(MESSAGE.ADD_FAIL, 'failed');
 };
 
 const handleAddSuccess = (food) => {
@@ -98,7 +98,7 @@ const handleAddSuccess = (food) => {
   imgURL.value = '';
   price.value = '';
   quantity.value = '';
-  toast(MESSAGE.addSuccess, 'success');
+  toast(MESSAGE.ADD_SUCCESS, 'success');
 };
 
 const handleAddProduct = (e) => {
