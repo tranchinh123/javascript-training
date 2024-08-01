@@ -1,4 +1,5 @@
 import { imgURL, price, quantity, nameProduct } from './dom.js';
+import MESSAGE from './constants/message.js';
 
 const showError = (input, message) => {
   const parent = input.parentElement;
@@ -24,7 +25,7 @@ const checkEmptyError = (listInput) => {
 
     if (!input.value) {
       isEmptyError = true;
-      showError(input, ' The field cannot be empty.');
+      showError(input, MESSAGE.emptyError);
     } else {
       showSuccess(input);
     }
@@ -41,7 +42,7 @@ const checkImgUrlError = (input) => {
   if (regexImgUrl.test(input.value)) {
     showSuccess(input);
   } else {
-    showError(input, 'Image URL format is valid');
+    showError(input, MESSAGE.ImgUrlError);
   }
 
   return isImgUrlError;
@@ -57,10 +58,7 @@ const checkIsNumberIntegerError = (input) => {
     showSuccess(input);
   } else {
     isNumberIntError = true;
-    showError(
-      input,
-      'Please enter the number greater than 0 and number is integer '
-    );
+    showError(input, MESSAGE.NumberIntegerError);
   }
 
   return isNumberIntError;
@@ -76,7 +74,7 @@ const checkIsDecimalError = (input) => {
     showSuccess(input);
   } else {
     isNumberDecimalError = true;
-    showError(input, 'Please enter the number greater than 0 ');
+    showError(input, MESSAGE.NumberDecimalError);
   }
 
   return isNumberDecimalError;
