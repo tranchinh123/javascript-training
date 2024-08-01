@@ -104,19 +104,19 @@ const handleAddSuccess = (food) => {
 const handleAddProduct = (e) => {
   e.preventDefault();
 
-  const name = getElement('input[name ="name-product"]').value;
+  const nameValue = nameProduct.value;
 
-  const price = getElement('input[name ="price-product"]').value;
+  const priceValue = price.value;
 
-  const imgURL = getElement('input[name ="img-product"]').value;
+  const imgURLValue = imgURL.value;
 
-  const quantity = getElement('input[name ="quantity-product"]').value;
+  const quantityValue = quantity.value;
 
   const formData = {
-    name: name,
-    price: price,
-    image: imgURL,
-    quantity: quantity,
+    name: nameValue,
+    price: priceValue,
+    image: imgURLValue,
+    quantity: quantityValue,
   };
 
   const isValid = validateForm();
