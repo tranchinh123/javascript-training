@@ -53,12 +53,23 @@ const checkIsDecimalError = (input) => {
 };
 
 const validateFormAdd = () => {
-  const isImgUrlError = checkImgUrlError(imgURL, true);
-  const isNumberIntError = checkIsNumberIntegerError(quantity, true);
-  const isNumberDecError = checkIsDecimalError(price, true);
-  const isEmptyError = checkEmptyError(nameProduct);
+  const isImgUrlError = checkImgUrlError(imgURL);
+  const isNumberIntError = checkIsNumberIntegerError(quantity);
+  const isNumberDecError = checkIsDecimalError(price);
+  const isEmptyErrorName = checkEmptyError(nameProduct);
+  const isEmptyErrorPrice = checkEmptyError(price);
+  const isEmptyErrorQuantity = checkEmptyError(quantity);
+  const isEmptyErrorImg = checkEmptyError(imgURL);
 
-  return { isEmptyError, isImgUrlError, isNumberIntError, isNumberDecError };
+  return {
+    isEmptyErrorName,
+    isImgUrlError,
+    isNumberIntError,
+    isNumberDecError,
+    isEmptyErrorPrice,
+    isEmptyErrorQuantity,
+    isEmptyErrorImg,
+  };
 };
 
 export {

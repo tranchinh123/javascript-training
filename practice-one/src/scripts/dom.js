@@ -118,33 +118,44 @@ const showSuccess = (input) => {
 };
 
 const handleShowError = (errors) => {
-  const { isEmptyError, isImgUrlError, isNumberIntError, isNumberDecError } =
-    errors;
-  const listInput = [nameProduct, price, quantity, imgURL];
+  const {
+    isEmptyErrorName,
+    isImgUrlError,
+    isNumberIntError,
+    isNumberDecError,
+    isEmptyErrorPrice,
+    isEmptyErrorQuantity,
+    isEmptyErrorImg,
+  } = errors;
 
-  if (isImgUrlError) {
+  if (isEmptyErrorImg) {
+    showError(imgURL, MESSAGE.EMPTY_ERROR);
+  } else if (isImgUrlError) {
     showError(imgURL, MESSAGE.IMG_URL_ERROR);
   } else {
     showSuccess(imgURL);
   }
 
-  if (isNumberIntError) {
+  if (isEmptyErrorQuantity) {
+    showError(quantity, MESSAGE.EMPTY_ERROR);
+  } else if (isNumberIntError) {
     showError(quantity, MESSAGE.NUMBER_INTEGER_ERROR);
   } else {
     showSuccess(quantity);
   }
 
-  if (isNumberDecError) {
+  if (isEmptyErrorPrice) {
+    showError(price, MESSAGE.EMPTY_ERROR);
+  } else if (isNumberDecError) {
     showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
   } else {
     showSuccess(price);
   }
 
-  if (isEmptyError) {
-    listInput.forEach((input) => {
-      showError(input, MESSAGE.EMPTY_ERROR);
-      return;
-    });
+  if (isEmptyErrorName) {
+    {
+      showError(nameProduct, MESSAGE.EMPTY_ERROR);
+    }
   } else {
     showSuccess(nameProduct);
   }
@@ -164,9 +175,18 @@ const handleAddProduct = (e) => {
   const errors = validateFormAdd();
 
   const isValid = () => {
-    const { isEmptyError, isImgUrlError, isNumberIntError, isNumberDecError } =
-      errors;
-    if (isEmptyError || isImgUrlError || isNumberIntError || isNumberDecError) {
+    const {
+      isEmptyErrorName,
+      isImgUrlError,
+      isNumberIntError,
+      isNumberDecError,
+    } = errors;
+    if (
+      isEmptyErrorName ||
+      isImgUrlError ||
+      isNumberIntError ||
+      isNumberDecError
+    ) {
       return false;
     } else {
       return true;
