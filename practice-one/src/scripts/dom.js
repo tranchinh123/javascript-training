@@ -1,5 +1,5 @@
 import { get, create } from './services/api.js';
-import { validateForm } from './validator.js';
+import { validateFormAdd } from './validator.js';
 import toast from './toast.js';
 import { API } from './constants/api.js';
 import { getElement, getAllElement } from './helpers/queryDOM.js';
@@ -100,12 +100,60 @@ const handleAddSuccess = (food) => {
   quantity.value = '';
   toast(MESSAGE.ADD_SUCCESS, 'success');
 };
+// handle show error, show success message
+const showError = (input, message) => {
+  const parent = input.parentElement;
+  const formMessage = parent.querySelector('.form-message');
+
+  parent.classList.add('invalid');
+  formMessage.innerText = message;
+};
+
+const showSuccess = (input) => {
+  const parent = input.parentElement;
+  const formMessage = parent.querySelector('.form-message');
+
+  parent.classList.remove('invalid');
+  formMessage.innerText = '';
+};
+
+const handleShowError = (errors) => {
+  const { isEmptyError, isImgUrlError, isNumberIntError, isNumberDecError } =
+    errors;
+  const listInput = [nameProduct, price, quantity, imgURL];
+
+  if (isImgUrlError) {
+    showError(imgURL, MESSAGE.IMG_URL_ERROR);
+  } else {
+    showSuccess(imgURL);
+  }
+
+  if (isNumberIntError) {
+    showError(quantity, MESSAGE.NUMBER_INTEGER_ERROR);
+  } else {
+    showSuccess(quantity);
+  }
+
+  if (isNumberDecError) {
+    showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
+  } else {
+    showSuccess(price);
+  }
+
+  if (isEmptyError) {
+    listInput.forEach((input) => {
+      showError(input, MESSAGE.EMPTY_ERROR);
+      return;
+    });
+  } else {
+    showSuccess(nameProduct);
+  }
+
+  // handle show error/show success
+};
 
 const handleAddProduct = (e) => {
   e.preventDefault();
-
-  // const data = new FormData(e.target);
-
   const formData = new FormData(e.target);
   const formDataObject = {};
 
@@ -113,15 +161,27 @@ const handleAddProduct = (e) => {
     formDataObject[key] = value;
   }
 
-  const isValid = validateForm();
+  const errors = validateFormAdd();
 
-  if (isValid) {
+  const isValid = () => {
+    const { isEmptyError, isImgUrlError, isNumberIntError, isNumberDecError } =
+      errors;
+    if (isEmptyError || isImgUrlError || isNumberIntError || isNumberDecError) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  if (isValid()) {
     create(
       formDataObject,
       handleAddSuccess,
       handleAddFail,
       API.PRODUCTS_ENDPOINT
     );
+  } else {
+    handleShowError(errors);
   }
 };
 
@@ -134,4 +194,6 @@ export {
   imgURL,
   price,
   quantity,
+  showSuccess,
+  showError,
 };

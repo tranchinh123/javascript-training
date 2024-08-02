@@ -6,15 +6,17 @@ import {
   price,
   quantity,
   nameProduct,
+  showSuccess,
+  showError,
 } from './dom.js';
 import {
-  showSuccess,
   checkImgUrlError,
   checkEmptyError,
   checkIsDecimalError,
   checkIsNumberIntegerError,
 } from './validator.js';
 import { getElement } from './helpers/queryDOM.js';
+import MESSAGE from './constants/message.js';
 
 const cardAdd = getElement('.card-add');
 const cancelBtn = getElement('.btn-cancel');
@@ -36,19 +38,33 @@ const bindEvents = () => {
   const listInput = [nameProduct, price, imgURL, quantity];
 
   nameProduct.addEventListener('blur', () => {
-    checkEmptyError(nameProduct);
+    if (checkEmptyError(nameProduct)) {
+      showError(nameProduct, MESSAGE.EMPTY_ERROR);
+    }
   });
 
   price.addEventListener('blur', () => {
-    checkIsDecimalError(price, true);
+    if (price.value.trim() === '') {
+      showError(price, MESSAGE.EMPTY_ERROR);
+    } else if (checkIsDecimalError(price)) {
+      showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
+    }
   });
 
   imgURL.addEventListener('blur', () => {
-    checkImgUrlError(imgURL, true);
+    if (imgURL.value.trim() === '') {
+      showError(imgURL, MESSAGE.EMPTY_ERROR);
+    } else if (checkImgUrlError(imgURL)) {
+      showError(imgURL, MESSAGE.IMG_URL_ERROR);
+    }
   });
 
   quantity.addEventListener('blur', () => {
-    checkIsNumberIntegerError(quantity, true);
+    if (quantity.value.trim() === '') {
+      showError(imgURL, MESSAGE.EMPTY_ERROR);
+    } else if (checkIsNumberIntegerError(quantity)) {
+      showError(quantity, MESSAGE.NUMBER_INTEGER_ERROR);
+    }
   });
 
   //Event on input form
