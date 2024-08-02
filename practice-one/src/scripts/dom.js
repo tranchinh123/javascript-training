@@ -9,10 +9,10 @@ const productList = getElement('.product-list');
 const formMessage = getAllElement('.form-message');
 const modal = getElement('.modal');
 const modalContainer = getElement('.modal-container-add');
-const nameProduct = getElement('input[name ="name-product"]');
-const price = getElement('input[name ="price-product"]');
-const imgURL = getElement('input[name ="img-product"]');
-const quantity = getElement('input[name ="quantity-product"]');
+const nameProduct = getElement('input[name ="name"]');
+const price = getElement('input[name ="price"]');
+const imgURL = getElement('input[name ="image"]');
+const quantity = getElement('input[name ="quantity"]');
 
 // Toggle Modal AddProduct
 
@@ -104,25 +104,24 @@ const handleAddSuccess = (food) => {
 const handleAddProduct = (e) => {
   e.preventDefault();
 
-  const nameValue = nameProduct.value;
+  // const data = new FormData(e.target);
 
-  const priceValue = price.value;
+  const formData = new FormData(e.target);
+  const formDataObject = {};
 
-  const imgURLValue = imgURL.value;
-
-  const quantityValue = quantity.value;
-
-  const formData = {
-    name: nameValue,
-    price: priceValue,
-    image: imgURLValue,
-    quantity: quantityValue,
-  };
+  for (const [key, value] of formData.entries()) {
+    formDataObject[key] = value;
+  }
 
   const isValid = validateForm();
 
   if (isValid) {
-    create(formData, handleAddSuccess, handleAddFail, API.PRODUCTS_ENDPOINT);
+    create(
+      formDataObject,
+      handleAddSuccess,
+      handleAddFail,
+      API.PRODUCTS_ENDPOINT
+    );
   }
 };
 
