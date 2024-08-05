@@ -1,5 +1,5 @@
 import { loadProductList } from './dom.js';
-import { bindEvents } from './domevent.js';
+import { bindEvents } from './events.js';
 
 const initApp = () => {
   bindEvents();

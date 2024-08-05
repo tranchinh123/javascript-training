@@ -165,35 +165,17 @@ const handleShowError = (errors) => {
 
 const handleAddProduct = (e) => {
   e.preventDefault();
-  const formData = new FormData(e.target);
-  const formDataObject = {};
-
-  for (const [key, value] of formData.entries()) {
-    formDataObject[key] = value;
-  }
-
   const errors = validateFormAdd();
 
-  const isValid = () => {
-    const {
-      isEmptyErrorName,
-      isImgUrlError,
-      isNumberIntError,
-      isNumberDecError,
-    } = errors;
-    if (
-      isEmptyErrorName ||
-      isImgUrlError ||
-      isNumberIntError ||
-      isNumberDecError
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  const isValid = Object.values(errors).includes(false);
 
-  if (isValid()) {
+  if (isValid) {
+    const formData = new FormData(e.target);
+    const formDataObject = {};
+
+    for (const [key, value] of formData.entries()) {
+      formDataObject[key] = value;
+    }
     create(
       formDataObject,
       handleAddSuccess,
