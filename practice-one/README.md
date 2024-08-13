@@ -1,47 +1,37 @@
-# training-javascript
+# training-typescript
 
-# JAVASCRIPT PRACTICE
+# TYPESCRIPT PRACTICE
 
 ## OVERVIEW
 
-- This document provides requirements, technical stack, and estimation for JavaScript Practice.
+- This document provides requirements, technical stack, and estimation for TypeScript Practice.
 - Design [Figma](https://www.figma.com/design/CwJzSvl4A51OxIbJQighV5/Foods-Mangement?node-id=1412-7515&t=1qcJn350qg01bWBa-0)
 
 ## TARGETS
 
-- Understand & apply knowledge HTML/CSS/JavaScript (with ES6 syntax).
-- DOM manipulation, form validation.
-- Understand how asynchronous code works & apply in practice (API call or any place we can mock API in code).
-- Get familiar with DevTools (e.g Google Chrome DevTools) for debugging issues (breakpoint, log, etc..).
-- Deploy to the hosting
+- Get familiar with TypeScript language and understand the power of typed language and best practices..
+- Apply the TypeScript configurations, config compiler options, and more.
+- Apply ESLint:
+  - The trainees are required to solve all errors/warnings from ESLint.
+  - The trainees should understand ESLint rules and don’t turn them off to resolve current issues.
 
 ## TECHNICAL STACK
 
-- HTML5/CSS3/Javascript
+- HTML5/CSS3/Typescript
 - Vercel
 - Prettier
 - MockAPI
 
 ## TASK MANAGEMENT
 
-- [Trello](https://trello.com/b/P2UQOUKL/practice-javascript)
+- [Trello](https://trello.com/b/oGAvmbHd/practice-typescript)
 
 ## REQUIREMENTS
 
-- App Requirements:
-  - Fetch data from API for display food list
-  - Contains a form to create a new food
-    - Form fields requires validation
-    - Form fields may be required or optional
-    - Form data is saved in local storage if hasn’t been submitted yet
-    - Integration for form submission to save data
-- API Requirements:
-  - A mock API for API and data storage. e.g. json-server, mockAPI, etc.
-- Code Conventions:
-  - Apply ESLint for code conventions
-- Performance Requirements
-  - Basic PageSpeed optimization
-  - Focus on understanding how it works
+- Apply Typescript for Javascript practice
+- Implement new features:
+  - Remove product
+  - Edit product
 
 ## PREREQUISITE
 
@@ -60,7 +50,7 @@ git clone https://github.com/tranchinh123/javascript-training.git
 - Git checkout
 
 ```
-git checkout feat/practice
+git checkout feat/typescript-practice
 ```
 
 ```
