@@ -1,6 +1,6 @@
 import { imgURL, price, quantity, nameProduct } from './dom.js';
 
-const checkEmptyError = (input) => {
+const checkEmptyError = (input: HTMLInputElement) => {
   let isEmptyError = false;
   input.value = input.value.trim();
   if (!input.value) {
@@ -11,7 +11,7 @@ const checkEmptyError = (input) => {
   return isEmptyError;
 };
 
-const checkImgUrlError = (input) => {
+const checkImgUrlError = (input: HTMLInputElement) => {
   const regexImgUrl = new RegExp('(https?://.*.(?:png|jpg|jpeg|gif|png|svg))');
   input.value = input.value.trim();
   let isImgUrlError = false;
@@ -25,7 +25,7 @@ const checkImgUrlError = (input) => {
   return isImgUrlError;
 };
 
-const checkIsNumberIntegerError = (input) => {
+const checkIsNumberIntegerError = (input: HTMLInputElement) => {
   input.value = input.value.trim();
   const numberInt = Number(input.value);
   let isNumberIntError = false;
@@ -39,7 +39,7 @@ const checkIsNumberIntegerError = (input) => {
   return isNumberIntError;
 };
 
-const checkIsDecimalError = (input) => {
+const checkIsDecimalError = (input: HTMLInputElement) => {
   input.value = input.value.trim();
   const numberDec = Number(input.value);
   let isNumberDecimalError = false;
