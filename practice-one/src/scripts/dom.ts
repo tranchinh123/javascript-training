@@ -168,26 +168,6 @@ const handleAddProduct = (e) => {
   const errors = validateFormAdd();
 
   const isValid = Object.values(errors).every((value) => value === false);
-  console.log(isValid);
-
-  // const isValid = () => {
-  //   const {
-  //     isEmptyErrorName,
-  //     isImgUrlError,
-  //     isNumberIntError,
-  //     isNumberDecError,
-  //   } = errors;
-  //   if (
-  //     isEmptyErrorName ||
-  //     isImgUrlError ||
-  //     isNumberIntError ||
-  //     isNumberDecError
-  //   ) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
 
   if (isValid) {
     const formData = new FormData(e.target);

@@ -1,6 +1,6 @@
 import { API } from '../constants/api.js';
 
-const get = async (onError, endPoint) => {
+const get = async (onError: () => void, endPoint: string) => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}`, {
       method: 'GET',
@@ -13,11 +13,16 @@ const get = async (onError, endPoint) => {
       return onError();
     }
   } catch (error) {
-    console.error('Something went wrong ', error.message);
+    console.error('Something went wrong ');
   }
 };
 
-const create = async (data, onSuccess, onError, endPoint) => {
+const create = async (
+  data: {},
+  onSuccess: (data: any) => void,
+  onError: () => void,
+  endPoint: string
+) => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}`, {
       method: 'POST',
@@ -31,7 +36,7 @@ const create = async (data, onSuccess, onError, endPoint) => {
       return onError();
     }
   } catch (error) {
-    console.error('Something went wrong', error.message);
+    console.error('Something went wrong');
   }
 };
 
