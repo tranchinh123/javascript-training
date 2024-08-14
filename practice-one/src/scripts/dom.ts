@@ -65,7 +65,6 @@ const renderProductItem = (food: Record<string, any>) => {
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                        <img src="./assets/icons/Edit.svg" alt="Show icon edit">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>

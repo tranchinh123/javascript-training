@@ -15,14 +15,13 @@ import {
   checkIsDecimalError,
   checkIsNumberIntegerError,
 } from './validator.js';
-import { getElement } from './helpers/queryDOM.js';
+import { getAllElement, getElement } from './helpers/queryDOM.js';
 import MESSAGE from './constants/message.js';
 
 const cardAdd = getElement('.card-add');
 const cancelBtn = getElement('.btn-cancel');
 const modalContainerAdd = getElement('.modal-container-add');
 const modal = getElement('.modal');
-
 const form = getElement('#form-add');
 
 const bindEvents = () => {
