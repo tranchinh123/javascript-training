@@ -20,3 +20,8 @@
   border: 1px solid var(--tertiary-border-color);
   color: var(--secondary-text-color);
 }
+
+.btn-confirm {
+  color: var(--primary-text-color);
+  background-color: var(--tertiary-background-color);
+}

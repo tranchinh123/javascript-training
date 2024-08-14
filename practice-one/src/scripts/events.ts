@@ -15,7 +15,7 @@ import {
   checkIsDecimalError,
   checkIsNumberIntegerError,
 } from './validator.js';
-import { getAllElement, getElement } from './helpers/queryDOM.js';
+import { getElement } from './helpers/queryDOM.js';
 import MESSAGE from './constants/message.js';
 
 const cardAdd = getElement('.card-add');
