@@ -18,7 +18,7 @@ const get = async (onError: () => void, endPoint: string) => {
 };
 
 const create = async (
-  data: {},
+  data: Record<string, any>,
   onSuccess: (data: any) => void,
   onError: () => void,
   endPoint: string

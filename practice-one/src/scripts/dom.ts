@@ -7,8 +7,8 @@ import MESSAGE from './constants/message.js';
 
 const productList = getElement('.product-list');
 const formMessage = getAllElement('.form-message');
-const modal = getElement('.modal');
-const modalContainer = getElement('.modal-container-add');
+const modal = getElement('.modal') as HTMLElement;
+const modalContainer = getElement('.modal-container-add') as HTMLElement;
 const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
 const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
@@ -17,10 +17,10 @@ const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
 // Toggle Modal AddProduct
 
 const showAddProductModal = () => {
-  modal?.classList.add('open');
+  modal.classList.add('open');
   modalContainer.style.display = 'block';
 
-  const formData = JSON.parse(localStorage.getItem('formData'));
+  const formData = JSON.parse(localStorage.getItem('formData') ?? '{}');
   nameProduct.value = formData.name;
   imgURL.value = formData.image;
   price.value = formData.price;
@@ -28,7 +28,7 @@ const showAddProductModal = () => {
 };
 
 const hideAddProductModal = () => {
-  modal.classList.remove('open');
+  modal!.classList.remove('open');
 
   const formData = {
     name: nameProduct.value,
@@ -48,7 +48,7 @@ const handleGetFail = () => {
   toast(MESSAGE.GET_FAIL, 'failed');
 };
 
-const renderProductItem = (food) => {
+const renderProductItem = (food: Record<string, any>) => {
   return `
             <div class="card card-product" data-card-id = "${food.id}">
                                 <div class="card-header">
@@ -72,10 +72,10 @@ const renderProductItem = (food) => {
             `;
 };
 
-const renderFoods = (foods) => {
+const renderFoods = (foods: Array<Record<string, any>>) => {
   const cardProducts = foods.map(renderProductItem);
 
-  productList.innerHTML = cardProducts.join('');
+  productList!.innerHTML = cardProducts.join('');
 };
 
 const loadProductList = async () => {
@@ -89,9 +89,9 @@ const handleAddFail = () => {
   toast(MESSAGE.ADD_FAIL, 'failed');
 };
 
-const handleAddSuccess = (food) => {
+const handleAddSuccess = (food: Record<string, any>) => {
   const newItem = renderProductItem(food);
-  productList.innerHTML += newItem;
+  productList!.innerHTML += newItem;
   hideAddProductModal();
   localStorage.removeItem('formData');
   nameProduct.value = '';
@@ -101,23 +101,23 @@ const handleAddSuccess = (food) => {
   toast(MESSAGE.ADD_SUCCESS, 'success');
 };
 // handle show error, show success message
-const showError = (input, message) => {
-  const parent = input.parentElement;
-  const formMessage = parent.querySelector('.form-message');
+const showError = (input: HTMLInputElement, message: string) => {
+  const parent = input.parentElement as HTMLElement;
+  const formMessage = parent.querySelector('.form-message') as HTMLElement;
 
   parent.classList.add('invalid');
   formMessage.innerText = message;
 };
 
-const showSuccess = (input) => {
-  const parent = input.parentElement;
-  const formMessage = parent.querySelector('.form-message');
+const showSuccess = (input: HTMLInputElement) => {
+  const parent = input.parentElement as HTMLElement;
+  const formMessage = parent.querySelector('.form-message') as HTMLElement;
 
   parent.classList.remove('invalid');
   formMessage.innerText = '';
 };
 
-const handleShowError = (errors) => {
+const handleShowError = (errors: any) => {
   const {
     isEmptyErrorName,
     isImgUrlError,
@@ -163,15 +163,18 @@ const handleShowError = (errors) => {
   // handle show error/show success
 };
 
-const handleAddProduct = (e) => {
+const handleAddProduct = (e: Event) => {
   e.preventDefault();
   const errors = validateFormAdd();
 
   const isValid = Object.values(errors).every((value) => value === false);
 
   if (isValid) {
-    const formData = new FormData(e.target);
-    const formDataObject = {};
+    const formData = new FormData(e.target as HTMLFormElement);
+    interface FormDataObject {
+      [key: string]: any;
+    }
+    const formDataObject: FormDataObject = {};
 
     for (const [key, value] of formData.entries()) {
       formDataObject[key] = value;
