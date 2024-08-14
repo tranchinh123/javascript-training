@@ -9,15 +9,15 @@ const productList = getElement('.product-list');
 const formMessage = getAllElement('.form-message');
 const modal = getElement('.modal');
 const modalContainer = getElement('.modal-container-add');
-const nameProduct = getElement('input[name ="name"]');
-const price = getElement('input[name ="price"]');
-const imgURL = getElement('input[name ="image"]');
-const quantity = getElement('input[name ="quantity"]');
+const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
+const price = getElement('input[name ="price"]') as HTMLInputElement;
+const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
+const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
 
 // Toggle Modal AddProduct
 
 const showAddProductModal = () => {
-  modal.classList.add('open');
+  modal?.classList.add('open');
   modalContainer.style.display = 'block';
 
   const formData = JSON.parse(localStorage.getItem('formData'));

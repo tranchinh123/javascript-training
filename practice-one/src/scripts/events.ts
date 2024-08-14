@@ -26,25 +26,25 @@ const modal = getElement('.modal');
 const form = getElement('#form-add');
 
 const bindEvents = () => {
-  cardAdd.addEventListener('click', showAddProductModal);
-  cancelBtn.addEventListener('click', hideAddProductModal);
-  modal.addEventListener('click', hideAddProductModal);
-  form.addEventListener('submit', handleAddProduct);
-  modalContainerAdd.addEventListener('click', (e) => {
+  cardAdd?.addEventListener('click', showAddProductModal);
+  cancelBtn?.addEventListener('click', hideAddProductModal);
+  modal?.addEventListener('click', hideAddProductModal);
+  form?.addEventListener('submit', handleAddProduct);
+  modalContainerAdd?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
 
   //Event on blur input form
   const listInput = [nameProduct, price, imgURL, quantity];
 
-  nameProduct.addEventListener('blur', () => {
+  nameProduct?.addEventListener('blur', () => {
     if (checkEmptyError(nameProduct)) {
       showError(nameProduct, MESSAGE.EMPTY_ERROR);
     }
   });
 
-  price.addEventListener('blur', () => {
-    if (price.value.trim() === '') {
+  price?.addEventListener('blur', () => {
+    if (price?.value.trim() === '') {
       showError(price, MESSAGE.EMPTY_ERROR);
     } else if (checkIsDecimalError(price)) {
       showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
