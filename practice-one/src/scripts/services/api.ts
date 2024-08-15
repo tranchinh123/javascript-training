@@ -40,4 +40,24 @@ const create = async (
   }
 };
 
-export { get, create };
+const remove = async (
+  onSuccess: (data: any) => void,
+  onerror: () => void,
+  endPoint: string
+) => {
+  try {
+    const response = await fetch(`${API.BASE_URL}${endPoint}`, {
+      method: 'DELETE',
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return onSuccess(data);
+    } else {
+      return onerror();
+    }
+  } catch (error) {
+    console.error('Something went wrong');
+  }
+};
+
+export { get, create, remove };

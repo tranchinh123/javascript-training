@@ -1,7 +1,10 @@
 import {
   showAddProductModal,
   hideAddProductModal,
+  showDeleteProductModal,
+  hideDeleteProductModal,
   handleAddProduct,
+  productList,
   imgURL,
   price,
   quantity,
@@ -20,21 +23,28 @@ import MESSAGE from './constants/message.js';
 
 const cardAdd = getElement('.card-add');
 const cancelBtn = getElement('.btn-cancel');
+const cancelBtnDelete = getElement('.btn-cancel-delete');
 const modalContainerAdd = getElement('.modal-container-add');
 const modal = getElement('.modal');
 const form = getElement('#form-add');
+const modalDelete = getElement('.modal-delete') as HTMLElement;
+const listInput = [nameProduct, price, imgURL, quantity];
 
 const bindEvents = () => {
   cardAdd?.addEventListener('click', showAddProductModal);
   cancelBtn?.addEventListener('click', hideAddProductModal);
+  cancelBtnDelete?.addEventListener('click', hideDeleteProductModal);
   modal?.addEventListener('click', hideAddProductModal);
   form?.addEventListener('submit', handleAddProduct);
   modalContainerAdd?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
+  modalDelete.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+  productList?.addEventListener('click', showDeleteProductModal);
 
   //Event on blur input form
-  const listInput = [nameProduct, price, imgURL, quantity];
 
   nameProduct?.addEventListener('blur', () => {
     if (checkEmptyError(nameProduct)) {

@@ -9,6 +9,7 @@ const productList = getElement('.product-list');
 const formMessage = getAllElement('.form-message');
 const modal = getElement('.modal') as HTMLElement;
 const modalContainer = getElement('.modal-container-add') as HTMLElement;
+const modalDelete = getElement('.modal-delete') as HTMLElement;
 const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
 const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
@@ -29,6 +30,7 @@ const showAddProductModal = () => {
 
 const hideAddProductModal = () => {
   modal!.classList.remove('open');
+  modalContainer.style.display = 'none';
 
   const formData = {
     name: nameProduct.value,
@@ -41,6 +43,23 @@ const hideAddProductModal = () => {
   formMessage.forEach((message) => {
     message.innerHTML = '';
   });
+};
+
+// Toggle Modal DeleteProduct
+
+const showDeleteProductModal = (e: Event) => {
+  const deleteBtn = (e.target as HTMLElement).closest('.icon-delete');
+  console.log(deleteBtn);
+
+  if (deleteBtn) {
+    modal.classList.add('open');
+    modalDelete.style.display = 'block';
+  }
+};
+
+const hideDeleteProductModal = () => {
+  modal!.classList.remove('open');
+  modalDelete.style.display = 'none';
 };
 
 // Show list products
@@ -92,14 +111,26 @@ const handleAddSuccess = (food: Record<string, any>) => {
   const newItem = renderProductItem(food);
   productList!.innerHTML += newItem;
   hideAddProductModal();
+
   localStorage.removeItem('formData');
   nameProduct.value = '';
   imgURL.value = '';
   price.value = '';
   quantity.value = '';
+
   toast(MESSAGE.ADD_SUCCESS, 'success');
 };
-// handle show error, show success message
+
+// Delete product
+const handleDeleteFail = () => {
+  toast(MESSAGE.DELETE_FAIL, 'failed');
+};
+
+const handleDeleteSuccess = () => {
+  toast(MESSAGE.DELETE_SUCCESS, 'success');
+};
+
+// handle show error, show success message when valid form
 const showError = (input: HTMLInputElement, message: string) => {
   const parent = input.parentElement as HTMLElement;
   const formMessage = parent.querySelector('.form-message') as HTMLElement;
@@ -193,7 +224,10 @@ export {
   loadProductList,
   showAddProductModal,
   hideAddProductModal,
+  showDeleteProductModal,
+  hideDeleteProductModal,
   handleAddProduct,
+  productList,
   nameProduct,
   imgURL,
   price,
