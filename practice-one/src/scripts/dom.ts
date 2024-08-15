@@ -1,4 +1,4 @@
-import { get, create } from './services/api.js';
+import { get, create, remove } from './services/api.js';
 import { validateFormAdd } from './validator.js';
 import toast from './toast.js';
 import { API } from './constants/api.js';
@@ -193,6 +193,7 @@ const handleShowError = (errors: any) => {
   // handle show error/show success
 };
 
+// handle add,delete,edit product
 const handleAddProduct = (e: Event) => {
   e.preventDefault();
   const errors = validateFormAdd();
@@ -220,6 +221,11 @@ const handleAddProduct = (e: Event) => {
   }
 };
 
+const handleDeleteProduct = () => {
+  hideDeleteProductModal();
+  remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT, id);
+};
+
 export {
   loadProductList,
   showAddProductModal,
@@ -227,6 +233,7 @@ export {
   showDeleteProductModal,
   hideDeleteProductModal,
   handleAddProduct,
+  handleDeleteProduct,
   productList,
   nameProduct,
   imgURL,

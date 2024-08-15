@@ -4,6 +4,7 @@ import {
   showDeleteProductModal,
   hideDeleteProductModal,
   handleAddProduct,
+  handleDeleteProduct,
   productList,
   imgURL,
   price,
@@ -28,6 +29,7 @@ const modalContainerAdd = getElement('.modal-container-add');
 const modal = getElement('.modal');
 const form = getElement('#form-add');
 const modalDelete = getElement('.modal-delete') as HTMLElement;
+const confirmBtn = getElement('.btn-confirm');
 const listInput = [nameProduct, price, imgURL, quantity];
 
 const bindEvents = () => {
@@ -42,6 +44,7 @@ const bindEvents = () => {
   modalDelete.addEventListener('click', (e) => {
     e.stopPropagation();
   });
+  confirmBtn?.addEventListener('click', handleDeleteProduct);
   productList?.addEventListener('click', showDeleteProductModal);
 
   //Event on blur input form
