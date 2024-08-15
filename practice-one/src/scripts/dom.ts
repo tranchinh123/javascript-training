@@ -14,6 +14,7 @@ const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
 const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
+const confirmBtn = getElement('.btn-confirm') as HTMLElement;
 // Toggle Modal : Modal delete product, Modal add product
 
 const showAddProductModal = () => {
@@ -45,13 +46,17 @@ const hideAddProductModal = () => {
 };
 
 const showDeleteProductModal = (e: Event) => {
-  const deleteBtn = (e.target as HTMLElement).closest('.icon-delete');
+  const deleteBtn = (e.target as HTMLElement).closest(
+    '.icon-delete'
+  ) as HTMLElement;
 
   if (deleteBtn) {
     modal.classList.add('open');
     modalDelete.style.display = 'block';
-    // const index = deleteBtn.dataset.index;
-    // console.log(index);
+    const index = deleteBtn.dataset.index;
+    if (confirmBtn) {
+      confirmBtn.dataset.index = index;
+    }
   }
 };
 
@@ -132,7 +137,7 @@ const handleGetFail = () => {
 
 const renderProductItem = (food: Record<string, any>) => {
   return `
-            <div class="card card-product" data-card-id = "${food.id}">
+            <div class="card card-product data-card-id-${food.id}">
                                 <div class="card-header">
                                     <button class="icon-delete" data-index ="${food.id}" >&#9747;</button>
                                 </div>
@@ -218,21 +223,20 @@ const handleDeleteFail = () => {
   toast(MESSAGE.DELETE_FAIL, 'failed');
 };
 
-const handleDeleteSuccess = () => {
+const handleDeleteSuccess = (data: any) => {
   hideDeleteProductModal();
+  const productItem = getElement('.data-card-id-' + data.id);
+  console.log(productItem);
+
+  if (productItem) {
+    productItem.remove();
+  }
   toast(MESSAGE.DELETE_SUCCESS, 'success');
 };
 
-const handleDeleteProduct = (e: Event) => {
-  const deleteBtn = (e.target as HTMLElement).closest('.icon-delete');
-
-  if (deleteBtn) {
-    modal.classList.add('open');
-    modalDelete.style.display = 'block';
-    const index = deleteBtn.dataset.index;
-    console.log(index);
-  }
-  // remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT, index);
+const handleDeleteProduct = () => {
+  const index = confirmBtn?.getAttribute('data-index');
+  remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT, index);
 };
 
 export {
