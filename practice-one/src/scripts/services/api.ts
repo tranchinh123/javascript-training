@@ -43,11 +43,11 @@ const create = async (
 const remove = async (
   onSuccess: (data: any) => void,
   onerror: () => void,
-  endPoint: string,
-  id: any
+  endPoint: string
+  // id: any
 ) => {
   try {
-    const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
+    const response = await fetch(`${API.BASE_URL}${endPoint}`, {
       method: 'DELETE',
     });
     if (response.ok) {

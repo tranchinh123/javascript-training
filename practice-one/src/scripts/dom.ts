@@ -15,7 +15,7 @@ const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
 
-// Toggle Modal AddProduct
+// Toggle Modal : Modal delete product, Modal add product
 
 const showAddProductModal = () => {
   modal.classList.add('open');
@@ -45,8 +45,6 @@ const hideAddProductModal = () => {
   });
 };
 
-// Toggle Modal DeleteProduct
-
 const showDeleteProductModal = (e: Event) => {
   const deleteBtn = (e.target as HTMLElement).closest('.icon-delete');
   console.log(deleteBtn);
@@ -62,75 +60,8 @@ const hideDeleteProductModal = () => {
   modalDelete.style.display = 'none';
 };
 
-// Show list products
-const handleGetFail = () => {
-  toast(MESSAGE.GET_FAIL, 'failed');
-};
-
-const renderProductItem = (food: Record<string, any>) => {
-  return `
-            <div class="card card-product" data-card-id = "${food.id}">
-                                <div class="card-header">
-                                    <button class="icon-delete" data-icon-id ="${food.id}" >&#9747;</button>
-                                </div>
-    
-                                <div class="card-main">
-                                    <img src="${food.image}" alt="default image" class="img-product" onerror="src='https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'" />
-                                    <div class="desc-product">
-                                        <p class="name-product">${food.name}</p>
-                                        <span class="price-product">$ ${food.price}</span>
-                                        <span class="dot">&#8226</span>
-                                        <span class="quantity-product">${food.quantity} bowls</span>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                        <p class="text-edit">Edit dish</p>
-                                </div>
-                    </div>
-            `;
-};
-
-const renderFoods = (foods: Array<Record<string, any>>) => {
-  const cardProducts = foods.map(renderProductItem);
-
-  productList!.innerHTML = cardProducts.join('');
-};
-
-const loadProductList = async () => {
-  const products = await get(handleGetFail, API.PRODUCTS_ENDPOINT);
-
-  renderFoods(products);
-};
-
-// Add product
-const handleAddFail = () => {
-  toast(MESSAGE.ADD_FAIL, 'failed');
-};
-
-const handleAddSuccess = (food: Record<string, any>) => {
-  const newItem = renderProductItem(food);
-  productList!.innerHTML += newItem;
-  hideAddProductModal();
-
-  localStorage.removeItem('formData');
-  nameProduct.value = '';
-  imgURL.value = '';
-  price.value = '';
-  quantity.value = '';
-
-  toast(MESSAGE.ADD_SUCCESS, 'success');
-};
-
-// Delete product
-const handleDeleteFail = () => {
-  toast(MESSAGE.DELETE_FAIL, 'failed');
-};
-
-const handleDeleteSuccess = () => {
-  toast(MESSAGE.DELETE_SUCCESS, 'success');
-};
-
 // handle show error, show success message when valid form
+
 const showError = (input: HTMLInputElement, message: string) => {
   const parent = input.parentElement as HTMLElement;
   const formMessage = parent.querySelector('.form-message') as HTMLElement;
@@ -193,7 +124,67 @@ const handleShowError = (errors: any) => {
   // handle show error/show success
 };
 
-// handle add,delete,edit product
+// Show list products
+
+const handleGetFail = () => {
+  toast(MESSAGE.GET_FAIL, 'failed');
+};
+
+const renderProductItem = (food: Record<string, any>) => {
+  return `
+            <div class="card card-product" data-card-id = "${food.id}">
+                                <div class="card-header">
+                                    <button class="icon-delete" data-icon-id ="${food.id}" >&#9747;</button>
+                                </div>
+    
+                                <div class="card-main">
+                                    <img src="${food.image}" alt="default image" class="img-product" onerror="src='https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'" />
+                                    <div class="desc-product">
+                                        <p class="name-product">${food.name}</p>
+                                        <span class="price-product">$ ${food.price}</span>
+                                        <span class="dot">&#8226</span>
+                                        <span class="quantity-product">${food.quantity} bowls</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                        <p class="text-edit">Edit dish</p>
+                                </div>
+                    </div>
+            `;
+};
+
+const renderFoods = (foods: Array<Record<string, any>>) => {
+  const cardProducts = foods.map(renderProductItem);
+
+  productList!.innerHTML = cardProducts.join('');
+};
+
+const loadProductList = async () => {
+  const products = await get(handleGetFail, API.PRODUCTS_ENDPOINT);
+
+  renderFoods(products);
+};
+
+// Handle Add product
+
+const handleAddFail = () => {
+  toast(MESSAGE.ADD_FAIL, 'failed');
+};
+
+const handleAddSuccess = (food: Record<string, any>) => {
+  const newItem = renderProductItem(food);
+  productList!.innerHTML += newItem;
+  hideAddProductModal();
+
+  localStorage.removeItem('formData');
+  nameProduct.value = '';
+  imgURL.value = '';
+  price.value = '';
+  quantity.value = '';
+
+  toast(MESSAGE.ADD_SUCCESS, 'success');
+};
+
 const handleAddProduct = (e: Event) => {
   e.preventDefault();
   const errors = validateFormAdd();
@@ -221,9 +212,18 @@ const handleAddProduct = (e: Event) => {
   }
 };
 
+// Handle Delete Product
+
+const handleDeleteFail = () => {
+  toast(MESSAGE.DELETE_FAIL, 'failed');
+};
+
+const handleDeleteSuccess = () => {
+  toast(MESSAGE.DELETE_SUCCESS, 'success');
+};
+
 const handleDeleteProduct = () => {
-  hideDeleteProductModal();
-  remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT, id);
+  remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT);
 };
 
 export {
