@@ -14,7 +14,6 @@ const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
 const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
-
 // Toggle Modal : Modal delete product, Modal add product
 
 const showAddProductModal = () => {
@@ -47,11 +46,12 @@ const hideAddProductModal = () => {
 
 const showDeleteProductModal = (e: Event) => {
   const deleteBtn = (e.target as HTMLElement).closest('.icon-delete');
-  console.log(deleteBtn);
 
   if (deleteBtn) {
     modal.classList.add('open');
     modalDelete.style.display = 'block';
+    // const index = deleteBtn.dataset.index;
+    // console.log(index);
   }
 };
 
@@ -60,7 +60,7 @@ const hideDeleteProductModal = () => {
   modalDelete.style.display = 'none';
 };
 
-// handle show error, show success message when valid form
+// Handle show error, show success message when valid form
 
 const showError = (input: HTMLInputElement, message: string) => {
   const parent = input.parentElement as HTMLElement;
@@ -134,7 +134,7 @@ const renderProductItem = (food: Record<string, any>) => {
   return `
             <div class="card card-product" data-card-id = "${food.id}">
                                 <div class="card-header">
-                                    <button class="icon-delete" data-icon-id ="${food.id}" >&#9747;</button>
+                                    <button class="icon-delete" data-index ="${food.id}" >&#9747;</button>
                                 </div>
     
                                 <div class="card-main">
@@ -219,11 +219,20 @@ const handleDeleteFail = () => {
 };
 
 const handleDeleteSuccess = () => {
+  hideDeleteProductModal();
   toast(MESSAGE.DELETE_SUCCESS, 'success');
 };
 
-const handleDeleteProduct = () => {
-  remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT);
+const handleDeleteProduct = (e: Event) => {
+  const deleteBtn = (e.target as HTMLElement).closest('.icon-delete');
+
+  if (deleteBtn) {
+    modal.classList.add('open');
+    modalDelete.style.display = 'block';
+    const index = deleteBtn.dataset.index;
+    console.log(index);
+  }
+  // remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT, index);
 };
 
 export {
