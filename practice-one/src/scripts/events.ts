@@ -13,6 +13,7 @@ import {
   nameProduct,
   showSuccess,
   showError,
+  hideEditProductModal,
 } from './dom.js';
 import {
   checkImgUrlError,
@@ -38,9 +39,13 @@ const bindEvents = () => {
 
   cancelBtn?.addEventListener('click', hideAddProductModal);
 
+  cancelBtn?.addEventListener('click', hideEditProductModal);
+
   cancelBtnDelete?.addEventListener('click', hideDeleteProductModal);
 
   modal?.addEventListener('click', hideAddProductModal);
+
+  modal?.addEventListener('click', hideEditProductModal);
 
   modal?.addEventListener('click', hideDeleteProductModal);
 

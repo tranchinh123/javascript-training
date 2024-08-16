@@ -1,4 +1,4 @@
-import { get, create, remove } from './services/api.js';
+import { get, create, remove, getID } from './services/api.js';
 import { validateFormAdd } from './validator.js';
 import toast from './toast.js';
 import { API } from './constants/api.js';
@@ -26,7 +26,7 @@ const showAddProductModal = () => {
     title.textContent = 'Create a New Product';
   }
 
-  const formData = JSON.parse(localStorage.getItem('formData') ?? '');
+  const formData: any = JSON.parse(localStorage.getItem('formData') ?? '');
   nameProduct.value = formData.name;
   imgURL.value = formData.image;
   price.value = formData.price;
@@ -73,9 +73,25 @@ const hideDeleteProductModal = () => {
 
 // Modal EDIT
 
-const showEditProductModal = (e: Event) => {
-  const editBtn = (e.target as HTMLElement).closest('.card-footer');
+const showEditProductModal = async (e: Event) => {
+  const editBtn = (e.target as HTMLElement).closest(
+    '.card-footer'
+  ) as HTMLElement;
+
   if (editBtn) {
+    const index = editBtn.dataset.index;
+
+    const product: any = await getID(
+      handleGetFail,
+      API.PRODUCTS_ENDPOINT,
+      index
+    );
+
+    nameProduct.value = product.name;
+    imgURL.value = product.image;
+    price.value = product.price;
+    quantity.value = product.quantity;
+
     if (title) {
       title.textContent = 'Edit Product';
     }
@@ -87,6 +103,12 @@ const showEditProductModal = (e: Event) => {
 const hideEditProductModal = () => {
   modal!.classList.remove('open');
   modalContainer.style.display = 'none';
+
+  localStorage.removeItem('formData');
+  nameProduct.value = '';
+  imgURL.value = '';
+  price.value = '';
+  quantity.value = '';
 };
 
 // Handle show error, show success message when valid form
@@ -175,7 +197,7 @@ const renderProductItem = (food: Record<string, any>) => {
                                         <span class="quantity-product">${food.quantity} bowls</span>
                                     </div>
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer" data-index= "${food.id}">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>

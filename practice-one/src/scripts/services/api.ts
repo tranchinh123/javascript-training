@@ -17,6 +17,23 @@ const get = async (onError: () => void, endPoint: string) => {
   }
 };
 
+const getID = async (onError: () => void, endPoint: string, id: any) => {
+  try {
+    const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      return onError();
+    }
+  } catch (error) {
+    console.error('Something went wrong ');
+  }
+};
+
 const create = async (
   data: Record<string, any>,
   onSuccess: (data: any) => void,
@@ -42,7 +59,7 @@ const create = async (
 
 const remove = async (
   onSuccess: (data: any) => void,
-  onerror: () => void,
+  onError: () => void,
   endPoint: string,
   id: any
 ) => {
@@ -54,15 +71,16 @@ const remove = async (
       const data = await response.json();
       return onSuccess(data);
     } else {
-      return onerror();
+      return onError();
     }
   } catch (error) {
     console.error('Something went wrong');
   }
 };
+
 const edit = async (
   onSuccess: (data: any) => void,
-  onerror: () => void,
+  onError: () => void,
   endPoint: string,
   id: any
 ) => {
@@ -76,10 +94,10 @@ const edit = async (
       const data = await response.json();
       return onSuccess(data);
     } else {
-      return onerror();
+      return onError();
     }
   } catch (error) {
     console.error('Something went wrong');
   }
 };
-export { get, create, remove, edit };
+export { get, create, remove, edit, getID };

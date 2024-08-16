@@ -4,6 +4,8 @@ const MESSAGE = {
   GET_FAIL: 'Get Product List Fail !',
   DELETE_SUCCESS: 'Delete Product Successfully!',
   DELETE_FAIL: 'Delete Product Failed!',
+  EDIT_SUCCESS: 'Edit Product Successfully !',
+  EDIT_FAIL: 'Edit Product Failed !',
   EMPTY_ERROR: 'The field cannot be empty',
   IMG_URL_ERROR: 'Image URL format is valid',
   NUMBER_INTEGER_ERROR:
