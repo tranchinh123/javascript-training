@@ -3,6 +3,7 @@ import {
   hideAddProductModal,
   showDeleteProductModal,
   hideDeleteProductModal,
+  showEditProductModal,
   handleAddProduct,
   handleDeleteProduct,
   productList,
@@ -27,26 +28,37 @@ const cancelBtn = getElement('.btn-cancel');
 const cancelBtnDelete = getElement('.btn-cancel-delete');
 const modalContainerAdd = getElement('.modal-container-add');
 const modal = getElement('.modal');
-const form = getElement('#form-add');
+const form = getElement('#form-product');
 const modalDelete = getElement('.modal-delete') as HTMLElement;
 const confirmBtn = getElement('.btn-confirm');
 const listInput = [nameProduct, price, imgURL, quantity];
 
 const bindEvents = () => {
   cardAdd?.addEventListener('click', showAddProductModal);
+
   cancelBtn?.addEventListener('click', hideAddProductModal);
+
   cancelBtnDelete?.addEventListener('click', hideDeleteProductModal);
+
   modal?.addEventListener('click', hideAddProductModal);
+
+  modal?.addEventListener('click', hideDeleteProductModal);
+
   form?.addEventListener('submit', handleAddProduct);
+
   modalContainerAdd?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
+
   modalDelete.addEventListener('click', (e) => {
     e.stopPropagation();
   });
-  confirmBtn?.addEventListener('click', handleDeleteProduct);
-  productList?.addEventListener('click', showDeleteProductModal);
 
+  confirmBtn?.addEventListener('click', handleDeleteProduct);
+
+  productList?.addEventListener('click', showEditProductModal);
+
+  productList?.addEventListener('click', showDeleteProductModal);
   //Event on blur input form
 
   nameProduct?.addEventListener('blur', () => {
@@ -73,7 +85,7 @@ const bindEvents = () => {
 
   quantity.addEventListener('blur', () => {
     if (quantity.value.trim() === '') {
-      showError(imgURL, MESSAGE.EMPTY_ERROR);
+      showError(quantity, MESSAGE.EMPTY_ERROR);
     } else if (checkIsNumberIntegerError(quantity)) {
       showError(quantity, MESSAGE.NUMBER_INTEGER_ERROR);
     }

@@ -15,13 +15,18 @@ const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
 const confirmBtn = getElement('.btn-confirm') as HTMLElement;
-// Toggle Modal : Modal delete product, Modal add product
+const title = getElement('.modal-header') as HTMLElement;
+// Toggle Modal : Modal delete product, Modal add product, Modal edit product
 
+// Modal ADD
 const showAddProductModal = () => {
   modal.classList.add('open');
   modalContainer.style.display = 'block';
+  if (title) {
+    title.textContent = 'Create a New Product';
+  }
 
-  const formData = JSON.parse(localStorage.getItem('formData') ?? '{}');
+  const formData = JSON.parse(localStorage.getItem('formData') ?? '');
   nameProduct.value = formData.name;
   imgURL.value = formData.image;
   price.value = formData.price;
@@ -45,6 +50,7 @@ const hideAddProductModal = () => {
   });
 };
 
+// Modal DELETE
 const showDeleteProductModal = (e: Event) => {
   const deleteBtn = (e.target as HTMLElement).closest(
     '.icon-delete'
@@ -63,6 +69,24 @@ const showDeleteProductModal = (e: Event) => {
 const hideDeleteProductModal = () => {
   modal!.classList.remove('open');
   modalDelete.style.display = 'none';
+};
+
+// Modal EDIT
+
+const showEditProductModal = (e: Event) => {
+  const editBtn = (e.target as HTMLElement).closest('.card-footer');
+  if (editBtn) {
+    if (title) {
+      title.textContent = 'Edit Product';
+    }
+    modal.classList.add('open');
+    modalContainer.style.display = 'block';
+  }
+};
+
+const hideEditProductModal = () => {
+  modal!.classList.remove('open');
+  modalContainer.style.display = 'none';
 };
 
 // Handle show error, show success message when valid form
@@ -206,6 +230,7 @@ const handleAddProduct = (e: Event) => {
     for (const [key, value] of formData.entries()) {
       formDataObject[key] = value;
     }
+
     create(
       formDataObject,
       handleAddSuccess,
@@ -243,6 +268,8 @@ export {
   hideAddProductModal,
   showDeleteProductModal,
   hideDeleteProductModal,
+  showEditProductModal,
+  hideEditProductModal,
   handleAddProduct,
   handleDeleteProduct,
   productList,

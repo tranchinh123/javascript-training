@@ -54,12 +54,12 @@ const checkIsDecimalError = (input: HTMLInputElement) => {
 
 const validateFormAdd = () => {
   const isImgUrlError = checkImgUrlError(imgURL);
-  const isNumberIntError = checkIsNumberIntegerError(quantity);
-  const isNumberDecError = checkIsDecimalError(price);
-  const isEmptyErrorName = checkEmptyError(nameProduct);
-  const isEmptyErrorPrice = checkEmptyError(price);
-  const isEmptyErrorQuantity = checkEmptyError(quantity);
   const isEmptyErrorImg = checkEmptyError(imgURL);
+  const isNumberIntError = checkIsNumberIntegerError(quantity);
+  const isEmptyErrorQuantity = checkEmptyError(quantity);
+  const isNumberDecError = checkIsDecimalError(price);
+  const isEmptyErrorPrice = checkEmptyError(price);
+  const isEmptyErrorName = checkEmptyError(nameProduct);
 
   return {
     isEmptyErrorName,
