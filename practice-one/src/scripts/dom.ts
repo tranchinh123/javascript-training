@@ -226,8 +226,6 @@ const handleDeleteFail = () => {
 const handleDeleteSuccess = (data: any) => {
   hideDeleteProductModal();
   const productItem = getElement('.data-card-id-' + data.id);
-  console.log(productItem);
-
   if (productItem) {
     productItem.remove();
   }

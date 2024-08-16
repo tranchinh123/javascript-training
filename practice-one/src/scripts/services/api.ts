@@ -60,5 +60,26 @@ const remove = async (
     console.error('Something went wrong');
   }
 };
-
-export { get, create, remove };
+const edit = async (
+  onSuccess: (data: any) => void,
+  onerror: () => void,
+  endPoint: string,
+  id: any
+) => {
+  try {
+    const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
+      method: 'PUT', // or PATCH
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ completed: true }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return onSuccess(data);
+    } else {
+      return onerror();
+    }
+  } catch (error) {
+    console.error('Something went wrong');
+  }
+};
+export { get, create, remove, edit };
