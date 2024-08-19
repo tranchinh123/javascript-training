@@ -1,4 +1,4 @@
-import { get, create, remove, getID } from './services/api.js';
+import { get, create, remove, getID, edit } from './services/api.js';
 import { validateFormAdd } from './validator.js';
 import toast from './toast.js';
 import { API } from './constants/api.js';
@@ -16,6 +16,7 @@ const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
 const confirmBtn = getElement('.btn-confirm') as HTMLElement;
 const title = getElement('.modal-header') as HTMLElement;
+const idProduct = getElement('#id-product') as HTMLElement;
 // Toggle Modal : Modal delete product, Modal add product, Modal edit product
 
 // Modal ADD
@@ -84,7 +85,7 @@ const showEditProductModal = async (e: Event) => {
     const product: any = await getID(
       handleGetFail,
       API.PRODUCTS_ENDPOINT,
-      index
+      index || ''
     );
 
     nameProduct.value = product.name;
@@ -95,6 +96,8 @@ const showEditProductModal = async (e: Event) => {
     if (title) {
       title.textContent = 'Edit Product';
     }
+
+    idProduct.dataset.index = index;
     modal.classList.add('open');
     modalContainer.style.display = 'block';
   }
@@ -103,7 +106,7 @@ const showEditProductModal = async (e: Event) => {
 const hideEditProductModal = () => {
   modal!.classList.remove('open');
   modalContainer.style.display = 'none';
-
+  idProduct.removeAttribute('data-index');
   localStorage.removeItem('formData');
   nameProduct.value = '';
   imgURL.value = '';
@@ -216,10 +219,22 @@ const loadProductList = async () => {
   renderFoods(products);
 };
 
-// Handle Add product
+// Handle Add product, Edit product
 
 const handleAddFail = () => {
   toast(MESSAGE.ADD_FAIL, 'failed');
+};
+
+const handleEditFail = () => {
+  toast(MESSAGE.EDIT_FAIL, 'failed');
+};
+
+const handleEditSuccess = (food: Record<string, any>) => {
+  hideEditProductModal();
+  toast(MESSAGE.EDIT_SUCCESS, 'success');
+  const editItem = renderProductItem(food);
+  const productItem = getElement('.data-card-id-' + food.id) as HTMLElement;
+  productItem!.innerHTML = editItem;
 };
 
 const handleAddSuccess = (food: Record<string, any>) => {
@@ -238,27 +253,40 @@ const handleAddSuccess = (food: Record<string, any>) => {
 
 const handleAddProduct = (e: Event) => {
   e.preventDefault();
+
   const errors = validateFormAdd();
 
   const isValid = Object.values(errors).every((value) => value === false);
 
   if (isValid) {
     const formData = new FormData(e.target as HTMLFormElement);
+    const index = idProduct.dataset.index;
     interface FormDataObject {
       [key: string]: any;
     }
+
     const formDataObject: FormDataObject = {};
 
     for (const [key, value] of formData.entries()) {
       formDataObject[key] = value;
     }
 
-    create(
-      formDataObject,
-      handleAddSuccess,
-      handleAddFail,
-      API.PRODUCTS_ENDPOINT
-    );
+    if (!idProduct.dataset.index) {
+      create(
+        formDataObject,
+        handleAddSuccess,
+        handleAddFail,
+        API.PRODUCTS_ENDPOINT
+      );
+    } else {
+      edit(
+        formDataObject,
+        handleEditSuccess,
+        handleEditFail,
+        API.PRODUCTS_ENDPOINT,
+        index
+      );
+    }
   } else {
     handleShowError(errors);
   }
@@ -281,7 +309,12 @@ const handleDeleteSuccess = (data: any) => {
 
 const handleDeleteProduct = () => {
   const index = confirmBtn?.getAttribute('data-index');
-  remove(handleDeleteSuccess, handleDeleteFail, API.PRODUCTS_ENDPOINT, index);
+  remove(
+    handleDeleteSuccess,
+    handleDeleteFail,
+    API.PRODUCTS_ENDPOINT,
+    index || ''
+  );
 };
 
 export {

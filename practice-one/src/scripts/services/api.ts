@@ -17,7 +17,7 @@ const get = async (onError: () => void, endPoint: string) => {
   }
 };
 
-const getID = async (onError: () => void, endPoint: string, id: any) => {
+const getID = async (onError: () => void, endPoint: string, id: string) => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
       method: 'GET',
@@ -61,7 +61,7 @@ const remove = async (
   onSuccess: (data: any) => void,
   onError: () => void,
   endPoint: string,
-  id: any
+  id: string
 ) => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
@@ -79,6 +79,7 @@ const remove = async (
 };
 
 const edit = async (
+  data: Record<string, any>,
   onSuccess: (data: any) => void,
   onError: () => void,
   endPoint: string,
@@ -88,7 +89,7 @@ const edit = async (
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
       method: 'PUT', // or PATCH
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ completed: true }),
+      body: JSON.stringify(data),
     });
     if (response.ok) {
       const data = await response.json();
