@@ -92,7 +92,7 @@ const showEditProductModal = async (e: Event) => {
     const index = editBtn.dataset.index;
 
     const product = await getByID(
-      handleGetFail,
+      handleGetProductFailed,
       API.PRODUCTS_ENDPOINT,
       index || ''
     );
@@ -183,13 +183,11 @@ const handleShowError = (errors: Record<string, boolean>) => {
   } else {
     showSuccess(nameProduct);
   }
-
-  // handle show error/show success
 };
 
 // Show list products
 
-const handleGetFail = () => {
+const handleGetProductFailed = () => {
   toast(MESSAGE.GET_FAIL, 'failed');
 };
 
@@ -223,22 +221,23 @@ const renderFoods = (foods: Array<Product>) => {
 };
 
 const loadProductList = async () => {
-  const products = (await get(handleGetFail, API.PRODUCTS_ENDPOINT)) ?? [];
+  const products =
+    (await get(handleGetProductFailed, API.PRODUCTS_ENDPOINT)) ?? [];
 
   renderFoods(products);
 };
 
 // Handle Add product, Edit product
 
-const handleAddFail = () => {
+const handleAddProductFailed = () => {
   toast(MESSAGE.ADD_FAIL, 'failed');
 };
 
-const handleEditFail = () => {
+const handleEditProductFailed = () => {
   toast(MESSAGE.EDIT_FAIL, 'failed');
 };
 
-const handleEditSuccess = (food: Product) => {
+const handleEditProductSuccess = (food: Product) => {
   hideEditProductModal();
   toast(MESSAGE.EDIT_SUCCESS, 'success');
   const editItem = renderProductItem(food);
@@ -246,7 +245,7 @@ const handleEditSuccess = (food: Product) => {
   productItem!.innerHTML = editItem;
 };
 
-const handleAddSuccess = (food: Product) => {
+const handleAddProductSuccess = (food: Product) => {
   const newItem = renderProductItem(food);
   productList!.innerHTML += newItem;
   hideAddProductModal();
@@ -295,15 +294,15 @@ const handleAddProduct = (e: Event) => {
     if (!idProduct.dataset.index) {
       create(
         formDataObject,
-        handleAddSuccess,
-        handleAddFail,
+        handleAddProductSuccess,
+        handleAddProductFailed,
         API.PRODUCTS_ENDPOINT
       );
     } else {
       edit(
         formDataObject,
-        handleEditSuccess,
-        handleEditFail,
+        handleEditProductSuccess,
+        handleEditProductFailed,
         API.PRODUCTS_ENDPOINT,
         index
       );
@@ -315,11 +314,11 @@ const handleAddProduct = (e: Event) => {
 
 // Handle Delete Product
 
-const handleDeleteFail = () => {
+const handleDeleteProductFail = () => {
   toast(MESSAGE.DELETE_FAIL, 'failed');
 };
 
-const handleDeleteSuccess = (data: Product) => {
+const handleDeleteProductSuccess = (data: Product) => {
   hideDeleteProductModal();
   const productItem = getElement('.data-card-id-' + data.id);
   if (productItem) {
@@ -331,8 +330,8 @@ const handleDeleteSuccess = (data: Product) => {
 const handleDeleteProduct = () => {
   const index = confirmBtn.getAttribute('data-index');
   remove(
-    handleDeleteSuccess,
-    handleDeleteFail,
+    handleDeleteProductSuccess,
+    handleDeleteProductFail,
     API.PRODUCTS_ENDPOINT,
     index || ''
   );

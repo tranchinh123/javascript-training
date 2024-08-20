@@ -6,6 +6,7 @@ interface Product {
   quantity: string;
   id: string;
 }
+
 const get = async (
   onError: () => void,
   endPoint: string
