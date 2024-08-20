@@ -1,41 +1,51 @@
 import { get, create, remove, getByID, edit } from './services/api.js';
 import { validateFormAdd } from './validator.js';
-import toast from './toast.js';
+import { toast, ToastType } from './toast.js';
 import { API } from './constants/api.js';
 import { getElement, getAllElement } from './helpers/queryDOM.js';
 import MESSAGE from './constants/message.js';
 
-const productList = getElement('.product-list');
-const formMessage = getAllElement('.form-message');
-const modal = getElement('.modal') as HTMLElement;
-const modalContainer = getElement('.modal-container-add') as HTMLElement;
-const modalDelete = getElement('.modal-delete') as HTMLElement;
+const productListEle = getElement('.product-list');
+const formMessageEle = getAllElement('.form-message');
+const modalEle = getElement('.modal') as HTMLElement;
+const modalContainerEle = getElement('.modal-container-add') as HTMLElement;
+const modalDeleteEle = getElement('.modal-delete') as HTMLElement;
+const confirmBtnEle = getElement('.btn-confirm') as HTMLElement;
+const titleEle = getElement('.modal-header') as HTMLElement;
+const productIdEle = getElement('#id-product') as HTMLElement;
 const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
 const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
-const confirmBtn = getElement('.btn-confirm') as HTMLElement;
-const title = getElement('.modal-header') as HTMLElement;
-const idProduct = getElement('#id-product') as HTMLElement;
 
 interface Product {
   name: string;
   image: string;
   price: string;
   quantity: string;
-  id: string;
+  id?: string;
 }
+
+const resetForm = () => {
+  localStorage.removeItem('formData');
+
+  nameProduct.value = '';
+  imgURL.value = '';
+  price.value = '';
+  quantity.value = '';
+};
+
 // Toggle Modal : Modal delete product, Modal add product, Modal edit product
 
 // Modal ADD
 const showAddProductModal = () => {
-  modal.classList.add('open');
-  modalContainer.style.display = 'block';
-  if (title) {
-    title.textContent = 'Create a New Product';
+  modalEle.classList.add('open');
+  modalContainerEle.style.display = 'block';
+  if (titleEle) {
+    titleEle.textContent = 'Create a New Product';
   }
 
-  const formData: any = JSON.parse(localStorage.getItem('formData') ?? '');
+  const formData: Product = JSON.parse(localStorage.getItem('formData') ?? '');
 
   nameProduct.value = formData.name;
   imgURL.value = formData.image;
@@ -44,10 +54,10 @@ const showAddProductModal = () => {
 };
 
 const hideAddProductModal = () => {
-  modal!.classList.remove('open');
-  modalContainer.style.display = 'none';
+  modalEle!.classList.remove('open');
+  modalContainerEle.style.display = 'none';
 
-  const formData = {
+  const formData: Product = {
     name: nameProduct.value,
     image: imgURL.value,
     price: price.value,
@@ -55,7 +65,7 @@ const hideAddProductModal = () => {
   };
 
   localStorage.setItem('formData', JSON.stringify(formData));
-  formMessage.forEach((message) => {
+  formMessageEle.forEach((message) => {
     message.innerHTML = '';
   });
 };
@@ -67,18 +77,18 @@ const showDeleteProductModal = (e: Event) => {
   ) as HTMLElement;
 
   if (deleteBtn) {
-    modal.classList.add('open');
-    modalDelete.style.display = 'block';
-    const index = deleteBtn.dataset.index;
-    if (confirmBtn) {
-      confirmBtn.dataset.index = index;
+    modalEle.classList.add('open');
+    modalDeleteEle.style.display = 'block';
+    const productId = deleteBtn.dataset.index;
+    if (confirmBtnEle) {
+      confirmBtnEle.dataset.index = productId;
     }
   }
 };
 
 const hideDeleteProductModal = () => {
-  modal!.classList.remove('open');
-  modalDelete.style.display = 'none';
+  modalContainerEle!.classList.remove('open');
+  modalDeleteEle.style.display = 'none';
 };
 
 // Modal EDIT
@@ -89,12 +99,12 @@ const showEditProductModal = async (e: Event) => {
   ) as HTMLElement;
 
   if (editBtn) {
-    const index = editBtn.dataset.index;
+    const productId = editBtn.dataset.index;
 
     const product = await getByID(
       handleGetProductFailed,
       API.PRODUCTS_ENDPOINT,
-      index || ''
+      productId || ''
     );
 
     nameProduct.value = product?.name || '';
@@ -102,25 +112,21 @@ const showEditProductModal = async (e: Event) => {
     price.value = product?.price || '';
     quantity.value = product?.quantity || '';
 
-    if (title) {
-      title.textContent = 'Edit Product';
+    if (titleEle) {
+      titleEle.textContent = 'Edit Product';
     }
 
-    idProduct.dataset.index = index;
-    modal.classList.add('open');
-    modalContainer.style.display = 'block';
+    productIdEle.dataset.index = productId;
+    modalEle.classList.add('open');
+    modalContainerEle.style.display = 'block';
   }
 };
 
 const hideEditProductModal = () => {
-  modal!.classList.remove('open');
-  modalContainer.style.display = 'none';
-  idProduct.removeAttribute('data-index');
-  localStorage.removeItem('formData');
-  nameProduct.value = '';
-  imgURL.value = '';
-  price.value = '';
-  quantity.value = '';
+  modalEle!.classList.remove('open');
+  modalContainerEle.style.display = 'none';
+  productIdEle.removeAttribute('data-index');
+  resetForm();
 };
 
 // Handle show error, show success message when valid form
@@ -185,10 +191,10 @@ const handleShowError = (errors: Record<string, boolean>) => {
   }
 };
 
-// Show list products
+// Handle get products and render Dom
 
 const handleGetProductFailed = () => {
-  toast(MESSAGE.GET_FAIL, 'failed');
+  toast(MESSAGE.GET_FAIL, ToastType.Failed);
 };
 
 const renderProductItem = (food: Product) => {
@@ -217,7 +223,7 @@ const renderProductItem = (food: Product) => {
 const renderFoods = (foods: Array<Product>) => {
   const cardProducts = foods.map(renderProductItem);
 
-  productList!.innerHTML = cardProducts.join('');
+  productListEle!.innerHTML = cardProducts.join('');
 };
 
 const loadProductList = async () => {
@@ -230,16 +236,16 @@ const loadProductList = async () => {
 // Handle Add product, Edit product
 
 const handleAddProductFailed = () => {
-  toast(MESSAGE.ADD_FAIL, 'failed');
+  toast(MESSAGE.ADD_FAIL, ToastType.Failed);
 };
 
 const handleEditProductFailed = () => {
-  toast(MESSAGE.EDIT_FAIL, 'failed');
+  toast(MESSAGE.EDIT_FAIL, ToastType.Failed);
 };
 
 const handleEditProductSuccess = (food: Product) => {
   hideEditProductModal();
-  toast(MESSAGE.EDIT_SUCCESS, 'success');
+  toast(MESSAGE.EDIT_SUCCESS, ToastType.Success);
   const editItem = renderProductItem(food);
   const productItem = getElement('.data-card-id-' + food.id) as HTMLElement;
   productItem!.innerHTML = editItem;
@@ -247,7 +253,7 @@ const handleEditProductSuccess = (food: Product) => {
 
 const handleAddProductSuccess = (food: Product) => {
   const newItem = renderProductItem(food);
-  productList!.innerHTML += newItem;
+  productListEle!.innerHTML += newItem;
   hideAddProductModal();
 
   localStorage.removeItem('formData');
@@ -256,7 +262,7 @@ const handleAddProductSuccess = (food: Product) => {
   price.value = '';
   quantity.value = '';
 
-  toast(MESSAGE.ADD_SUCCESS, 'success');
+  toast(MESSAGE.ADD_SUCCESS, ToastType.Success);
 };
 
 const handleAddProduct = (e: Event) => {
@@ -266,10 +272,11 @@ const handleAddProduct = (e: Event) => {
 
   const isValid = Object.values(errors).every((value) => value === false);
 
-  if (isValid) {
-    const formData = new FormData(e.target as HTMLFormElement);
-    const index = idProduct.dataset.index as string;
+  const formData = new FormData(e.target as HTMLFormElement);
 
+  const productId = productIdEle.dataset.index as string;
+
+  if (isValid) {
     interface FormDataObject {
       [key: string]: string | File;
       name: string;
@@ -291,7 +298,7 @@ const handleAddProduct = (e: Event) => {
       formDataObject[key] = value;
     }
 
-    if (!idProduct.dataset.index) {
+    if (!productId) {
       create(
         formDataObject,
         handleAddProductSuccess,
@@ -304,7 +311,7 @@ const handleAddProduct = (e: Event) => {
         handleEditProductSuccess,
         handleEditProductFailed,
         API.PRODUCTS_ENDPOINT,
-        index
+        productId
       );
     }
   } else {
@@ -315,25 +322,29 @@ const handleAddProduct = (e: Event) => {
 // Handle Delete Product
 
 const handleDeleteProductFail = () => {
-  toast(MESSAGE.DELETE_FAIL, 'failed');
+  toast(MESSAGE.DELETE_FAIL, ToastType.Success);
 };
 
 const handleDeleteProductSuccess = (data: Product) => {
   hideDeleteProductModal();
+
   const productItem = getElement('.data-card-id-' + data.id);
+
   if (productItem) {
     productItem.remove();
   }
-  toast(MESSAGE.DELETE_SUCCESS, 'success');
+
+  toast(MESSAGE.DELETE_SUCCESS, ToastType.Success);
 };
 
 const handleDeleteProduct = () => {
-  const index = confirmBtn.getAttribute('data-index');
+  const productId = confirmBtnEle.getAttribute('data-index');
+
   remove(
     handleDeleteProductSuccess,
     handleDeleteProductFail,
     API.PRODUCTS_ENDPOINT,
-    index || ''
+    productId || ''
   );
 };
 
@@ -347,7 +358,7 @@ export {
   hideEditProductModal,
   handleAddProduct,
   handleDeleteProduct,
-  productList,
+  productListEle,
   nameProduct,
   imgURL,
   price,

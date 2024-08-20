@@ -1,8 +1,11 @@
 import { getElement } from './helpers/queryDOM.js';
-
+export enum ToastType {
+  Failed = 'failed',
+  Success = 'success',
+}
 const main = getElement('#toast');
 
-const toast = (message: string, type: string) => {
+const toast = (message: string, type: ToastType) => {
   if (main) {
     const toast = document.createElement('div');
     toast.classList.add('toast', `toast-${type}`);
@@ -16,4 +19,4 @@ const toast = (message: string, type: string) => {
   }
 };
 
-export default toast;
+export { toast };
