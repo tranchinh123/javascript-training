@@ -1,6 +1,15 @@
 import { API } from '../constants/api.js';
-
-const get = async (onError: () => void, endPoint: string) => {
+interface Product {
+  name: string;
+  image: string;
+  price: string;
+  quantity: string;
+  id: string;
+}
+const get = async (
+  onError: () => void,
+  endPoint: string
+): Promise<Product[] | void> => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}`, {
       method: 'GET',
@@ -17,7 +26,11 @@ const get = async (onError: () => void, endPoint: string) => {
   }
 };
 
-const getByID = async (onError: () => void, endPoint: string, id: string) => {
+const getByID = async (
+  onError: () => void,
+  endPoint: string,
+  id: string
+): Promise<Product | void> => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
       method: 'GET',
@@ -35,8 +48,8 @@ const getByID = async (onError: () => void, endPoint: string, id: string) => {
 };
 
 const create = async (
-  data: Record<string, string>,
-  onSuccess: (data: Record<string, string>) => void,
+  data: Product,
+  onSuccess: (data: Product) => void,
   onError: () => void,
   endPoint: string
 ) => {
@@ -58,7 +71,7 @@ const create = async (
 };
 
 const remove = async (
-  onSuccess: (data: Record<string, string>) => void,
+  onSuccess: (data: Product) => void,
   onError: () => void,
   endPoint: string,
   id: string
@@ -79,8 +92,8 @@ const remove = async (
 };
 
 const edit = async (
-  data: Record<string, string>,
-  onSuccess: (data: Record<string, string>) => void,
+  data: Product,
+  onSuccess: (data: Product) => void,
   onError: () => void,
   endPoint: string,
   id: string

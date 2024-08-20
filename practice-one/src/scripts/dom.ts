@@ -17,6 +17,14 @@ const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
 const confirmBtn = getElement('.btn-confirm') as HTMLElement;
 const title = getElement('.modal-header') as HTMLElement;
 const idProduct = getElement('#id-product') as HTMLElement;
+
+interface Product {
+  name: string;
+  image: string;
+  price: string;
+  quantity: string;
+  id: string;
+}
 // Toggle Modal : Modal delete product, Modal add product, Modal edit product
 
 // Modal ADD
@@ -27,12 +35,12 @@ const showAddProductModal = () => {
     title.textContent = 'Create a New Product';
   }
 
-  // const formData: any = JSON.parse(localStorage.getItem('formData') ?? '');
+  const formData: any = JSON.parse(localStorage.getItem('formData') ?? '');
 
-  // nameProduct.value = formData.name;
-  // imgURL.value = formData.image;
-  // price.value = formData.price;
-  // quantity.value = formData.quantity;
+  nameProduct.value = formData.name;
+  imgURL.value = formData.image;
+  price.value = formData.price;
+  quantity.value = formData.quantity;
 };
 
 const hideAddProductModal = () => {
@@ -89,10 +97,10 @@ const showEditProductModal = async (e: Event) => {
       index || ''
     );
 
-    nameProduct.value = product.name;
-    imgURL.value = product.image;
-    price.value = product.price;
-    quantity.value = product.quantity;
+    nameProduct.value = product?.name || '';
+    imgURL.value = product?.image || '';
+    price.value = product?.price || '';
+    quantity.value = product?.quantity || '';
 
     if (title) {
       title.textContent = 'Edit Product';
@@ -185,7 +193,7 @@ const handleGetFail = () => {
   toast(MESSAGE.GET_FAIL, 'failed');
 };
 
-const renderProductItem = (food: Record<string, string>) => {
+const renderProductItem = (food: Product) => {
   return `
             <div class="card card-product data-card-id-${food.id}">
                                 <div class="card-header">
@@ -208,14 +216,14 @@ const renderProductItem = (food: Record<string, string>) => {
             `;
 };
 
-const renderFoods = (foods: Array<Record<string, string>>) => {
+const renderFoods = (foods: Array<Product>) => {
   const cardProducts = foods.map(renderProductItem);
 
   productList!.innerHTML = cardProducts.join('');
 };
 
 const loadProductList = async () => {
-  const products = await get(handleGetFail, API.PRODUCTS_ENDPOINT);
+  const products = (await get(handleGetFail, API.PRODUCTS_ENDPOINT)) ?? [];
 
   renderFoods(products);
 };
@@ -230,7 +238,7 @@ const handleEditFail = () => {
   toast(MESSAGE.EDIT_FAIL, 'failed');
 };
 
-const handleEditSuccess = (food: Record<string, string>) => {
+const handleEditSuccess = (food: Product) => {
   hideEditProductModal();
   toast(MESSAGE.EDIT_SUCCESS, 'success');
   const editItem = renderProductItem(food);
@@ -238,7 +246,7 @@ const handleEditSuccess = (food: Record<string, string>) => {
   productItem!.innerHTML = editItem;
 };
 
-const handleAddSuccess = (food: Record<string, string>) => {
+const handleAddSuccess = (food: Product) => {
   const newItem = renderProductItem(food);
   productList!.innerHTML += newItem;
   hideAddProductModal();
@@ -264,10 +272,21 @@ const handleAddProduct = (e: Event) => {
     const index = idProduct.dataset.index as string;
 
     interface FormDataObject {
-      [key: string]: any;
+      [key: string]: string | File;
+      name: string;
+      image: string;
+      price: string;
+      quantity: string;
+      id: string;
     }
 
-    const formDataObject: FormDataObject = {};
+    const formDataObject: FormDataObject = {
+      name: '',
+      image: '',
+      price: '',
+      quantity: '',
+      id: '',
+    };
 
     for (const [key, value] of formData.entries()) {
       formDataObject[key] = value;
@@ -300,7 +319,7 @@ const handleDeleteFail = () => {
   toast(MESSAGE.DELETE_FAIL, 'failed');
 };
 
-const handleDeleteSuccess = (data: Record<string, string>) => {
+const handleDeleteSuccess = (data: Product) => {
   hideDeleteProductModal();
   const productItem = getElement('.data-card-id-' + data.id);
   if (productItem) {
