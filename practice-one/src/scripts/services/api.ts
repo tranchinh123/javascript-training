@@ -17,7 +17,7 @@ const get = async (onError: () => void, endPoint: string) => {
   }
 };
 
-const getID = async (onError: () => void, endPoint: string, id: string) => {
+const getByID = async (onError: () => void, endPoint: string, id: string) => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
       method: 'GET',
@@ -35,8 +35,8 @@ const getID = async (onError: () => void, endPoint: string, id: string) => {
 };
 
 const create = async (
-  data: Record<string, any>,
-  onSuccess: (data: any) => void,
+  data: Record<string, string>,
+  onSuccess: (data: Record<string, string>) => void,
   onError: () => void,
   endPoint: string
 ) => {
@@ -58,7 +58,7 @@ const create = async (
 };
 
 const remove = async (
-  onSuccess: (data: any) => void,
+  onSuccess: (data: Record<string, string>) => void,
   onError: () => void,
   endPoint: string,
   id: string
@@ -79,11 +79,11 @@ const remove = async (
 };
 
 const edit = async (
-  data: Record<string, any>,
-  onSuccess: (data: any) => void,
+  data: Record<string, string>,
+  onSuccess: (data: Record<string, string>) => void,
   onError: () => void,
   endPoint: string,
-  id: any
+  id: string
 ) => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
@@ -101,4 +101,4 @@ const edit = async (
     console.error('Something went wrong');
   }
 };
-export { get, create, remove, edit, getID };
+export { get, create, remove, edit, getByID };

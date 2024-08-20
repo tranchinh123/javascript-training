@@ -30,7 +30,7 @@ const cancelBtnDelete = getElement('.btn-cancel-delete');
 const modalContainerAdd = getElement('.modal-container-add');
 const modal = getElement('.modal');
 const form = getElement('#form-product');
-const modalDelete = getElement('.modal-delete') as HTMLElement;
+const modalDelete = getElement('.modal-delete');
 const confirmBtn = getElement('.btn-confirm');
 const listInput = [nameProduct, price, imgURL, quantity];
 
@@ -55,7 +55,7 @@ const bindEvents = () => {
     e.stopPropagation();
   });
 
-  modalDelete.addEventListener('click', (e) => {
+  modalDelete?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
 
@@ -72,8 +72,8 @@ const bindEvents = () => {
     }
   });
 
-  price?.addEventListener('blur', () => {
-    if (price?.value.trim() === '') {
+  price.addEventListener('blur', () => {
+    if (price.value.trim() === '') {
       showError(price, MESSAGE.EMPTY_ERROR);
     } else if (checkIsDecimalError(price)) {
       showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
