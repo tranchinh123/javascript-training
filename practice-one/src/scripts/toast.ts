@@ -1,8 +1,5 @@
 import { getElement } from './helpers/queryDOM.js';
-export enum ToastType {
-  Failed = 'failed',
-  Success = 'success',
-}
+import { ToastType } from './types/types.js';
 const main = getElement('#toast');
 
 const toast = (message: string, type: ToastType) => {

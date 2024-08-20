@@ -1,11 +1,5 @@
 import { API } from '../constants/api.js';
-interface Product {
-  name: string;
-  image: string;
-  price: string;
-  quantity: string;
-  id: string;
-}
+import { Product } from '../types/types.js';
 
 const get = async (
   onError: () => void,

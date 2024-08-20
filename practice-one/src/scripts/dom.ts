@@ -1,6 +1,7 @@
 import { get, create, remove, getByID, edit } from './services/api.js';
 import { validateFormAdd } from './validator.js';
-import { toast, ToastType } from './toast.js';
+import { toast } from './toast.js';
+import { ToastType, Product, FormDataObject } from './types/types.js';
 import { API } from './constants/api.js';
 import { getElement, getAllElement } from './helpers/queryDOM.js';
 import MESSAGE from './constants/message.js';
@@ -17,14 +18,6 @@ const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
 const price = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
 const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
-
-interface Product {
-  name: string;
-  image: string;
-  price: string;
-  quantity: string;
-  id?: string;
-}
 
 const resetForm = () => {
   localStorage.removeItem('formData');
@@ -277,15 +270,6 @@ const handleAddProduct = (e: Event) => {
   const productId = productIdEle.dataset.index as string;
 
   if (isValid) {
-    interface FormDataObject {
-      [key: string]: string | File;
-      name: string;
-      image: string;
-      price: string;
-      quantity: string;
-      id: string;
-    }
-
     const formDataObject: FormDataObject = {
       name: '',
       image: '',

@@ -6,7 +6,7 @@ import {
   showEditProductModal,
   handleAddProduct,
   handleDeleteProduct,
-  productList,
+  productListEle,
   imgURL,
   price,
   quantity,
@@ -61,9 +61,9 @@ const bindEvents = () => {
 
   confirmBtn?.addEventListener('click', handleDeleteProduct);
 
-  productList?.addEventListener('click', showEditProductModal);
+  productListEle?.addEventListener('click', showEditProductModal);
 
-  productList?.addEventListener('click', showDeleteProductModal);
+  productListEle?.addEventListener('click', showDeleteProductModal);
   //Event on blur input form
 
   nameProduct?.addEventListener('blur', () => {
