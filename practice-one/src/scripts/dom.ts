@@ -238,7 +238,9 @@ const handleEditProductFailed = () => {
 
 const handleEditProductSuccess = (food: Product) => {
   hideEditProductModal();
+
   toast(MESSAGE.EDIT_SUCCESS, ToastType.Success);
+
   const editItem = renderProductItem(food);
   const productItem = getElement('.data-card-id-' + food.id) as HTMLElement;
   productItem!.innerHTML = editItem;
@@ -246,10 +248,13 @@ const handleEditProductSuccess = (food: Product) => {
 
 const handleAddProductSuccess = (food: Product) => {
   const newItem = renderProductItem(food);
+
   productListEle!.innerHTML += newItem;
+
   hideAddProductModal();
 
   localStorage.removeItem('formData');
+
   nameProduct.value = '';
   imgURL.value = '';
   price.value = '';

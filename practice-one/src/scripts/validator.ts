@@ -1,4 +1,4 @@
-import { imgURL, price, quantity, nameProduct } from './dom.js';
+import { imgURLEle, priceEle, quantityEle, nameProductEle } from './dom.js';
 
 const checkEmptyError = (input: HTMLInputElement) => {
   let isEmptyError = false;
@@ -53,13 +53,13 @@ const checkIsDecimalError = (input: HTMLInputElement) => {
 };
 
 const validateFormAdd = () => {
-  const isImgUrlError = checkImgUrlError(imgURL);
-  const isEmptyErrorImg = checkEmptyError(imgURL);
-  const isNumberIntError = checkIsNumberIntegerError(quantity);
-  const isEmptyErrorQuantity = checkEmptyError(quantity);
-  const isNumberDecError = checkIsDecimalError(price);
-  const isEmptyErrorPrice = checkEmptyError(price);
-  const isEmptyErrorName = checkEmptyError(nameProduct);
+  const isImgUrlError = checkImgUrlError(imgURLEle);
+  const isEmptyErrorImg = checkEmptyError(imgURLEle);
+  const isNumberIntError = checkIsNumberIntegerError(quantityEle);
+  const isEmptyErrorQuantity = checkEmptyError(quantityEle);
+  const isNumberDecError = checkIsDecimalError(priceEle);
+  const isEmptyErrorPrice = checkEmptyError(priceEle);
+  const isEmptyErrorName = checkEmptyError(nameProductEle);
 
   return {
     isEmptyErrorName,
