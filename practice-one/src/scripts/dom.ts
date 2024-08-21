@@ -73,9 +73,9 @@ const showDeleteProductModal = (e: Event) => {
   if (deleteBtn) {
     modalEle.classList.add('open');
     modalDeleteEle.style.display = 'block';
-    const productId = deleteBtn.dataset.index;
+    const productId = deleteBtn.getAttribute('data-id') as string;
     if (confirmBtnEle) {
-      confirmBtnEle.dataset.index = productId;
+      confirmBtnEle.setAttribute('data-id', productId);
     }
   }
 };
@@ -93,7 +93,7 @@ const showEditProductModal = async (e: Event) => {
   ) as HTMLElement;
 
   if (editBtn) {
-    const productId = editBtn.dataset.index;
+    const productId = editBtn.getAttribute('data-id') as string;
 
     const product = await getByID(
       handleGetProductFailed,
@@ -110,7 +110,7 @@ const showEditProductModal = async (e: Event) => {
       titleEle.textContent = 'Edit Product';
     }
 
-    productIdEle.dataset.index = productId;
+    productIdEle.setAttribute('data-id', productId);
     modalEle.classList.add('open');
     modalContainerEle.style.display = 'block';
   }
@@ -119,7 +119,7 @@ const showEditProductModal = async (e: Event) => {
 const hideEditProductModal = () => {
   modalEle!.classList.remove('open');
   modalContainerEle.style.display = 'none';
-  productIdEle.removeAttribute('data-index');
+  productIdEle.removeAttribute('data-id');
   resetForm();
 };
 
@@ -208,7 +208,7 @@ const renderProductItem = (food: Product) => {
   return `
             <div class="card card-product data-card-id-${food.id}">
                                 <div class="card-header">
-                                    <button class="icon-delete" data-index ="${food.id}" >&#9747;</button>
+                                    <button class="icon-delete" data-id ="${food.id}" >&#9747;</button>
                                 </div>
     
                                 <div class="card-main">
@@ -220,7 +220,7 @@ const renderProductItem = (food: Product) => {
                                         <span class="quantity-product">${food.quantity} bowls</span>
                                     </div>
                                 </div>
-                                <div class="card-footer" data-index= "${food.id}">
+                                <div class="card-footer" data-id= "${food.id}">
                                         <p class="text-edit">Edit dish</p>
                                 </div>
                     </div>
@@ -286,7 +286,7 @@ const handleAddProduct = (e: Event) => {
 
   const formData = new FormData(e.target as HTMLFormElement);
 
-  const productId = productIdEle.dataset.index as string;
+  const productId = productIdEle.getAttribute('data-id') as string;
 
   if (isValid) {
     const formDataObject: FormDataObject = {
@@ -341,7 +341,7 @@ const handleDeleteProductSuccess = (data: Product) => {
 };
 
 const handleDeleteProduct = () => {
-  const productId = confirmBtnEle.getAttribute('data-index');
+  const productId = confirmBtnEle.getAttribute('data-id');
 
   remove(
     handleDeleteProductSuccess,
