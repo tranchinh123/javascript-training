@@ -15,7 +15,7 @@
   display: flex;
 }
 
-.modal-container-add {
+.modal-container {
   width: 544px;
   max-width: calc(100% - 50px);
   height: max-content;
@@ -44,7 +44,7 @@
   width: 544px;
   max-width: calc(100% - 50px);
   height: max-content;
-  padding: 40px 40px 30px 40px;
+  padding: 40px 40px 30px;
   background-color: var(--primary-background-color);
   font-family: var(--primary-font-family);
   border-radius: 16px;

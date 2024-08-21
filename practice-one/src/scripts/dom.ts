@@ -9,23 +9,24 @@ import MESSAGE from './constants/message.js';
 const productListEle = getElement('.product-list');
 const formMessageEle = getAllElement('.form-message');
 const modalEle = getElement('.modal') as HTMLElement;
-const modalContainerEle = getElement('.modal-container-add') as HTMLElement;
+const modalContainerEle = getElement('.modal-container') as HTMLElement;
 const modalDeleteEle = getElement('.modal-delete') as HTMLElement;
 const confirmBtnEle = getElement('.btn-confirm') as HTMLElement;
 const titleEle = getElement('.modal-header') as HTMLElement;
 const productIdEle = getElement('#id-product') as HTMLElement;
-const nameProduct = getElement('input[name ="name"]') as HTMLInputElement;
-const price = getElement('input[name ="price"]') as HTMLInputElement;
-const imgURL = getElement('input[name ="image"]') as HTMLInputElement;
-const quantity = getElement('input[name ="quantity"]') as HTMLInputElement;
+
+const nameProductEle = getElement('input[name ="name"]') as HTMLInputElement;
+const priceEle = getElement('input[name ="price"]') as HTMLInputElement;
+const imgURLEle = getElement('input[name ="image"]') as HTMLInputElement;
+const quantityEle = getElement('input[name ="quantity"]') as HTMLInputElement;
 
 const resetForm = () => {
   localStorage.removeItem('formData');
 
-  nameProduct.value = '';
-  imgURL.value = '';
-  price.value = '';
-  quantity.value = '';
+  nameProductEle.value = '';
+  imgURLEle.value = '';
+  priceEle.value = '';
+  quantityEle.value = '';
 };
 
 // Toggle Modal : Modal delete product, Modal add product, Modal edit product
@@ -40,10 +41,10 @@ const showAddProductModal = () => {
 
   const formData: Product = JSON.parse(localStorage.getItem('formData') ?? '');
 
-  nameProduct.value = formData.name;
-  imgURL.value = formData.image;
-  price.value = formData.price;
-  quantity.value = formData.quantity;
+  nameProductEle.value = formData.name;
+  imgURLEle.value = formData.image;
+  priceEle.value = formData.price;
+  quantityEle.value = formData.quantity;
 };
 
 const hideAddProductModal = () => {
@@ -51,10 +52,10 @@ const hideAddProductModal = () => {
   modalContainerEle.style.display = 'none';
 
   const formData: Product = {
-    name: nameProduct.value,
-    image: imgURL.value,
-    price: price.value,
-    quantity: quantity.value,
+    name: nameProductEle.value,
+    image: imgURLEle.value,
+    price: priceEle.value,
+    quantity: quantityEle.value,
   };
 
   localStorage.setItem('formData', JSON.stringify(formData));
@@ -80,7 +81,7 @@ const showDeleteProductModal = (e: Event) => {
 };
 
 const hideDeleteProductModal = () => {
-  modalContainerEle!.classList.remove('open');
+  modalEle!.classList.remove('open');
   modalDeleteEle.style.display = 'none';
 };
 
@@ -100,10 +101,10 @@ const showEditProductModal = async (e: Event) => {
       productId || ''
     );
 
-    nameProduct.value = product?.name || '';
-    imgURL.value = product?.image || '';
-    price.value = product?.price || '';
-    quantity.value = product?.quantity || '';
+    nameProductEle.value = product?.name || '';
+    imgURLEle.value = product?.image || '';
+    priceEle.value = product?.price || '';
+    quantityEle.value = product?.quantity || '';
 
     if (titleEle) {
       titleEle.textContent = 'Edit Product';
@@ -151,36 +152,49 @@ const handleShowError = (errors: Record<string, boolean>) => {
     isEmptyErrorImg,
   } = errors;
 
-  if (isEmptyErrorImg) {
-    showError(imgURL, MESSAGE.EMPTY_ERROR);
-  } else if (isImgUrlError) {
-    showError(imgURL, MESSAGE.IMG_URL_ERROR);
-  } else {
-    showSuccess(imgURL);
+  switch (true) {
+    case isEmptyErrorImg:
+      showError(imgURLEle, MESSAGE.EMPTY_ERROR);
+      break;
+    case isImgUrlError:
+      showError(imgURLEle, MESSAGE.IMG_URL_ERROR);
+      break;
+    default:
+      showSuccess(imgURLEle);
+      break;
   }
 
-  if (isEmptyErrorQuantity) {
-    showError(quantity, MESSAGE.EMPTY_ERROR);
-  } else if (isNumberIntError) {
-    showError(quantity, MESSAGE.NUMBER_INTEGER_ERROR);
-  } else {
-    showSuccess(quantity);
+  switch (true) {
+    case isEmptyErrorQuantity:
+      showError(quantityEle, MESSAGE.EMPTY_ERROR);
+      break;
+    case isNumberIntError:
+      showError(quantityEle, MESSAGE.NUMBER_INTEGER_ERROR);
+      break;
+    default:
+      showSuccess(quantityEle);
+      break;
   }
 
-  if (isEmptyErrorPrice) {
-    showError(price, MESSAGE.EMPTY_ERROR);
-  } else if (isNumberDecError) {
-    showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
-  } else {
-    showSuccess(price);
+  switch (true) {
+    case isEmptyErrorPrice:
+      showError(priceEle, MESSAGE.EMPTY_ERROR);
+      break;
+    case isNumberDecError:
+      showError(priceEle, MESSAGE.NUMBER_DECIMAL_ERROR);
+      break;
+    default:
+      showSuccess(priceEle);
+      break;
   }
 
-  if (isEmptyErrorName) {
-    {
-      showError(nameProduct, MESSAGE.EMPTY_ERROR);
-    }
-  } else {
-    showSuccess(nameProduct);
+  switch (true) {
+    case isEmptyErrorName:
+      showError(nameProductEle, MESSAGE.EMPTY_ERROR);
+      break;
+    default:
+      showSuccess(nameProductEle);
+      break;
   }
 };
 
@@ -255,10 +269,10 @@ const handleAddProductSuccess = (food: Product) => {
 
   localStorage.removeItem('formData');
 
-  nameProduct.value = '';
-  imgURL.value = '';
-  price.value = '';
-  quantity.value = '';
+  nameProductEle.value = '';
+  imgURLEle.value = '';
+  priceEle.value = '';
+  quantityEle.value = '';
 
   toast(MESSAGE.ADD_SUCCESS, ToastType.Success);
 };
@@ -348,10 +362,10 @@ export {
   handleAddProduct,
   handleDeleteProduct,
   productListEle,
-  nameProduct,
-  imgURL,
-  price,
-  quantity,
+  nameProductEle,
+  imgURLEle,
+  priceEle,
+  quantityEle,
   showSuccess,
   showError,
 };

@@ -1,55 +1,26 @@
 import { imgURLEle, priceEle, quantityEle, nameProductEle } from './dom.js';
 
 const checkEmptyError = (input: HTMLInputElement) => {
-  let isEmptyError = false;
   input.value = input.value.trim();
-  if (!input.value) {
-    isEmptyError = true;
-  } else {
-    isEmptyError = false;
-  }
-  return isEmptyError;
+  return !input.value ? true : false;
 };
 
 const checkImgUrlError = (input: HTMLInputElement) => {
   const regexImgUrl = new RegExp('(https?://.*.(?:png|jpg|jpeg|gif|png|svg))');
   input.value = input.value.trim();
-  let isImgUrlError = false;
-
-  if (regexImgUrl.test(input.value)) {
-    isImgUrlError = false;
-  } else {
-    isImgUrlError = true;
-  }
-
-  return isImgUrlError;
+  return regexImgUrl.test(input.value) ? false : true;
 };
 
 const checkIsNumberIntegerError = (input: HTMLInputElement) => {
   input.value = input.value.trim();
   const numberInt = Number(input.value);
-  let isNumberIntError = false;
-
-  if (Number.isInteger(numberInt) && numberInt > 0) {
-    isNumberIntError = false;
-  } else {
-    isNumberIntError = true;
-  }
-
-  return isNumberIntError;
+  return Number.isInteger(numberInt) && numberInt > 0 ? false : true;
 };
 
 const checkIsDecimalError = (input: HTMLInputElement) => {
   input.value = input.value.trim();
   const numberDec = Number(input.value);
-  let isNumberDecimalError = false;
-
-  if (!isNaN(numberDec) && numberDec > 0) {
-    isNumberDecimalError = false;
-  } else {
-    isNumberDecimalError = true;
-  }
-  return isNumberDecimalError;
+  return !isNaN(numberDec) && numberDec > 0 ? false : true;
 };
 
 const validateFormAdd = () => {

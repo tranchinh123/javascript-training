@@ -7,10 +7,10 @@ import {
   handleAddProduct,
   handleDeleteProduct,
   productListEle,
-  imgURL,
-  price,
-  quantity,
-  nameProduct,
+  imgURLEle,
+  priceEle,
+  quantityEle,
+  nameProductEle,
   showSuccess,
   showError,
   hideEditProductModal,
@@ -24,80 +24,80 @@ import {
 import { getElement } from './helpers/queryDOM.js';
 import MESSAGE from './constants/message.js';
 
-const cardAdd = getElement('.card-add');
-const cancelBtn = getElement('.btn-cancel');
-const cancelBtnDelete = getElement('.btn-cancel-delete');
-const modalContainerAdd = getElement('.modal-container-add');
-const modal = getElement('.modal');
-const form = getElement('#form-product');
-const modalDelete = getElement('.modal-delete');
-const confirmBtn = getElement('.btn-confirm');
-const listInput = [nameProduct, price, imgURL, quantity];
+const cardAddEle = getElement('.card-add');
+const cancelBtnEle = getElement('.btn-cancel');
+const cancelBtnDeleteEle = getElement('.btn-cancel-delete');
+const modalContainerAddEle = getElement('.modal-container');
+const modalEle = getElement('.modal');
+const formEle = getElement('#form-product');
+const modalDeleteEle = getElement('.modal-delete');
+const confirmBtnEle = getElement('.btn-confirm');
+const listInputEle = [nameProductEle, priceEle, imgURLEle, quantityEle];
 
 const bindEvents = () => {
-  cardAdd?.addEventListener('click', showAddProductModal);
+  cardAddEle?.addEventListener('click', showAddProductModal);
 
-  cancelBtn?.addEventListener('click', hideAddProductModal);
+  cancelBtnEle?.addEventListener('click', hideAddProductModal);
 
-  cancelBtn?.addEventListener('click', hideEditProductModal);
+  cancelBtnEle?.addEventListener('click', hideEditProductModal);
 
-  cancelBtnDelete?.addEventListener('click', hideDeleteProductModal);
+  cancelBtnDeleteEle?.addEventListener('click', hideDeleteProductModal);
 
-  modal?.addEventListener('click', hideAddProductModal);
+  modalEle?.addEventListener('click', hideAddProductModal);
 
-  modal?.addEventListener('click', hideEditProductModal);
+  modalEle?.addEventListener('click', hideEditProductModal);
 
-  modal?.addEventListener('click', hideDeleteProductModal);
+  modalEle?.addEventListener('click', hideDeleteProductModal);
 
-  form?.addEventListener('submit', handleAddProduct);
+  formEle?.addEventListener('submit', handleAddProduct);
 
-  modalContainerAdd?.addEventListener('click', (e) => {
+  modalContainerAddEle?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
 
-  modalDelete?.addEventListener('click', (e) => {
+  modalDeleteEle?.addEventListener('click', (e) => {
     e.stopPropagation();
   });
 
-  confirmBtn?.addEventListener('click', handleDeleteProduct);
+  confirmBtnEle?.addEventListener('click', handleDeleteProduct);
 
   productListEle?.addEventListener('click', showEditProductModal);
 
   productListEle?.addEventListener('click', showDeleteProductModal);
   //Event on blur input form
 
-  nameProduct?.addEventListener('blur', () => {
-    if (checkEmptyError(nameProduct)) {
-      showError(nameProduct, MESSAGE.EMPTY_ERROR);
+  nameProductEle?.addEventListener('blur', () => {
+    if (checkEmptyError(nameProductEle)) {
+      showError(nameProductEle, MESSAGE.EMPTY_ERROR);
     }
   });
 
-  price.addEventListener('blur', () => {
-    if (price.value.trim() === '') {
-      showError(price, MESSAGE.EMPTY_ERROR);
-    } else if (checkIsDecimalError(price)) {
-      showError(price, MESSAGE.NUMBER_DECIMAL_ERROR);
+  priceEle.addEventListener('blur', () => {
+    if (priceEle.value.trim() === '') {
+      showError(priceEle, MESSAGE.EMPTY_ERROR);
+    } else if (checkIsDecimalError(priceEle)) {
+      showError(priceEle, MESSAGE.NUMBER_DECIMAL_ERROR);
     }
   });
 
-  imgURL.addEventListener('blur', () => {
-    if (imgURL.value.trim() === '') {
-      showError(imgURL, MESSAGE.EMPTY_ERROR);
-    } else if (checkImgUrlError(imgURL)) {
-      showError(imgURL, MESSAGE.IMG_URL_ERROR);
+  imgURLEle.addEventListener('blur', () => {
+    if (imgURLEle.value.trim() === '') {
+      showError(imgURLEle, MESSAGE.EMPTY_ERROR);
+    } else if (checkImgUrlError(imgURLEle)) {
+      showError(imgURLEle, MESSAGE.IMG_URL_ERROR);
     }
   });
 
-  quantity.addEventListener('blur', () => {
-    if (quantity.value.trim() === '') {
-      showError(quantity, MESSAGE.EMPTY_ERROR);
-    } else if (checkIsNumberIntegerError(quantity)) {
-      showError(quantity, MESSAGE.NUMBER_INTEGER_ERROR);
+  quantityEle.addEventListener('blur', () => {
+    if (quantityEle.value.trim() === '') {
+      showError(quantityEle, MESSAGE.EMPTY_ERROR);
+    } else if (checkIsNumberIntegerError(quantityEle)) {
+      showError(quantityEle, MESSAGE.NUMBER_INTEGER_ERROR);
     }
   });
 
   //Event on input form
-  listInput.forEach((input) => {
+  listInputEle.forEach((input) => {
     input.addEventListener('input', () => {
       showSuccess(input);
     });
