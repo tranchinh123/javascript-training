@@ -2,7 +2,7 @@ import { getElement } from './helpers/queryDOM.js';
 import { ToastType } from './types/types.js';
 const toastEle = getElement('#toast');
 
-const toast = (message: string, type: ToastType) => {
+const toast = (message: string, type: ToastType): void => {
   if (toastEle) {
     const toast = document.createElement('div');
     toast.classList.add('toast', `toast-${type}`);

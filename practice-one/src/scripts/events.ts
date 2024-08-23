@@ -32,9 +32,14 @@ const modalEle = getElement('.modal');
 const formEle = getElement('#form-product');
 const modalDeleteEle = getElement('.modal-delete');
 const confirmBtnEle = getElement('.btn-confirm');
-const listInputEle = [nameProductEle, priceEle, imgURLEle, quantityEle];
+const listInputEle: HTMLInputElement[] = [
+  nameProductEle,
+  priceEle,
+  imgURLEle,
+  quantityEle,
+];
 
-const bindEvents = () => {
+const bindEvents = (): void => {
   cardAddEle?.addEventListener('click', showAddProductModal);
 
   cancelBtnEle?.addEventListener('click', hideAddProductModal);
@@ -64,8 +69,8 @@ const bindEvents = () => {
   productListEle?.addEventListener('click', showEditProductModal);
 
   productListEle?.addEventListener('click', showDeleteProductModal);
-  //Event on blur input form
 
+  //Event on blur input form
   nameProductEle?.addEventListener('blur', () => {
     if (checkEmptyError(nameProductEle)) {
       showError(nameProductEle, MESSAGE.EMPTY_ERROR);

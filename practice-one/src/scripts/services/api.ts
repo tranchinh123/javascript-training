@@ -47,7 +47,7 @@ const create = async (
   onSuccess: (data: Product) => void,
   onError: () => void,
   endPoint: string
-) => {
+): Promise<void> => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}`, {
       method: 'POST',
@@ -70,7 +70,7 @@ const remove = async (
   onError: () => void,
   endPoint: string,
   id: string
-) => {
+): Promise<void> => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
       method: 'DELETE',
@@ -92,7 +92,7 @@ const edit = async (
   onError: () => void,
   endPoint: string,
   id: string
-) => {
+): Promise<void> => {
   try {
     const response = await fetch(`${API.BASE_URL}${endPoint}/${id}`, {
       method: 'PUT', // or PATCH

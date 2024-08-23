@@ -20,7 +20,7 @@ const priceEle = getElement('input[name ="price"]') as HTMLInputElement;
 const imgURLEle = getElement('input[name ="image"]') as HTMLInputElement;
 const quantityEle = getElement('input[name ="quantity"]') as HTMLInputElement;
 
-const resetForm = () => {
+const resetForm = (): void => {
   localStorage.removeItem('formData');
 
   nameProductEle.value = '';
@@ -32,7 +32,7 @@ const resetForm = () => {
 // Toggle Modal : Modal delete product, Modal add product, Modal edit product
 
 // Modal ADD
-const showAddProductModal = () => {
+const showAddProductModal = (): void => {
   modalEle.classList.add('open');
   modalContainerEle.style.display = 'block';
   if (titleEle) {
@@ -47,11 +47,11 @@ const showAddProductModal = () => {
   quantityEle.value = formData.quantity;
 };
 
-const hideAddProductModal = () => {
+const hideAddProductModal = (): void => {
   modalEle!.classList.remove('open');
   modalContainerEle.style.display = 'none';
 
-  const formData: Product = {
+  const formData: Omit<Product, 'id'> = {
     name: nameProductEle.value,
     image: imgURLEle.value,
     price: priceEle.value,
@@ -65,7 +65,7 @@ const hideAddProductModal = () => {
 };
 
 // Modal DELETE
-const showDeleteProductModal = (e: Event) => {
+const showDeleteProductModal = (e: Event): void => {
   const deleteBtn = (e.target as HTMLElement).closest(
     '.icon-delete'
   ) as HTMLElement;
@@ -80,14 +80,14 @@ const showDeleteProductModal = (e: Event) => {
   }
 };
 
-const hideDeleteProductModal = () => {
+const hideDeleteProductModal = (): void => {
   modalEle!.classList.remove('open');
   modalDeleteEle.style.display = 'none';
 };
 
 // Modal EDIT
 
-const showEditProductModal = async (e: Event) => {
+const showEditProductModal = async (e: Event): Promise<void> => {
   const editBtn = (e.target as HTMLElement).closest(
     '.card-footer'
   ) as HTMLElement;
@@ -116,7 +116,7 @@ const showEditProductModal = async (e: Event) => {
   }
 };
 
-const hideEditProductModal = () => {
+const hideEditProductModal = (): void => {
   modalEle!.classList.remove('open');
   modalContainerEle.style.display = 'none';
   productIdEle.removeAttribute('data-id');
@@ -125,7 +125,7 @@ const hideEditProductModal = () => {
 
 // Handle show error, show success message when valid form
 
-const showError = (input: HTMLInputElement, message: string) => {
+const showError = (input: HTMLInputElement, message: string): void => {
   const parent = input.parentElement as HTMLElement;
   const formMessage = parent.querySelector('.form-message') as HTMLElement;
 
@@ -133,7 +133,7 @@ const showError = (input: HTMLInputElement, message: string) => {
   formMessage.innerText = message;
 };
 
-const showSuccess = (input: HTMLInputElement) => {
+const showSuccess = (input: HTMLInputElement): void => {
   const parent = input.parentElement as HTMLElement;
   const formMessage = parent.querySelector('.form-message') as HTMLElement;
 
@@ -141,7 +141,7 @@ const showSuccess = (input: HTMLInputElement) => {
   formMessage.innerText = '';
 };
 
-const handleShowError = (errors: Record<string, boolean>) => {
+const handleShowError = (errors: Record<string, boolean>): void => {
   const {
     isEmptyErrorName,
     isImgUrlError,
@@ -200,11 +200,11 @@ const handleShowError = (errors: Record<string, boolean>) => {
 
 // Handle get products and render Dom
 
-const handleGetProductFailed = () => {
+const handleGetProductFailed = (): void => {
   toast(MESSAGE.GET_FAIL, ToastType.Failed);
 };
 
-const renderProductItem = (food: Product) => {
+const renderProductItem = (food: Product): string => {
   return `
             <div class="card card-product data-card-id-${food.id}">
                                 <div class="card-header">
@@ -227,13 +227,13 @@ const renderProductItem = (food: Product) => {
             `;
 };
 
-const renderFoods = (foods: Array<Product>) => {
+const renderFoods = (foods: Array<Product>): void => {
   const cardProducts = foods.map(renderProductItem);
 
   productListEle!.innerHTML = cardProducts.join('');
 };
 
-const loadProductList = async () => {
+const loadProductList = async (): Promise<void> => {
   const products =
     (await get(handleGetProductFailed, API.PRODUCTS_ENDPOINT)) ?? [];
 
@@ -242,15 +242,15 @@ const loadProductList = async () => {
 
 // Handle Add product, Edit product
 
-const handleAddProductFailed = () => {
+const handleAddProductFailed = (): void => {
   toast(MESSAGE.ADD_FAIL, ToastType.Failed);
 };
 
-const handleEditProductFailed = () => {
+const handleEditProductFailed = (): void => {
   toast(MESSAGE.EDIT_FAIL, ToastType.Failed);
 };
 
-const handleEditProductSuccess = (food: Product) => {
+const handleEditProductSuccess = (food: Product): void => {
   hideEditProductModal();
 
   toast(MESSAGE.EDIT_SUCCESS, ToastType.Success);
@@ -260,7 +260,7 @@ const handleEditProductSuccess = (food: Product) => {
   productItem!.innerHTML = editItem;
 };
 
-const handleAddProductSuccess = (food: Product) => {
+const handleAddProductSuccess = (food: Product): void => {
   const newItem = renderProductItem(food);
 
   productListEle!.innerHTML += newItem;
@@ -277,7 +277,7 @@ const handleAddProductSuccess = (food: Product) => {
   toast(MESSAGE.ADD_SUCCESS, ToastType.Success);
 };
 
-const handleAddProduct = (e: Event) => {
+const handleAddProduct = (e: Event): void => {
   e.preventDefault();
 
   const errors = validateFormAdd();
@@ -324,11 +324,11 @@ const handleAddProduct = (e: Event) => {
 
 // Handle Delete Product
 
-const handleDeleteProductFail = () => {
+const handleDeleteProductFail = (): void => {
   toast(MESSAGE.DELETE_FAIL, ToastType.Success);
 };
 
-const handleDeleteProductSuccess = (data: Product) => {
+const handleDeleteProductSuccess = (data: Product): void => {
   hideDeleteProductModal();
 
   const productItem = getElement('.data-card-id-' + data.id);
@@ -340,7 +340,7 @@ const handleDeleteProductSuccess = (data: Product) => {
   toast(MESSAGE.DELETE_SUCCESS, ToastType.Success);
 };
 
-const handleDeleteProduct = () => {
+const handleDeleteProduct = (): void => {
   const productId = confirmBtnEle.getAttribute('data-id');
 
   remove(

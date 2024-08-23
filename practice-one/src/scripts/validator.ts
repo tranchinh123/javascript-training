@@ -1,23 +1,23 @@
 import { imgURLEle, priceEle, quantityEle, nameProductEle } from './dom.js';
 
-const checkEmptyError = (input: HTMLInputElement) => {
+const checkEmptyError = (input: HTMLInputElement): boolean => {
   input.value = input.value.trim();
   return !input.value ? true : false;
 };
 
-const checkImgUrlError = (input: HTMLInputElement) => {
+const checkImgUrlError = (input: HTMLInputElement): boolean => {
   const regexImgUrl = new RegExp('(https?://.*.(?:png|jpg|jpeg|gif|png|svg))');
   input.value = input.value.trim();
   return regexImgUrl.test(input.value) ? false : true;
 };
 
-const checkIsNumberIntegerError = (input: HTMLInputElement) => {
+const checkIsNumberIntegerError = (input: HTMLInputElement): boolean => {
   input.value = input.value.trim();
   const numberInt = Number(input.value);
   return Number.isInteger(numberInt) && numberInt > 0 ? false : true;
 };
 
-const checkIsDecimalError = (input: HTMLInputElement) => {
+const checkIsDecimalError = (input: HTMLInputElement): boolean => {
   input.value = input.value.trim();
   const numberDec = Number(input.value);
   return !isNaN(numberDec) && numberDec > 0 ? false : true;

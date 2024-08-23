@@ -8,7 +8,7 @@ export interface Product {
   image: string;
   price: string;
   quantity: string;
-  id?: string;
+  id: string;
 }
 
 export interface FormDataObject {
