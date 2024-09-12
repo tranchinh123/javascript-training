@@ -1,19 +1,19 @@
 import { getElement } from './helpers/queryDOM.js';
+import { ToastType } from './types/types.js';
+const toastEle = getElement('#toast');
 
-const main = getElement('#toast');
-
-const toast = (message, type) => {
-  if (main) {
+const toast = (message: string, type: ToastType): void => {
+  if (toastEle) {
     const toast = document.createElement('div');
     toast.classList.add('toast', `toast-${type}`);
     toast.innerHTML = `
 							<p class="toast-msg">${message}</p>
 						`;
-    main.appendChild(toast);
+    toastEle.appendChild(toast);
     setTimeout(() => {
-      main.removeChild(toast);
+      toastEle.removeChild(toast);
     }, 4000);
   }
 };
 
-export default toast;
+export { toast };

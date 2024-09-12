@@ -110,10 +110,12 @@
     </main>
 
     <div class="modal">
-      <div class="modal-container-add">
-        <header class="modal-header">Create new a product</header>
+      <div class="modal-container">
+        <header class="modal-header"></header>
         <div class="modal-main">
-          <form action="" method="POST" id="form-add">
+          <form action="" method="POST" id="form-product">
+            <!-- ID product -->
+            <input type="hidden" name="id" id="id-product" />
             <div class="form-group">
               <label for="name" class="form-label">Name</label>
               <br />
@@ -166,6 +168,7 @@
               <br />
               <span class="form-message"></span>
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-cancel">Cancel</button>
               <button class="btn btn-save">Save</button>
@@ -173,8 +176,18 @@
           </form>
         </div>
       </div>
+
+      <div class="modal-delete">
+        <div class="modal-delete-container">
+          <p class="modal-delete-text">Are you sure, delete this product ?</p>
+        </div>
+        <div class="modal-delete-footer">
+          <button class="btn btn-cancel-delete">Cancel</button>
+          <button class="btn btn-confirm">Confirm</button>
+        </div>
+      </div>
     </div>
 
-    <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./scripts/main.ts"></script>
   </body>
 </html>
